@@ -1,0 +1,119 @@
+
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `created_at`, `updated_at`)
+VALUES
+(1, 'User 1', 'user1@example.com', 'password', NOW(), NOW()),
+(2, 'User 2', 'user2@example.com', 'password', NOW(), NOW()),
+(3, 'User 3', 'user3@example.com', 'password', NOW(), NOW()),
+(4, 'User 4', 'user4@example.com', 'password', NOW(), NOW());
+
+
+
+
+INSERT INTO `bidangs`
+    (`id_bidang`, `nama_bidang`, `is_active`, `createAdd`, `updateAdd`, `userAdd`)
+VALUES
+    (1, 'ppk', 1, NOW(), NOW(), 1),
+    (2, 'pkd', 1, NOW(), NOW(), 2),
+    (3, 'mutasi', 1, NOW(), NOW(), 3),
+    (4,'sekretariat',1, NOW(), NOW(),4);
+
+
+
+INSERT INTO `layanans`
+    (`id_layanan`, `nama_layanan`, `id_bidang`, `createAdd`, `updateAdd`, `userAdd`, `created_at`, `updated_at`)
+VALUES
+    (1, 'Layanan Karis Karsu', 1, NOW(), NOW(), 1, NOW(), NOW()),
+    (2, 'Layanan Konsultasi Presensi', 1, NOW(), NOW(), 1, NOW(), NOW()),
+    (3, 'Layanan Konsultasi Cerai', 1, NOW(), NOW(), 1, NOW(), NOW()),
+    (4, 'Layanan Konsultasi Cuti', 1, NOW(), NOW(), 1, NOW(), NOW()),
+    (5, 'Layanan Konsultasi Satyalancana', 1, NOW(), NOW(), 1, NOW(), NOW()),
+    (6, 'Layanan Konsultasi Hukuman Disiplin', 1, NOW(), NOW(), 1, NOW(), NOW()),
+    (7, 'Layanan Konsultasi TPP', 1, NOW(), NOW(), 1, NOW(), NOW()),
+    (8, 'Layanan Konsultasi Jaminan Kematian', 1, NOW(), NOW(), 1, NOW(), NOW()),
+    (9, 'Layanan Konsultasi Diklat', 2, NOW(), NOW(), 2, NOW(), NOW()),
+    (10, 'Layanan Konsultasi Jabatan Fungsional', 2, NOW(), NOW(), 2, NOW(), NOW()),
+    (11, 'Layanan Konsultasi Tugas Belajar/Pendidikan Lanjutan', 2, NOW(), NOW(), 2, NOW(), NOW()),
+    (12, 'Layanan Konsultasi Assessment', 2, NOW(), NOW(), 2, NOW(), NOW()),
+    (13, 'Layanan Konsultasi Pengembangan Karir', 3, NOW(), NOW(), 3, NOW(), NOW()),
+    (14, 'Layanan Konsultasi Mutasi Masuk', 3, NOW(), NOW(), 3, NOW(), NOW()),
+    (15, 'Layanan Konsultasi Mutasi Keluar', 3, NOW(), NOW(), 3, NOW(), NOW()),
+    (16, 'Layanan Konsultasi SK', 3, NOW(), NOW(), 3, NOW(), NOW()),
+    (17, 'Layanan Konsultasi Kenaikan Pangkat', 3, NOW(), NOW(), 3, NOW(), NOW()),
+    (18, 'Layanan Konsultasi Kenaikan Jenjang', 3, NOW(), NOW(), 3, NOW(), NOW()),
+    (19, 'Layanan Konsultasi PUPNS', 3, NOW(), NOW(), 3, NOW(), NOW()),
+    (20, 'Layanan Konsultasi SAPA ASN', 3, NOW(), NOW(), 3, NOW(), NOW()),
+    (21, 'Layanan Konsultasi SIASN/MYASN', 3, NOW(), NOW(), 3, NOW(), NOW()),
+    (22, 'Layanan Konsultasi Pendaftaran CASN/CPNS/PPPPK', 3, NOW(), NOW(), 3, NOW(), NOW()),
+    (23, 'Layanan Konsultasi Penawaran', 4, NOW(), NOW(), 4, NOW(), NOW()),
+    (24, 'Layanan lain-lain', 4, NOW(), NOW(), 4, NOW(), NOW());
+
+
+INSERT INTO `statuses`
+    (`id_status`, `status_name`, `createAdd`, `updateAdd`, `userAdd`, `created_at`, `updated_at`)
+VALUES
+    (1, 'Pending', NOW(), NOW(), 1, NOW(), NOW()),
+    (2, 'Process', NOW(), NOW(), 1, NOW(), NOW()),
+    (3, 'Selesai', NOW(), NOW(), 1, NOW(), NOW());
+
+    INSERT INTO `statuses`
+    (,`status_name`, `createAdd`, `updateAdd`, `userAdd`, `created_at`, `updated_at`)
+VALUES
+    ('Pending', NOW(), NOW(), 1, NOW(), NOW()),
+    ('Process', NOW(), NOW(), 1, NOW(), NOW()),
+    ('Selesai', NOW(), NOW(), 1, NOW(), NOW());
+
+
+INSERT INTO `pegawais`
+    (`id_pegawai`, `nik`, `nama`, `id_bidang`, `id_layanan`, `instansi`, `nomor_hp`, `tempat_tanggal_lahir`, `userAdd`, `created_at`, `updated_at`)
+VALUES
+    -- Bidang PPK
+    (1, '3201010101010001', 'Budi Santoso', 1, 1, 'Dinas Kepegawaian', '081234567890', 'Jakarta, 1985-05-15', 1, NOW(), NOW()),
+    (2, '3201010101010002', 'Siti Aminah', 1, 2, 'Dinas Kepegawaian', '081234567891', 'Bandung, 1986-07-20', 1, NOW(), NOW()),
+    (3, '3201010101010003', 'Ahmad Fauzi', 1, 3, 'Dinas Kepegawaian', '081234567892', 'Bogor, 1987-03-10', 1, NOW(), NOW()),
+
+    -- Bidang PKD
+    (4, '3201010101010004', 'Nina Safitri', 2, 9, 'Dinas Pelayanan', '081234567893', 'Surabaya, 1990-11-25', 2, NOW(), NOW()),
+    (5, '3201010101010005', 'Andi Suhendra', 2, 10, 'Dinas Pelayanan', '081234567894', 'Yogyakarta, 1992-01-17', 2, NOW(), NOW()),
+
+    -- Bidang Mutasi
+    (6, '3201010101010006', 'Dewi Lestari', 3, 13, 'Dinas Mutasi', '081234567895', 'Semarang, 1991-09-22', 3, NOW(), NOW()),
+    (7, '3201010101010007', 'Rahmat Wijaya', 3, 14, 'Dinas Mutasi', '081234567896', 'Malang, 1988-04-08', 3, NOW(), NOW()),
+
+    -- Bidang Sekretariat
+    (8, '3201010101010008', 'Agus Pratama', 4, 23, 'Sekretariat', '081234567897', 'Bandung, 1985-09-10', 4, NOW(), NOW()),
+    (9, '3201010101010009', 'Linda Sari', 4, 24, 'Sekretariat', '081234567898', 'Jakarta, 1994-08-12', 4, NOW(), NOW());
+
+
+
+
+
+
+-- Menambahkan role "Super Admin" dengan referensi ke userAdd yang sudah ada di tabel users
+INSERT INTO `roles` (`id`, `role`, `createAdd`, `updateAdd`, `userAdd`, `created_at`, `updated_at`)
+VALUES
+(1, 'Super Admin', 'system', 'system', 1, NOW(), NOW());
+
+-- Menambahkan role "Admin" dengan referensi ke userAdd yang sudah ada di tabel users
+INSERT INTO `roles` (`id`, `role`, `createAdd`, `updateAdd`, `userAdd`, `created_at`, `updated_at`)
+VALUES
+(2, 'Admin', 'system', 'system', 1, NOW(), NOW());
+
+
+-- Menambahkan admin dengan role Super Admin
+INSERT INTO `admins` (`nama_admin`, `id_role`, `username_admin`, `password_admin`, `createAdd`, `updateAdd`, `userAdd`, `created_at`, `updated_at`)
+VALUES
+('Super Admin', 1, 'superadmin', 'superpassword', NOW(), NOW(), 1, NOW(), NOW());
+
+-- Menambahkan admin dengan role Admin
+INSERT INTO `admins` (`nama_admin`, `id_role`, `username_admin`, `password_admin`, `createAdd`, `updateAdd`, `userAdd`, `created_at`, `updated_at`)
+VALUES
+('Admin', 2, 'admin', 'adminpassword', NOW(), NOW(), 1, NOW(), NOW());
+
+
+INSERT INTO statuses (status_name, createAdd, updateAdd, userAdd, created_at, updated_at)
+VALUES
+('Pending', NOW(), NOW(), 1, NOW(), NOW()),
+('Sedang Berlangsung', NOW(), NOW(), 1, NOW(), NOW()),
+('Selesai', NOW(), NOW(), 1, NOW(), NOW());
+
+

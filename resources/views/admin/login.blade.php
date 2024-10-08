@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Login Admin - Buku Tamu BKPSDM</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ asset('/form/css/style.css') }}">
+</head>
+<body class="d-flex justify-content-center align-items-center bg-light" style="height: 100vh;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-header text-center">
+                        <h3>Admin Buku Tamu BKPSDM</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="login-box-msg text-center"></p>
+
+                        <!-- Tampilkan alert jika ada error -->
+                        @if(session('error'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{ session('error') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
+
+                        <!-- Form login -->
+                        <form action="{{ route('admin.login.submit') }}" method="POST">
+                            @csrf
+                            <!-- input fields -->
+                            <div class="mb-3">
+                                <label for="username_admin" class="form-label">Username</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Username" id="username_admin" name="username_admin" required>
+                                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" placeholder="Password" id="password" name="password" required>
+                                    <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-8"></div>
+                                <div class="col-4 d-grid">
+                                    <button type="submit" class="btn btn-primary" style="padding: 15px 30px; font-size: 18px;">Sign In</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

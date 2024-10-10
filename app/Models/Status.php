@@ -34,4 +34,8 @@ class Status extends Model
     {
         return $this->belongsTo(User::class, 'userAdd', 'id');
     }
+    public function bukuTamus()
+    {
+        return $this->hasMany(BukuTamu::class, 'id_status');
+    }
 }

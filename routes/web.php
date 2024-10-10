@@ -6,10 +6,8 @@ Route::get('/', function () {
     return view('index');
 })->name('index');
 
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\BukuTamuController;
 use App\Http\Controllers\AdminController;
-use App\Http\Middleware\VerifyCsrfToken;
 use App\Http\Middleware\CheckSuperAdmin;
 
 
@@ -51,9 +49,6 @@ Route::get('/dashboard', function () {
     return view('admin/dashboard');
 })->name('dashboard');
 
-
-// Route::get('admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-
 //Mensubmit login admin
 Route::post('admin/login', [AdminController::class, 'login'])
     ->withoutMiddleware(CheckSuperAdmin::class)
@@ -75,10 +70,13 @@ Route::post('admin/logout', [AdminController::class, 'logout'])->name('admin.log
 
 
 
-
+// Function Fitur Create Admin
 
 // Route untuk memanggil method addToDashboard
 Route::post('/dashboard-admins/add/{id_buku_tamu}', [AdminController::class, 'addToDashboard'])->name('dashboard-admins.add');
+
+// Filter data
+Route::get('/dashboard/filter', [AdminController::class, 'filterData'])->name('dashboard.filter');
 
 // web.php
 Route::get('/dashboard', [AdminController::class, 'showDashboard'])->name('showdashboard');
@@ -95,17 +93,15 @@ Route::post('/logout', [AdminController::class, 'logout'])->name('logout');
 
 
 
-
-// Route::get('/createAdmin', [AdminController::class, 'createAdmin'])->middleware('role:1');
-
 Route::post('/storeAdmin', [AdminController::class, 'store'])->name('admin.store');
-//
-// Route::get('/createAdmin', [AdminController::class, 'createAdmin'])->middleware(SuperAdminMiddleware::class);
+
 
 
 // Dashboard Create Admin
+
 // Edit Admin
 Route::get('/admin/edit/{id}', [AdminController::class, 'edit'])->name('admin.edit');
+
 // Update Admin
 Route::put('/admin/update/{id}', [AdminController::class, 'update'])->name('admin.update');
 

@@ -15,6 +15,10 @@
     <link rel="stylesheet" href="{{asset('AdminLTE')}}/dist/css/adminlte.css"><!--end::Required Plugin(AdminLTE)--><!-- apexcharts -->
     <link rel="stylesheet" href="{{asset('AdminLTE')}}//dist/apexcharts.css" integrity="sha256-4MX+61mt9NVvvuPjUWdUdyfZfxSB1/Rf9WtqRHgG5S0=" crossorigin="anonymous"><!-- jsvectormap -->
     <link rel="stylesheet" href="{{asset('AdminLTE')}}//jsvectormap@1.5.3/dist/css/jsvectormap.min.css" integrity="sha256-+uGLJmmTKOqBr+2E6KDYs/NRsHxSkONXFHUL0fy2O/4=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap4.css">
+
 
 </head> <!--end::Head--> <!--begin::Body-->
 
@@ -38,16 +42,31 @@
                             </a>
                         </div>
                     </li> <!--end::Notifications Dropdown Menu--> <!--begin::Fullscreen Toggle-->
-                    <li class="nav-item"> <a class="nav-link" href="#" data-lte-toggle="fullscreen"> <i data-lte-icon="maximize" class="bi bi-arrows-fullscreen"></i> <i data-lte-icon="minimize" class="bi bi-fullscreen-exit" style="display: none;"></i> </a> </li> <!--end::Fullscreen Toggle--> <!--begin::User Menu Dropdown-->
-                    <li class="nav-item dropdown user-menu"> <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"> <img src="{{asset('AdminLTE')}}/dist/assets/img/user2-160x160.jpg" class="user-image rounded-circle shadow" alt="User Image"> <span class="d-none d-md-inline">Alexander Pierce</span> </a>
-                        <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end"> <!--begin::User Image-->
-                            <li class="user-header text-bg-primary"> <img src="{{asset('AdminLTE')}}/dist/assets/img/user2-160x160.jpg" class="rounded-circle shadow" alt="User Image">
-                                <p>
-                                    Alexander Pierce - Web Developer
-                                    <small>Member since Nov. 2023</small>
-                                </p>
-                            </li> <!--end::User Image--> <!--begin::Menu Body-->
+                </li> <!--end::User Menu Dropdown-->
 
+                    <!-- Fullscreen Toggle -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-lte-toggle="fullscreen">
+                            <i data-lte-icon="maximize" class="bi bi-arrows-fullscreen"></i>
+                            <i data-lte-icon="minimize" class="bi bi-fullscreen-exit" style="display: none;"></i>
+                        </a>
+                    </li>
+
+                    <!-- User Menu Dropdown -->
+                    <li class="nav-item dropdown user-menu">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <img src="{{asset('AdminLTE')}}/dist/assets/img/logoProfile.jpg" class="user-image rounded-circle shadow" alt="User Image">
+                            <span class="d-none d-md-inline">{{ Auth::guard('admin')->user()->username_admin }}</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
+                            <!-- User Image -->
+                            <li class="user-header" style="background-color: #03989E; color: #ffffff;">
+                                <img src="{{asset('AdminLTE')}}/dist/assets/img/logoProfile.jpg" class="rounded-circle shadow" alt="User Image">
+                                <p>
+                                    {{ Auth::guard('admin')->user()->username_admin }}  <!-- Nama Username Admin -->
+                                    <small>{{ Auth::guard('admin')->user()->role->nama_role }}</small>  <!-- Role Admin -->
+                                </p>
+                            </li>
                             <li class="user-footer">
                                 <a href="#" class="btn btn-default btn-flat">Profile</a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: inline;">
@@ -56,13 +75,19 @@
                                 </form>
                             </li>
                             <!-- Tombol Profile dan Logout -->
+                        </ul>
+                    </li>
 
-                    </li> <!--end::User Menu Dropdown-->
+
+
+
                 </ul> <!--end::End Navbar Links-->
             </div> <!--end::Container-->
         </nav> <!--end::Header--> <!--begin::Sidebar-->
         <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark"> <!--begin::Sidebar Brand-->
-            <div class="sidebar-brand"> <!--begin::Brand Link--> <a href="./index.html" class="brand-link"> <!--begin::Brand Image--> <img src="form/images/bkpsdm.jpg"  class="brand-image opacity-75 shadow"> <!--end::Brand Image--> <!--begin::Brand Text--> <span class="brand-text fw-light">Buku Tamu BKPSDM</span> <!--end::Brand Text--> </a> <!--end::Brand Link--> </div> <!--end::Sidebar Brand--> <!--begin::Sidebar Wrapper-->
+            <div class="sidebar-brand"> <!--begin::Brand Link--> <a href="./index.html" class="brand-link"> <!--begin::Brand Image--> <img src="form/images/bkpsdm.jpg"
+                class="brand-image opacity-75 shadow"> <!--end::Brand Image--> <!--begin::Brand Text--> <span class="brand-text fw-light">Buku Tamu BKPSDM</span>
+                <!--end::Brand Text--> </a> <!--end::Brand Link--> </div> <!--end::Sidebar Brand--> <!--begin::Sidebar Wrapper-->
             <div class="sidebar-wrapper">
                 <nav class="mt-2"> <!--begin::Sidebar Menu-->
                     <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
@@ -82,9 +107,9 @@
                                         <p>Create Admin</p>
                                     </a>
                                 </li>
-                                @endif
-                            </ul>
-                        </li>
+                            @endif
+                        </ul>
+                    </li>
             </div> <!--end::Sidebar Wrapper-->
         </aside> <!--end::Sidebar--> <!--begin::App Main-->
 
@@ -94,14 +119,6 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <h3 class="mb-0">Dashboard</h3>
-                        </div>
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-end">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">
-                                    Dashboard
-                                </li>
-                            </ol>
                         </div>
                     </div> <!--end::Row-->
                 </div> <!--end::Container-->
@@ -146,13 +163,33 @@
         <div class="container-fluid">
             <div class="row w-100 p-0">
                 <h3 class="mb-10 text-center">Data Buku Tamu</h3>
+
+                <!-- Filter Date Time -->
+                <form action="{{ route('dashboard.filter') }}" method="GET">
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <label for="startDate">Dari Tanggal:</label>
+                            <input type="datetime-local" id="startDate" name="startDate" class="form-control" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="endDate">Sampai Tanggal:</label>
+                            <input type="datetime-local" id="endDate" name="endDate" class="form-control" required>
+                        </div>
+                        <div class="col-md-4 align-self-end">
+                            <button class="btn btn-primary mt-2" type="submit">Filter</button>
+                            <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary mt-2">Refresh</a>
+                        </div>
+                    </div>
+                </form>
+
+
+
                 <div class="table-responsive">
-                    <table class="table table-striped table-hover table-bordered shadow-sm align-middle">
-                        <thead class="table-dark">
+                    <table id="myDataTable" class="table table-striped table-bordered" style="width:100%; font-size: 19px;" >
+                        <thead class="table-white">
                             <tr>
                                 <th>No</th>
-                                <th>ID Buku Tamu</th>
-                                <th>ID Admin</th>
+                                <th>ID</th>
                                 <th>NIK</th>
                                 <th>Nama Pegawai</th>
                                 <th>Jabatan Pegawai</th>
@@ -160,7 +197,8 @@
                                 <th>Tujuan Informasi</th>
                                 <th>Bidang</th>
                                 <th>Layanan</th>
-                                <th>Status</th>
+                                <th>Waktu Input</th>
+                                {{-- <th>Status</th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -173,7 +211,6 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $dataTamu->id_buku_tamu }}</td>
-                                        <td>{{ $dataTamu->id_admin }}</td>
                                         <td>{{ $dataTamu->nik }}</td>
                                         <td>{{ $dataTamu->nama_pegawai }}</td>
                                         <td>{{ $dataTamu->jabatan_pegawai }}</td>
@@ -181,11 +218,13 @@
                                         <td>{{ $dataTamu->tujuan_informasi }}</td>
                                         <td>{{ $dataTamu->bidang->nama_bidang }}</td>
                                         <td>{{ $dataTamu->layanan->nama_layanan }}</td>
-                                        <td>
+                                        <td>{{ $dataTamu->updated_at->format('d-m-Y,  H:i:s') }}</td>
+
+                                        {{-- <td>
                                             <form action="{{ route('updateStatus', $dataTamu->id_dashboard_admin) }}" method="POST">
                                                 @csrf
                                                 @method('PUT')
-                                                <select class="form-select form-select-sm" name="id_status" onchange="this.form.submit()">
+                                                <select class="form-select form-select-sm" name="id_status" onchange="this.form.submit()" style="font-size: 19px;">
                                                     @foreach ($statuses as $status)
                                                         <option value="{{ $status->id_status }}" {{ $dataTamu->id_status == $status->id_status ? 'selected' : '' }}>
                                                             {{ $status->status_name }}
@@ -193,7 +232,7 @@
                                                     @endforeach
                                                 </select>
                                             </form>
-                                        </td>
+                                        </td> --}}
                                     </tr>
                                     @if(session('success'))
                                         <div class="alert alert-success mt-2">
@@ -207,19 +246,11 @@
                 </div>
             </div>
         </div>
-
-
-
-
-
-
-
-
-
                         </div> <!-- /.Start col -->
                     </div> <!-- /.row (main row) -->
                 </div> <!--end::Container-->
             </div> <!--end::App Content-->
+
 
         </main> <!--end::App Main--> <!--begin::Footer-->
     </div> <!--end::App Wrapper--> <!--begin::Script--> <!--begin::Third Party Plugin(OverlayScrollbars)-->
@@ -328,6 +359,15 @@
     </script> <!-- jsvectormap -->
     <script src="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/js/jsvectormap.min.js" integrity="sha256-/t1nN2956BT869E6H4V1dnt0X5pAQHPytli+1nTZm2Y=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/maps/world.js" integrity="sha256-XPpPaZlU8S/HWf7FZLAncLg2SAkP8ScUTII89x9D3lY=" crossorigin="anonymous"></script> <!-- jsvectormap -->
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+    <script>
+        let table = new DataTable('#myDataTable');
+    </script>
+
+
     <script>
         const visitorsData = {
             US: 398, // USA

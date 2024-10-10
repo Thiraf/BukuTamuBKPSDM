@@ -13,6 +13,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/styles/overlayscrollbars.min.css" integrity="sha256-dSokZseQNT08wYEWiz5iLI8QPlKxG+TswNRD8k35cpg=" crossorigin="anonymous"><!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Third Party Plugin(Bootstrap Icons)-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.min.css" integrity="sha256-Qsx5lrStHZyR9REqhUF8iQt73X06c8LGIUPzpOhwRrI=" crossorigin="anonymous"><!--end::Third Party Plugin(Bootstrap Icons)--><!--begin::Required Plugin(AdminLTE)-->
     <link rel="stylesheet" href="{{asset('AdminLTE')}}/dist/css/adminlte.css"><!--end::Required Plugin(AdminLTE)-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap4.css">
+
 </head> <!--end::Head--> <!--begin::Body-->
 
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary"> <!--begin::App Wrapper-->
@@ -37,16 +41,30 @@
                             </a>
                         </div>
                     </li> <!--end::Notifications Dropdown Menu--> <!--begin::Fullscreen Toggle-->
-                    <li class="nav-item"> <a class="nav-link" href="#" data-lte-toggle="fullscreen"> <i data-lte-icon="maximize" class="bi bi-arrows-fullscreen"></i> <i data-lte-icon="minimize" class="bi bi-fullscreen-exit" style="display: none;"></i> </a> </li> <!--end::Fullscreen Toggle--> <!--begin::User Menu Dropdown-->
-                    <li class="nav-item dropdown user-menu"> <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"> <img src="{{asset('AdminLTE')}}/dist/assets/img/user2-160x160.jpg" class="user-image rounded-circle shadow" alt="User Image"> <span class="d-none d-md-inline">Alexander Pierce</span> </a>
-                        <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end"> <!--begin::User Image-->
-                            <li class="user-header text-bg-primary"> <img src="{{asset('AdminLTE')}}/dist/assets/img/user2-160x160.jpg" class="rounded-circle shadow" alt="User Image">
-                                <p>
-                                    Alexander Pierce - Web Developer
-                                    <small>Member since Nov. 2023</small>
-                                </p>
-                            </li> <!--end::User Image--> <!--begin::Menu Body-->
 
+                    <!-- Fullscreen Toggle -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-lte-toggle="fullscreen">
+                            <i data-lte-icon="maximize" class="bi bi-arrows-fullscreen"></i>
+                            <i data-lte-icon="minimize" class="bi bi-fullscreen-exit" style="display: none;"></i>
+                        </a>
+                    </li>
+
+                    <!-- User Menu Dropdown -->
+                    <li class="nav-item dropdown user-menu">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <img src="{{asset('AdminLTE')}}/dist/assets/img/logoProfile.jpg" class="user-image rounded-circle shadow" alt="User Image">
+                            <span class="d-none d-md-inline">{{ Auth::guard('admin')->user()->username_admin }}</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
+                            <!-- User Image -->
+                            <li class="user-header" style="background-color: #03989E; color: #ffffff;">
+                                <img src="{{asset('AdminLTE')}}/dist/assets/img/logoProfile.jpg" class="rounded-circle shadow" alt="User Image">
+                                <p>
+                                    {{ Auth::guard('admin')->user()->username_admin }}  <!-- Nama Username Admin -->
+                                    <small>{{ Auth::guard('admin')->user()->role->nama_role }}</small>  <!-- Role Admin -->
+                                </p>
+                            </li>
                             <li class="user-footer">
                                 <a href="#" class="btn btn-default btn-flat">Profile</a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: inline;">
@@ -55,8 +73,9 @@
                                 </form>
                             </li>
                             <!-- Tombol Profile dan Logout -->
+                        </ul>
+                    </li>
 
-                    </li> <!--end::User Menu Dropdown-->
                 </ul> <!--end::End Navbar Links-->
             </div> <!--end::Container-->
         </nav> <!--end::Header--> <!--begin::Sidebar-->
@@ -146,7 +165,7 @@
 
             <div class="container">
                 <h2>Daftar Admin</h2>
-                <table class="table table-bordered">
+                <table id="dataTablesAdmin" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
                             <th>ID Admin</th>
@@ -241,6 +260,13 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha256-whL0tQWoY1Ku1iskqPFvmZ+CHsvmRWx/PIoEvIeWh4I=" crossorigin="anonymous"></script> <!--end::Required Plugin(popperjs for Bootstrap 5)--><!--begin::Required Plugin(Bootstrap 5)-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha256-YMa+wAM6QkVyz999odX7lPRxkoYAan8suedu4k2Zur8=" crossorigin="anonymous"></script> <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
     <script src="../../../dist/js/adminlte.js"></script> <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+    <script>
+        let table = new DataTable('#dataTablesAdmin');
+
+    </script>
     {{-- Uji Coba --}}
     {{-- <script src="app/resources/js/editAdmin.js"></script> --}}
     <script>

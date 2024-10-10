@@ -41,4 +41,8 @@ class Bidang extends Model
     {
         return $this->hasMany(Layanan::class, 'id_bidang', 'id_bidang');
     }
+    public function bukuTamus()
+    {
+        return $this->hasMany(BukuTamu::class, 'id_bidang');
+    }
 }

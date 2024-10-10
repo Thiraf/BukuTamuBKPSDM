@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Status;
 
 class BukuTamu extends Model
 {
@@ -33,4 +34,21 @@ class BukuTamu extends Model
     {
         return $this->belongsTo(Pegawai::class, 'id_pegawai', 'id_pegawai');
     }
+    public function bidang()
+    {
+        return $this->belongsTo(Bidang::class, 'id_bidang');
+    }
+    public function layanan()
+    {
+        return $this->belongsTo(Layanan::class,'id_layanan');
+    }
+    public function dashboardAdmin()
+    {
+        return $this->hasOne(DashboardAdmin::class, 'id_buku_tamu', 'id_buku_tamu');
+    }
+    public function status()
+    {
+        return $this->belongsTo(Status::class, 'id_status');
+    }
+
 }

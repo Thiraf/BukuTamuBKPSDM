@@ -63,25 +63,7 @@ VALUES
     ('Selesai', NOW(), NOW(), 1, NOW(), NOW());
 
 
-INSERT INTO `pegawais`
-    (`id_pegawai`, `nik`, `nama`, `id_bidang`, `id_layanan`, `instansi`, `nomor_hp`, `tempat_tanggal_lahir`, `userAdd`, `created_at`, `updated_at`)
-VALUES
-    -- Bidang PPK
-    (1, '3201010101010001', 'Budi Santoso', 1, 1, 'Dinas Kepegawaian', '081234567890', 'Jakarta, 1985-05-15', 1, NOW(), NOW()),
-    (2, '3201010101010002', 'Siti Aminah', 1, 2, 'Dinas Kepegawaian', '081234567891', 'Bandung, 1986-07-20', 1, NOW(), NOW()),
-    (3, '3201010101010003', 'Ahmad Fauzi', 1, 3, 'Dinas Kepegawaian', '081234567892', 'Bogor, 1987-03-10', 1, NOW(), NOW()),
 
-    -- Bidang PKD
-    (4, '3201010101010004', 'Nina Safitri', 2, 9, 'Dinas Pelayanan', '081234567893', 'Surabaya, 1990-11-25', 2, NOW(), NOW()),
-    (5, '3201010101010005', 'Andi Suhendra', 2, 10, 'Dinas Pelayanan', '081234567894', 'Yogyakarta, 1992-01-17', 2, NOW(), NOW()),
-
-    -- Bidang Mutasi
-    (6, '3201010101010006', 'Dewi Lestari', 3, 13, 'Dinas Mutasi', '081234567895', 'Semarang, 1991-09-22', 3, NOW(), NOW()),
-    (7, '3201010101010007', 'Rahmat Wijaya', 3, 14, 'Dinas Mutasi', '081234567896', 'Malang, 1988-04-08', 3, NOW(), NOW()),
-
-    -- Bidang Sekretariat
-    (8, '3201010101010008', 'Agus Pratama', 4, 23, 'Sekretariat', '081234567897', 'Bandung, 1985-09-10', 4, NOW(), NOW()),
-    (9, '3201010101010009', 'Linda Sari', 4, 24, 'Sekretariat', '081234567898', 'Jakarta, 1994-08-12', 4, NOW(), NOW());
 
 
 

@@ -1,3 +1,6 @@
+@php
+    use Illuminate\Support\Facades\Auth;
+@endphp
 <!DOCTYPE html>
 <html lang="en"> <!--begin::Head-->
 
@@ -27,22 +30,6 @@
         <nav class="app-header navbar navbar-expand bg-body"> <!--begin::Container-->
             <div class="container-fluid"> <!--begin::Start Navbar Links-->
                 <ul class="navbar-nav ms-auto"> <!--begin::Navbar Search-->
-                    <li class="nav-item"> <a class="nav-link" data-widget="navbar-search" href="#" role="button"> <i class="bi bi-search"></i> </a> </li> <!--end::Navbar Search--> <!--begin::Messages Dropdown Menu-->
-
-                    <li class="nav-item dropdown"> <a class="nav-link" data-bs-toggle="dropdown" href="#"> <i class="bi bi-bell-fill"></i> <span class="navbar-badge badge text-bg-warning">15</span> </a>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end"> <span class="dropdown-item dropdown-header">15 Notifications</span>
-                            <div class="dropdown-divider"></div> <a href="#" class="dropdown-item"> <i class="bi bi-envelope me-2"></i> 4 new messages
-                                <span class="float-end text-secondary fs-7">3 mins</span> </a>
-                            <div class="dropdown-divider"></div> <a href="#" class="dropdown-item"> <i class="bi bi-people-fill me-2"></i> 8 friend requests
-                                <span class="float-end text-secondary fs-7">12 hours</span> </a>
-                            <div class="dropdown-divider"></div> <a href="#" class="dropdown-item"> <i class="bi bi-file-earmark-fill me-2"></i> 3 new reports
-                                <span class="float-end text-secondary fs-7">2 days</span> </a>
-                            <div class="dropdown-divider"></div> <a href="#" class="dropdown-item dropdown-footer">
-                                See All Notifications
-                            </a>
-                        </div>
-                    </li> <!--end::Notifications Dropdown Menu--> <!--begin::Fullscreen Toggle-->
-                </li> <!--end::User Menu Dropdown-->
 
                     <!-- Fullscreen Toggle -->
                     <li class="nav-item">
@@ -198,7 +185,7 @@
                                 <th>Bidang</th>
                                 <th>Layanan</th>
                                 <th>Waktu Input</th>
-                                {{-- <th>Status</th> --}}
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -220,7 +207,8 @@
                                         <td>{{ $dataTamu->layanan->nama_layanan }}</td>
                                         <td>{{ $dataTamu->updated_at->format('d-m-Y,  H:i:s') }}</td>
 
-                                        {{-- <td>
+                                        {{-- <form action="{{ route('updateStatus', $dataTamu->dashboardAdmin->id_dashboard_admin) }}" method="POST"> --}}
+                                        <td>
                                             <form action="{{ route('updateStatus', $dataTamu->id_dashboard_admin) }}" method="POST">
                                                 @csrf
                                                 @method('PUT')
@@ -232,7 +220,7 @@
                                                     @endforeach
                                                 </select>
                                             </form>
-                                        </td> --}}
+                                        </td>
                                     </tr>
                                     @if(session('success'))
                                         <div class="alert alert-success mt-2">

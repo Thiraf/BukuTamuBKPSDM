@@ -10,6 +10,13 @@ use App\Http\Controllers\BukuTamuController;
 use App\Http\Controllers\AdminController;
 use App\Http\Middleware\CheckSuperAdmin;
 
+use Mews\Captcha\Captcha;
+
+
+
+
+
+
 
 // Client Buku Tamu
 
@@ -39,10 +46,15 @@ Route::put('/buku-tamu/{id_buku_tamu}/update', [BukuTamuController::class, 'upda
 
 
 
+
 // Admin Login
 Route::get('/login', function () {
     return view('admin/login');
 })->name('login');
+
+Route::get('captcha/{config?}', function(Captcha $captcha, $config = 'default') {
+    return $captcha->create($config);
+});
 
 // Route untuk menampilkan halaman dashboard setelah login berhasil
 Route::get('/dashboard', function () {

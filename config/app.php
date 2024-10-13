@@ -105,6 +105,11 @@ return [
         ),
     ],
 
+    'aliases' => [
+    'Captcha' => Mews\Captcha\Facades\Captcha::class,
+    ],
+
+
     /*
     |--------------------------------------------------------------------------
     | Maintenance Mode Driver

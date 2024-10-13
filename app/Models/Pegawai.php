@@ -18,11 +18,11 @@ class Pegawai extends Model
     // Kolom yang dapat diisi (mass assignable)
     protected $fillable = [
         'nik',
-        'nama',
-        'bidang',
-        'layanan',
-        'nomor_hp',
-        'tanggal_lahir',
+        'nama_pegawai',
+        'id_bidang',
+        'unit_kerja_pegawai',
+        'jabatan_pegawai',
+        'id_layanan',
         'userAdd',
         'createAdd',
         'updateAdd',

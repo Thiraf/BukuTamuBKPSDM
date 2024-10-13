@@ -22,36 +22,21 @@
         <div class="card shadow-sm">
             <div class="card-body">
                 <h3 class="text-center mb-4">Data Pegawai</h3>
-                <!-- Form untuk menampilkan data pekerja -->
-                <div class="form-group">
-                    <label>NIK</label>
-                    <input type="text" class="form-control" value="{{ $pegawai->nik }}" readonly>
-                </div>
-                <div class="form-group">
-                    <label>Nama</label>
-                    <input type="text" class="form-control" value="{{ $pegawai->nama }}" readonly>
-                </div>
-                <div class="form-group">
-                    <label>Bidang</label>
-                    <input type="text" class="form-control" value="{{ $pegawai->bidang['nama_bidang'] }}" readonly>
-                </div>
-                <div class="form-group">
-                    <label>Layanan</label>
-                    <input type="text" class="form-control" value="{{ $pegawai->layanan['nama_layanan']}}" readonly>
-                    {{-- <input type="text" class="form-control" value="{{ $pegawai->layanan }}" readonly> --}}
-                </div>
-                <div class="form-group">
-                    <label>Tempat Tanggal Lahir</label>
-                    <input type="text" class="form-control" value="{{ $pegawai->tempat_tanggal_lahir }}" readonly>
-                </div>
-                <div class="form-group">
-                    <label>No Hp</label>
-                    <input type="text" class="form-control" value="{{ $pegawai->nomor_hp }}" readonly>
-                </div>
                 <!-- Tombol untuk melanjutkan -->
-                <form action="/buku-tamu/tujuan-informasi" method="POST">
+                <form action="/buku-tamu/simpan-pegawai" method="POST">
                     @csrf
-                    <input type="hidden" name="id_pegawai" value="{{ $pegawai->id_pegawai }}">
+                    <div class="form-group">
+                        <label>Nama</label>
+                        <input type="text"  name="nama_pegawai" value="{{ $pegawai->nama_pegawai }}" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Bidang</label>
+                        <input type="text"  name="jabatan_pegawai" value="{{ $pegawai->bidang['nama_bidang'] }}"  class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Unit Kerja</label>
+                        <input type="text"  name="unit_kerja_pegawai" value="{{ $pegawai->unit_kerja_pegawai}}"  class="form-control" required>
+                    </div>
 
                     <div class="text-center mt-4">
                         <button type="submit" class="btn btn-primary">Next</button>

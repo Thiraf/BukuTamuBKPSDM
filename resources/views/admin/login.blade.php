@@ -11,6 +11,23 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('/form/css/style.css') }}">
+
+    <style>
+        .captcha-img {
+            width: 300px; /* Atur lebar sesuai keinginan */
+            height: 100px; /* Atur tinggi sesuai keinginan */
+        }
+
+        #refresh-captcha {
+        margin-top: 10px; /* Atur jarak di antara gambar captcha dan tombol */
+        }
+
+        #captcha {
+            margin-top: 20px; /* Atur jarak di antara tombol refresh dan input captcha */
+        }
+
+    </style>
+
 </head>
 <body class="d-flex justify-content-center align-items-center bg-light" style="height: 100vh;">
     <div class="container">
@@ -51,6 +68,20 @@
                                 </div>
                             </div>
 
+                            <div class="mb-3">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text p-0">
+                                        <img src="{!! captcha_src() !!}" id="captcha-img" alt="captcha" class="captcha-img">
+                                    </span>
+                                </div>
+                                <button type="button" class="btn btn-outline-secondary" id="refresh-captcha">
+                                    Refresh
+                                </button>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Enter Captcha" id="captcha" name="captcha" required>
+                                </div>
+                            </div>
+
                             <div class="row mb-3">
                                 <div class="col-8"></div>
                                 <div class="col-4 d-grid">
@@ -58,7 +89,6 @@
                                 </div>
                             </div>
                         </form>
-
                     </div>
                 </div>
             </div>
@@ -67,5 +97,13 @@
 
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript">
+        document.getElementById('refresh-captcha').addEventListener('click', function () {
+            var captcha = document.querySelector('.input-group-text img'); // Mengambil elemen gambar captcha
+            captcha.src = '/captcha/default?' + Math.random(); // Menambah parameter acak agar captcha dimuat ulang
+        });
+    </script>
+
+
 </body>
 </html>

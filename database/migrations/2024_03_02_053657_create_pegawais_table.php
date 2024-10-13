@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -14,20 +15,22 @@ return new class extends Migration
         Schema::create('pegawais', function (Blueprint $table) {
             $table->bigIncrements('id_pegawai'); // Primary Key
             $table->string('nik', 20)->unique(); // Nomor induk pegawai, harus unik
-            $table->string('nama', 255); // Nama pegawai
+            $table->string('nama_pegawai', 255); // Nama pegawai
+            $table->string('jabatan_pegawai',255)->nullable();
+            $table->string('unit_kerja_pegawai',255)->nullable();
             $table->unsignedBigInteger('id_bidang'); // Foreign Key ke tabel bidangs
             $table->unsignedBigInteger('id_layanan'); // Foreign Key ke tabel layanans
-            $table->string('nomor_hp', 15); // Nomor telepon pegawai
-            $table->string('tempat_tanggal_lahir')->default('1970-01-01'); // Tanggal lahir pegawai
-            $table->unsignedBigInteger('userAdd')->default(0); // ID pengguna yang menambah atau mengubah data
 
-            // Kolom timestamps (created_at, updated_at)
-            $table->timestamps();
+            $table->timestamp('createAdd')->default(DB::raw('CURRENT_TIMESTAMP')); // Timestamp untuk data saat ditambahkan
+            $table->timestamp('updateAdd')->nullable()->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')); // Timestamp untuk data saat di-update
+            $table->unsignedBigInteger('userAdd')->nullable(); // ID pengguna yang menambah atau mengubah data (nullable)
 
-            // Definisikan foreign key ke tabel bidangs dan layanans
-            $table->foreign('id_bidang')->references('id_bidang')->on('bidangs')->onDelete('cascade');
+            // Foreign Key ke tabel terkait
+            $table->foreign('id_bidang')->references('id_bidang')->on('layanans')->onDelete('cascade');
             $table->foreign('id_layanan')->references('id_layanan')->on('layanans')->onDelete('cascade');
-            $table->foreign('userAdd')->references('id')->on('users')->onDelete('cascade'); // Foreign key ke tabel users
+            $table->foreign('userAdd')->references('id')->on('users')->onDelete('cascade');
+
+            $table->timestamps(); // Laravel's automatic timestamps (created_at and updated_at)
         });
     }
 

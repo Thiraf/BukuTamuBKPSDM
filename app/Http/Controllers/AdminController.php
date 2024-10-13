@@ -12,6 +12,7 @@ use App\Models\DashboardAdmin;
 use App\Models\BukuTamu;
 use App\Models\Status;
 use Illuminate\Http\RedirectResponse;
+use Mews\Captcha\Captcha;
 
 use App\Models\Role;
 
@@ -24,6 +25,12 @@ class AdminController extends Controller
         return view('admin.login'); // Sesuaikan dengan lokasi view Anda
     }
 
+    public function generateCaptcha(Captcha $captcha)
+    {
+        Log::info('Captcha');
+        return $captcha->create();
+    }
+
     public function login(Request $request): RedirectResponse
     {
         Log::info('Proses autentikasi dimulai');
@@ -31,6 +38,7 @@ class AdminController extends Controller
         $credentials = $request->validate([
             'username_admin' => 'required|string',
             'password' => 'required|string|min:8',
+            'captcha' => 'required|captcha',  // Validasi CAPTCHA
         ]);
 
         // dd($request->all());
@@ -78,18 +86,13 @@ class AdminController extends Controller
         // Query data tamu
         $dataDashboard = BukuTamu::all();
 
-
-
         // Query data status
         $statuses = Status::all(); // Pastikan ini sesuai dengan model dan tabel status Anda
-
 
         // Mengambil semua data dari tabel dashboard_admins
         $dataDashboard = DashboardAdmin::with(['bidang', 'layanan', 'status'])->get();
 
         $statuses = Status::all(); // Ambil semua status untuk dropdown
-
-
 
         $pendingCount = DashboardAdmin::where('id_status', 1)->count(); // Misalkan 1 = Pending
         $processCount = DashboardAdmin::where('id_status', 2)->count(); // Misalkan 2 = Process
@@ -110,6 +113,7 @@ class AdminController extends Controller
 
         // Temukan data dashboard_admin berdasarkan ID
         $dashboardAdmin = DashboardAdmin::findOrFail($id_dashboard_admin);
+
         Log::info("Id ditemukan");
         // Update status dengan id_status baru
         $dashboardAdmin->id_status = $request->input('id_status');
@@ -119,6 +123,40 @@ class AdminController extends Controller
         // Redirect kembali ke halaman dashboard dengan pesan sukses
         return redirect()->back();
     }
+
+    // public function filterData(Request $request)
+    // {
+    //     Log::info("Filter Data");
+
+    //     // Validasi input tanggal
+    //     $request->validate([
+    //         'startDate' => 'required|date',
+    //         'endDate' => 'required|date|after_or_equal:startDate',
+    //     ]);
+
+    //     // Ambil input tanggal dari form
+    //     $startDate = $request->input('startDate');
+    //     $endDate = $request->input('endDate');
+
+    //     // Query untuk memfilter data berdasarkan kolom 'updated_at'
+    //     $dataDashboard = BukuTamu::with('dashboardAdmin')->whereBetween('updated_at', [$startDate, $endDate])->get();
+
+    //      // Debug untuk memastikan data benar
+    //     //  dd($dataDashboard);
+    //     // Log hasil data
+    //     foreach($dataDashboard as $dataTamu) {
+    //         Log::info('ID Dashboard Admin: ' . $dataTamu->id_dashboard_admin);
+    //     }
+
+    //     // Hitung status (Pending, Process, Completed)
+    //     $pendingCount = DashboardAdmin::where('id_status', 1)->count(); // Misalkan 1 = Pending
+    //     $processCount = DashboardAdmin::where('id_status', 2)->count(); // Misalkan 2 = Process
+    //     $completedCount = DashboardAdmin::where('id_status', 3)->count(); // Misalkan 3 = Selesai
+
+    //     // Kembalikan view dengan data yang sudah difilter dan status counts
+    //     return view('admin.dashboard', compact('dataDashboard', 'pendingCount', 'processCount', 'completedCount'));
+    // }
+
 
     public function filterData(Request $request)
     {
@@ -134,11 +172,12 @@ class AdminController extends Controller
         $startDate = $request->input('startDate');
         $endDate = $request->input('endDate');
 
-        // Query untuk memfilter data berdasarkan kolom 'updated_at'
-        $dataDashboard = BukuTamu::with('dashboardAdmin')->whereBetween('updated_at', [$startDate, $endDate])->get();
+        // Query data dari DashboardAdmin dengan kondisi berdasarkan updated_at di BukuTamu
+        $dataDashboard = DashboardAdmin::with(['bidang', 'layanan', 'status', 'bukuTamu'])
+            ->whereHas('bukuTamu', function ($query) use ($startDate, $endDate) {
+                $query->whereBetween('updated_at', [$startDate, $endDate]);
+            })->get();
 
-         // Debug untuk memastikan data benar
-        //  dd($dataDashboard);
         // Log hasil data
         foreach($dataDashboard as $dataTamu) {
             Log::info('ID Dashboard Admin: ' . $dataTamu->id_dashboard_admin);
@@ -149,8 +188,11 @@ class AdminController extends Controller
         $processCount = DashboardAdmin::where('id_status', 2)->count(); // Misalkan 2 = Process
         $completedCount = DashboardAdmin::where('id_status', 3)->count(); // Misalkan 3 = Selesai
 
-        // Kembalikan view dengan data yang sudah difilter dan status counts
-        return view('admin.dashboard', compact('dataDashboard', 'pendingCount', 'processCount', 'completedCount'));
+        // Fetch all statuses
+        $statuses = Status::all(); // Ambil semua status untuk dropdown
+
+        // Kembalikan view dengan data yang sudah difilter, statuses, dan status counts
+        return view('admin.dashboard', compact('dataDashboard', 'statuses', 'pendingCount', 'processCount', 'completedCount'));
     }
 
 

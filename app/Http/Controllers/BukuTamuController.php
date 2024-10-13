@@ -24,21 +24,14 @@ class BukuTamuController extends Controller
 
     public function cekNIK(Request $request)
     {
-        // Log informasi untuk request GET
-        if ($request->isMethod('get')) {
-            Log::info('GET request diterima di /buku-tamu/cek-nik');
-            return response()->json(['error' => 'Method not allowed'], 405);
-        }
 
         // Log informasi untuk request POST
         Log::info('Masuk ke Function Cek Nik');
 
         // Validasi input NIK
-        $request->validate([
-            'nik' => 'required'
-        ]);
 
         $nik = $request->input('nik');
+
 
         // Cari data pegawai berdasarkan NIK
         $pegawai = Pegawai::where('nik', $nik)->first();
@@ -47,7 +40,8 @@ class BukuTamuController extends Controller
 
         if ($pegawai) {
             // Simpan data ke session jika ditemukan
-            session(['pegawai' => $pegawai]);
+            session(['nik' => $nik]);
+            // dd($pegawai->toArray());
 
             // Jika data pegawai ditemukan, arahkan ke halaman data_pekerja
             return redirect()->route('buku_tamu.data_pekerja'); // Pastikan ada route untuk ini
@@ -57,9 +51,12 @@ class BukuTamuController extends Controller
         }
     }
 
-    public function showDataPekerja()
+    public function showDataPekerja(Request $request)
     {
+        Log::info('Show Data Pekerja');
         $pegawai = session('pegawai');
+        // dd($pegawai->toArray());
+
         return view('buku_tamu.data_pekerja', compact('pegawai'));
     }
 
@@ -80,9 +77,14 @@ class BukuTamuController extends Controller
             'jabatan_pegawai' => 'required|string|max:255',
             'unit_kerja_pegawai' => 'required|string|max:255',
         ]);
+        Log::info('cek');
+
+        // Ambil NIK dari session (disimpan sebelumnya pada cekNIK)
+        $nik = session('nik');
 
         // Simpan data ke tabel buku_tamus
         $bukuTamuId = DB::table('buku_tamus')->insertGetId([
+            'nik' => $nik,  // Simpan NIK di sini
             'nama_pegawai' => $request->nama_pegawai,
             'jabatan_pegawai' => $request->jabatan_pegawai,
             'unit_kerja_pegawai' => $request->unit_kerja_pegawai,

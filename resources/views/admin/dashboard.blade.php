@@ -22,8 +22,29 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap4.css">
 
+    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}"> <!-- Muat CSS eksternal -->
+
 
 </head> <!--end::Head--> <!--begin::Body-->
+
+<!-- Toast Notification -->
+<div aria-live="polite" aria-atomic="true" style="position: fixed; top: 20px; right: 20px; z-index: 9999;">
+    @if(session('success'))
+        <div class="toast show" id="successToast" data-bs-delay="5000" style="min-width: 300px; background-color: #28a745; color: white; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);">
+            <div class="toast-header" style="background-color: transparent; border-bottom: none; color: white;">
+                <i class="fa fa-check-circle" style="font-size: 1.5rem; margin-right: 9px;"></i>
+                <strong class="me-auto">Sukses</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close" style="color: white;"></button>
+            </div>
+            <div class="toast-body" style="font-size: 1.2rem;">
+                {{ session('success') }}
+            </div>
+        </div>
+    @endif
+</div>
+
+
+
 
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary"> <!--begin::App Wrapper-->
     <div class="app-wrapper"> <!--begin::Header-->
@@ -64,41 +85,42 @@
                             <!-- Tombol Profile dan Logout -->
                         </ul>
                     </li>
-
-
-
-
                 </ul> <!--end::End Navbar Links-->
             </div> <!--end::Container-->
         </nav> <!--end::Header--> <!--begin::Sidebar-->
-        <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark"> <!--begin::Sidebar Brand-->
-            <div class="sidebar-brand"> <!--begin::Brand Link--> <a href="./index.html" class="brand-link"> <!--begin::Brand Image--> <img src="form/images/bkpsdm.jpg"
-                class="brand-image opacity-75 shadow"> <!--end::Brand Image--> <!--begin::Brand Text--> <span class="brand-text fw-light">Buku Tamu BKPSDM</span>
-                <!--end::Brand Text--> </a> <!--end::Brand Link--> </div> <!--end::Sidebar Brand--> <!--begin::Sidebar Wrapper-->
-            <div class="sidebar-wrapper">
-                <nav class="mt-2"> <!--begin::Sidebar Menu-->
-                    <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
-                        <li class="nav-item menu-open">
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="./dashboard" class="nav-link active">
-                                        <i class="nav-icon bi bi-journal"></i>
-                                        <p>Buku Tamu</p>
-                                    </a>
-                                </li>
-                                {{-- Logika untuk menampilkan menu Create Admin jika Super Admin --}}
-                                @if(Auth::guard('admin')->user()->id_role == 1) <!-- Pengecekan untuk Super Admin -->
-                                <li class="nav-item">
-                                    <a href="./createAdmin" class="nav-link ">
-                                        <i class="nav-icon bi bi-person-plus"></i>
-                                        <p>Create Admin</p>
-                                    </a>
-                                </li>
-                            @endif
-                        </ul>
-                    </li>
-            </div> <!--end::Sidebar Wrapper-->
-        </aside> <!--end::Sidebar--> <!--begin::App Main-->
+
+
+        <aside class="app-sidebar bg-dark shadow">
+            <!-- Sidebar Logo -->
+            <div class="sidebar-logo-container">
+                <a class="logo-link d-flex flex-column align-items-center">
+                    <img src="{{ asset('form/images/bkpsdm.jpg') }}" alt="Logo BKPSDM" class="sidebar-logo">
+                    <span class="sidebar-title mt-2">Buku Tamu BKPSDM</span>
+                </a>
+            </div>
+
+            <!-- Sidebar Menu -->
+            <div class="sidebar-menu">
+                <nav>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a href="./dashboard" class="nav-link active">
+                                <i class="bi bi-journal nav-icon"></i> Buku Tamu
+                            </a>
+                        </li>
+                        @if(Auth::guard('admin')->user()->id_role == 1)
+                        <li class="nav-item">
+                            <a href="{{ route('createAdmin') }}" class="nav-link">
+                                <i class="bi bi-person-plus nav-icon"></i> Create Admin
+                            </a>
+                        </li>
+                        @endif
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+        <!-- End: Sidebar -->
+
 
         <main class="app-main"> <!--begin::App Content Header-->
             <div class="app-content-header"> <!--begin::Container-->
@@ -111,38 +133,64 @@
                 </div> <!--end::Container-->
             </div> <!--end::App Content Header--> <!--begin::App Content-->
 
-            <div class="container-fluid">
-                <div class="row w-100 p-0">
-                    <div class="col-lg-4 col-md-3 col-1">
-                        <div class="small-box" style="background-color: #d88b19;">
-                            <div class="inner d-flex justify-content-center align-items-center flex-column" style="height: 150px;">
-                                <h3 style="font-size: 48px;">{{ $pendingCount }}</h3> <!-- Perbesar angka -->
-                                <p style="font-size: 24px;">Pending</p> <!-- Perbesar teks deskripsi -->
+            <div class="container-fluid mt-4">
+                <div class="row g-4">
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <div class="small-box bg-pending shadow">
+                            <div class="d-flex align-items-center p-3">
+                                <div class="small-box-icon me-3">
+                                    <i class="bi bi-hourglass-split"></i>
+                                </div>
+                                <div>
+                                    <h3>{{ $pendingCount }}</h3>
+                                    <p>Pending</p>
+                                </div>
                             </div>
-                            <a href="#" class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover"></a>
                         </div>
-                    </div> <!-- End col -->
+                    </div>
 
-                    <div class="col-lg-4 col-md-4 col-12">
-                        <div class="small-box" style="background-color: #1570c0;">
-                            <div class="inner d-flex justify-content-center align-items-center flex-column" style="height: 150px;">
-                                <h3 style="font-size: 48px;">{{ $processCount }}</h3> <!-- Perbesar angka -->
-                                <p style="font-size: 24px;">Process</p> <!-- Perbesar teks deskripsi -->
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <div class="small-box bg-process shadow">
+                            <div class="d-flex align-items-center p-3">
+                                <div class="small-box-icon me-3">
+                                    <i class="bi bi-gear"></i>
+                                </div>
+                                <div>
+                                    <h3>{{ $processCount }}</h3>
+                                    <p>Process</p>
+                                </div>
                             </div>
-                            <a href="#" class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover"></a>
                         </div>
-                    </div> <!-- End col -->
+                    </div>
 
-                    <div class="col-lg-4 col-md-4 col-12">
-                        <div class="small-box" style="background-color: #10a517;">
-                            <div class="inner d-flex justify-content-center align-items-center flex-column" style="height: 150px;">
-                                <h3 style="font-size: 48px;">{{ $completedCount }}</h3> <!-- Perbesar angka -->
-                                <p style="font-size: 24px;">Selesai</p> <!-- Perbesar teks deskripsi -->
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <div class="small-box bg-completed shadow">
+                            <div class="d-flex align-items-center p-3">
+                                <div class="small-box-icon me-3">
+                                    <i class="bi bi-check-circle"></i>
+                                </div>
+                                <div>
+                                    <h3>{{ $completedCount }}</h3>
+                                    <p>Selesai</p>
+                                </div>
                             </div>
-                            <a href="#" class="small-box-footer link-dark link-underline-opacity-0 link-underline-opacity-50-hover"></a>
                         </div>
-                    </div> <!-- End col -->
-                </div> <!-- End row -->
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <div class="small-box bg-total shadow">
+                            <div class="d-flex align-items-center p-3">
+                                <div class="small-box-icon me-3">
+                                    <i class="bi bi-bar-chart-fill"></i>
+                                </div>
+                                <div>
+                                    <h3>{{ $totalCount }}</h3>
+                                    <p>Jumlah Keseluruhan</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
 
@@ -151,18 +199,30 @@
             <div class="row w-100 p-0">
                 <h3 class="mb-10 text-center">Data Buku Tamu</h3>
 
-                <!-- Filter Date Time -->
+                <!-- Filter Date Time dan Status -->
                 <form action="{{ route('dashboard.filter') }}" method="GET">
                     <div class="row mb-4">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label for="startDate">Dari Tanggal:</label>
-                            <input type="datetime-local" id="startDate" name="startDate" class="form-control" required>
+                            <input type="datetime-local" id="startDate" name="startDate" class="form-control">
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label for="endDate">Sampai Tanggal:</label>
-                            <input type="datetime-local" id="endDate" name="endDate" class="form-control" required>
+                            <input type="datetime-local" id="endDate" name="endDate" class="form-control">
                         </div>
-                        <div class="col-md-4 align-self-end">
+                        <div class="col-md-3">
+                            <label for="statusFilter">Status:</label>
+                            <select id="statusFilter" name="statusFilter" class="form-select form-select-sm">
+                                <option value="">Semua Status</option>
+                                @foreach ($statuses as $status)
+                                    <option value="{{ $status->id_status }}"
+                                        {{ request('statusFilter') == $status->id_status ? 'selected' : '' }}>
+                                        {{ $status->status_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-3 align-self-end">
                             <button class="btn btn-primary mt-2" type="submit">Filter</button>
                             <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary mt-2">Refresh</a>
                         </div>
@@ -170,9 +230,8 @@
                 </form>
 
 
-
                 <div class="table-responsive">
-                    <table id="myDataTable" class="table table-striped table-bordered" style="width:100%; font-size: 19px;" >
+                    <table id="myDataTable" class="table table-striped table-bordered" style="width:100%;">
                         <thead class="table-white">
                             <tr>
                                 <th>No</th>
@@ -185,13 +244,14 @@
                                 <th>Bidang</th>
                                 <th>Layanan</th>
                                 <th>Waktu Input</th>
+                                <th>Waktu Update</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
                             @if ($dataDashboard->isEmpty())
                                 <tr>
-                                    <td colspan="11" class="text-center text-muted">Data tidak ditemukan</td>
+                                    <td colspan="12" class="text-center text-muted">Data tidak ditemukan</td>
                                 </tr>
                             @else
                                 @foreach ($dataDashboard as $dataTamu)
@@ -205,33 +265,63 @@
                                         <td>{{ $dataTamu->tujuan_informasi }}</td>
                                         <td>{{ $dataTamu->bidang->nama_bidang }}</td>
                                         <td>{{ $dataTamu->layanan->nama_layanan }}</td>
-                                        <td>{{ $dataTamu->updated_at->format('d-m-Y,  H:i:s') }}</td>
-
-                                        {{-- <form action="{{ route('updateStatus', $dataTamu->dashboardAdmin->id_dashboard_admin) }}" method="POST"> --}}
+                                        <td>{{ $dataTamu->created_at->format('d-m-Y, H:i:s') }}</td>
+                                        <td>{{ $dataTamu->updated_at->format('d-m-Y, H:i:s') }}</td>
                                         <td>
-                                            <form action="{{ route('updateStatus', $dataTamu->id_dashboard_admin) }}" method="POST">
-                                                @csrf
-                                                @method('PUT')
-                                                <select class="form-select form-select-sm" name="id_status" onchange="this.form.submit()" style="font-size: 19px;">
-                                                    @foreach ($statuses as $status)
-                                                        <option value="{{ $status->id_status }}" {{ $dataTamu->id_status == $status->id_status ? 'selected' : '' }}>
-                                                            {{ $status->status_name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </form>
+                                            <button
+                                                type="button"
+                                                class="btn btn-sm
+                                                    @if($dataTamu->id_status == 1) btn-warning
+                                                    @elseif($dataTamu->id_status == 2) btn-info
+                                                    @elseif($dataTamu->id_status == 3) btn-success
+                                                    @else btn-secondary
+                                                    @endif"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#updateStatusModal-{{ $dataTamu->id_dashboard_admin }}">
+                                                @if($dataTamu->id_status == 1)
+                                                    Pending
+                                                @elseif($dataTamu->id_status == 2)
+                                                    Process
+                                                @elseif($dataTamu->id_status == 3)
+                                                    Selesai
+                                                @else
+                                                    Ubah Status
+                                                @endif
+                                            </button>
+                                            <div class="modal fade" id="updateStatusModal-{{ $dataTamu->id_dashboard_admin }}" tabindex="-1" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Ubah Status</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <form action="{{ route('updateStatus', $dataTamu->id_dashboard_admin) }}" method="POST">
+                                                            @csrf
+                                                            @method('PUT')
+                                                            <div class="modal-body">
+                                                                <select class="form-select" name="id_status">
+                                                                    @foreach ($statuses as $status)
+                                                                        <option value="{{ $status->id_status }}" {{ $dataTamu->id_status == $status->id_status ? 'selected' : '' }}>
+                                                                            {{ $status->status_name }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
-                                    @if(session('success'))
-                                        <div class="alert alert-success mt-2">
-                                            {{ session('success') }}
-                                        </div>
-                                    @endif
                                 @endforeach
                             @endif
                         </tbody>
                     </table>
                 </div>
+
             </div>
         </div>
                         </div> <!-- /.Start col -->
@@ -354,6 +444,23 @@
     <script>
         let table = new DataTable('#myDataTable');
     </script>
+    <script>
+            $(document).ready(function() {
+        let table = $('#myDataTable').DataTable();
+
+        // Terapkan CSS ulang setelah filter digunakan
+        table.on('draw', function() {
+            // Terapkan ukuran font kembali setiap kali tabel di-refresh
+            $('table th, table td').css('font-size', '18px');
+            $('.btn-sm').css({
+                'font-size': '16px',
+                'padding': '8px 12px'
+            });
+        });
+    });
+    </script>
+
+
 
 
     <script>

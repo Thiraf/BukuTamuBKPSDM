@@ -11,25 +11,10 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('/form/css/style.css') }}">
-
-    <style>
-        .captcha-img {
-            width: 300px; /* Atur lebar sesuai keinginan */
-            height: 100px; /* Atur tinggi sesuai keinginan */
-        }
-
-        #refresh-captcha {
-        margin-top: 10px; /* Atur jarak di antara gambar captcha dan tombol */
-        }
-
-        #captcha {
-            margin-top: 20px; /* Atur jarak di antara tombol refresh dan input captcha */
-        }
-
-    </style>
-
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
 </head>
 <body class="d-flex justify-content-center align-items-center bg-light" style="height: 100vh;">
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
@@ -51,7 +36,6 @@
                         <!-- Form login -->
                         <form action="{{ route('admin.login.submit') }}" method="POST">
                             @csrf
-                            <!-- input fields -->
                             <div class="mb-3">
                                 <label for="username_admin" class="form-label">Username</label>
                                 <div class="input-group">
@@ -68,16 +52,17 @@
                                 </div>
                             </div>
 
-                            <div class="mb-3">
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text p-0">
-                                        <img src="{!! captcha_src() !!}" id="captcha-img" alt="captcha" class="captcha-img">
-                                    </span>
-                                </div>
-                                <button type="button" class="btn btn-outline-secondary" id="refresh-captcha">
-                                    Refresh
-                                </button>
+                            <div class="form-group mb-3">
                                 <div class="input-group">
+                                    <span class="input-group-text p-0">
+                                        <img src="{!! captcha_src('default') !!}" id="captcha-img" alt="captcha" class="captcha-img">
+                                    </span>
+                                    <button type="button" class="btn btn-outline-secondary refresh-btn" id="refresh-captcha">
+                                        <i class="fa fa-refresh" style="font-size: 24px;"></i>
+                                    </button>
+                                </div>
+
+                                <div class="input-group mt-2">
                                     <input type="text" class="form-control" placeholder="Enter Captcha" id="captcha" name="captcha" required>
                                 </div>
                             </div>
@@ -99,11 +84,10 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript">
         document.getElementById('refresh-captcha').addEventListener('click', function () {
-            var captcha = document.querySelector('.input-group-text img'); // Mengambil elemen gambar captcha
-            captcha.src = '/captcha/default?' + Math.random(); // Menambah parameter acak agar captcha dimuat ulang
+            var captcha = document.querySelector('.input-group-text img');
+            captcha.src = '/captcha/default?' + Math.random();
         });
     </script>
-
 
 </body>
 </html>

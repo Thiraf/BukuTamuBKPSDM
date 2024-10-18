@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Log;
 use App\Models\Layanan;
 use App\Models\DashboardAdmin;
 use App\Models\Status;
+use Illuminate\Support\Facades\Validator;
+
+
+
 
 class BukuTamuController extends Controller
 {
@@ -28,8 +32,21 @@ class BukuTamuController extends Controller
         // Log informasi untuk request POST
         Log::info('Masuk ke Function Cek Nik');
 
-        // Validasi input NIK
+        // Validasi input NIK dan CAPTCHA
+        $validator = Validator::make($request->all(), [
+            'nik' => 'required',
+            'captcha' => 'required|captcha', // Validasi CAPTCHA
+        ]);
 
+        // Jika validasi gagal, kembalikan ke halaman sebelumnya dengan pesan error
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator) // Kirim error ke view
+                ->withInput(); // Simpan input sebelumnya
+        }
+
+
+        // Validasi input NIK
         $nik = $request->input('nik');
 
 
@@ -41,21 +58,26 @@ class BukuTamuController extends Controller
         if ($pegawai) {
             // Simpan data ke session jika ditemukan
             session(['nik' => $nik]);
-            // dd($pegawai->toArray());
-
+            session(['pegawai' => $pegawai]);
             // Jika data pegawai ditemukan, arahkan ke halaman data_pekerja
             return redirect()->route('buku_tamu.data_pekerja'); // Pastikan ada route untuk ini
         } else {
             // Jika data pegawai tidak ditemukan, arahkan ke halaman form_pekerja_baru dengan NIK
-            return redirect()->route('buku_tamu.form_pekerja_baru')->with('nik', $nik); // Pastikan ada route untuk ini
+            session(['nik' => $nik]);
+            return redirect()->route('buku_tamu.form_pekerja_baru'); // Pastikan ada route untuk ini
         }
     }
 
     public function showDataPekerja(Request $request)
     {
         Log::info('Show Data Pekerja');
+
+        if (!$request->session()->has('nik')) {
+            return redirect()->route('buku_tamu.cek_nik')->withErrors('Silakan masukkan NIK terlebih dahulu.');
+        }
+        Log::info('Cek session NIK:', ['session_nik' => $request->session()->get('nik')]);
+
         $pegawai = session('pegawai');
-        // dd($pegawai->toArray());
 
         return view('buku_tamu.data_pekerja', compact('pegawai'));
     }
@@ -63,13 +85,24 @@ class BukuTamuController extends Controller
     public function formPekerjaBaru(Request $request)
     {
         Log::info('Masuk ke Function Form Pekerja Baru');
+
+        if (!$request->session()->has('nik')) {
+            return redirect()->route('buku_tamu.cek_nik')->withErrors('Silakan masukkan NIK terlebih dahulu.');
+        }
+        Log::info('Cek session NIK:', ['session_nik' => $request->session()->get('nik')]);
+
+
         $nik = $request->session()->get('nik');
+
         return view('buku_tamu.form_pekerja_baru', compact('nik'));
     }
 
     public function simpanPegawai(Request $request)
     {
         Log::info('Masuk ke Function Simpan Pegawai');
+
+        Log::info('Cek session NIK:', ['session_nik' => $request->session()->get('nik')]);
+
 
         // Validasi data yang dikirimkan
         $request->validate([
@@ -98,53 +131,59 @@ class BukuTamuController extends Controller
     }
 
 
-    public function tujuanInformasi($id)
+    public function tujuanInformasi(Request $request, $id)
     {
 
         Log::info('Simpan Pegawai Berhasil dilakukan');
+
+        Log::info('Cek session NIK:', ['session_nik' => $request->session()->get('nik')]);
+
+
         // Ambil data buku tamu berdasarkan ID
         $bukuTamu = DB::table('buku_tamus')->where('id_buku_tamu', $id)->first();
         $layanans = Layanan::all();
+
+        session()->forget('nik');
 
         // Kirim data ke view tujuan_informasi
         return view('buku_tamu.tujuan_informasi', compact('bukuTamu', 'layanans'));
     }
 
+
     public function update(Request $request, $id_buku_tamu)
     {
-        Log::info('Update data');
+        Log::info('Update data'); // Logging informasi
+
         // Validasi input
         $request->validate([
-            'id_layanan' => 'required|exists:layanans,id_layanan',
-            'tujuan_informasi' => 'required|string|max:255',
-
+            'id_layanan' => 'required|exists:layanans,id_layanan', // Pastikan id_layanan valid
+            'tujuan_informasi' => 'required|string|max:255', // Pastikan tujuan_informasi tidak kosong
+            'userAdd' => 'nullable|integer', // Optional field yang harus integer atau null
         ]);
 
-        // Ambil data buku tamu berdasarkan ID yang diterima dari URL
-        $bukuTamu = BukuTamu::find($id_buku_tamu);
+        // Ambil data buku tamu berdasarkan ID dari URL
+        $bukuTamu = BukuTamu::findOrFail($id_buku_tamu); // findOrFail untuk memastikan data ada
 
-        $request->validate([
-            'userAdd' => 'nullable|integer', // Pastikan data adalah integer dan bisa kosong
-        ]);
+        // Ambil id_bidang dari tabel layanan berdasarkan id_layanan yang diinput
+        $id_bidang = Layanan::where('id_layanan', $request->input('id_layanan'))->value('id_bidang');
 
-
-        // Ambil id_bidang dari tabel layanan berdasarkan id_layanan
-        $id_bidang = Layanan::find($request->input('id_layanan'))->id_bidang;
-
-
-        // Update kolom id_layanan, id_bidang, dan tujuan_informasi
+        // Update kolom id_layanan, id_bidang, dan tujuan_informasi di buku tamu
         $bukuTamu->id_layanan = $request->input('id_layanan');
         $bukuTamu->id_bidang = $id_bidang; // Simpan id_bidang ke buku tamu
         $bukuTamu->tujuan_informasi = $request->input('tujuan_informasi');
-        $bukuTamu->save();
+        $bukuTamu->save(); // Simpan perubahan
 
         // Panggil function addToDashboard setelah data buku tamu berhasil di-update
         $this->addToDashboard($id_buku_tamu);
 
+        // Hapus session NIK
+        session()->forget('nik');
 
-        // return redirect()->route('success')->with('success', 'Data berhasil diperbarui');
-        return redirect()->route('index')->with('success', 'Data berhasil disimpan');
+        // Redirect dengan pesan sukses
+        return redirect()->route('index')
+            ->with('success', 'Data berhasil diperbarui');
     }
+
 
 
     public function addToDashboard($id_buku_tamu)

@@ -1,0 +1,32 @@
+.captcha-img {
+    width: 300px; /* Atur lebar sesuai keinginan */
+    height: 100px; /* Atur tinggi sesuai keinginan */
+}
+
+#refresh-captcha {
+margin-top: 10px; /* Atur jarak di antara gambar captcha dan tombol */
+}
+
+#captcha {
+    margin-top: 20px; /* Atur jarak di antara tombol refresh dan input captcha */
+}
+.refresh-btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    margin-left: 100px;
+    display:flow-root;
+    align-items: center;
+    justify-content: center;
+}
+
+.refresh-btn i {
+    color: #03989E;
+    transition: transform 0.2s, color 0.2s;
+}
+
+/* Animasi hover untuk tombol refresh */
+.refresh-btn:hover i {
+    color: #03989E;
+    transform: rotate(90deg);
+}

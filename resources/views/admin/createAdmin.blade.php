@@ -20,6 +20,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap4.css">
 
+
+    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}"> <!-- Muat CSS eksternal -->
+    <link rel="stylesheet" href="{{ asset('css/createAdmin.css') }}"> <!-- Muat CSS eksternal -->
+
+
+
+
+
 </head> <!--end::Head--> <!--begin::Body-->
 
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary"> <!--begin::App Wrapper-->
@@ -65,31 +73,38 @@
                 </ul> <!--end::End Navbar Links-->
             </div> <!--end::Container-->
         </nav> <!--end::Header--> <!--begin::Sidebar-->
-        <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark"> <!--begin::Sidebar Brand-->
-            <div class="sidebar-brand"> <!--begin::Brand Link--> <a href="./index.html" class="brand-link"> <!--begin::Brand Image--> <img src="form/images/bkpsdm.jpg"  class="brand-image opacity-75 shadow"> <!--end::Brand Image--> <!--begin::Brand Text--> <span class="brand-text fw-light">Buku Tamu BKPSDM</span> <!--end::Brand Text--> </a> <!--end::Brand Link--> </div> <!--end::Sidebar Brand--> <!--begin::Sidebar Wrapper-->
-            <div class="sidebar-wrapper">
-                <nav class="mt-2"> <!--begin::Sidebar Menu-->
-                    <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
-                        <li class="nav-item menu-open">
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="./dashboard" class="nav-link">
-                                        <i class="nav-icon bi bi-journal"></i>
-                                        <p>Buku Tamu</p>
-                                    </a>
-                                </li>
-                                @if(Auth::guard('admin')->user()->id_role == 1) <!-- Pengecekan untuk Super Admin -->
-                                    <li class="nav-item">
-                                        <a href="./createAdmin" class="nav-link active">
-                                            <i class="nav-icon bi bi-person-plus"></i>
-                                            <p>Create Admin</p>
-                                        </a>
-                                    </li>
-                                @endif
-                            </ul>
+
+        <aside class="app-sidebar bg-dark shadow">
+            <!-- Sidebar Logo -->
+            <div class="sidebar-logo-container">
+                <a class="logo-link d-flex flex-column align-items-center">
+                    <img src="{{ asset('form/images/bkpsdm.jpg') }}" alt="Logo BKPSDM" class="sidebar-logo">
+                    <span class="sidebar-title mt-2">Buku Tamu BKPSDM</span>
+                </a>
+            </div>
+
+            <!-- Sidebar Menu -->
+            <div class="sidebar-menu">
+                <nav>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a href="./dashboard" class="nav-link ">
+                                <i class="bi bi-journal nav-icon"></i> Buku Tamu
+                            </a>
                         </li>
-            </div> <!--end::Sidebar Wrapper-->
-        </aside> <!--end::Sidebar--> <!--begin::App Main-->
+                        @if(Auth::guard('admin')->user()->id_role == 1)
+                        <li class="nav-item">
+                            <a href="{{ route('createAdmin') }}" class="nav-link active">
+                                <i class="bi bi-person-plus nav-icon"></i> Create Admin
+                            </a>
+                        </li>
+                        @endif
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+        <!-- End: Sidebar -->
+
 
         <main class="app-main"> <!--begin::App Content Top Area-->
             <div class="app-content-top-area"> <!--begin::Container-->
@@ -98,12 +113,7 @@
                         <div class="col-md-8">
                         </div>
 
-                        <!-- Button to trigger modal -->
-                        <div class="col-md-6 text-end">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createAdminModal">
-                                Create Admin
-                            </button>
-                        </div>
+
 
                     <!-- Modal for creating admin -->
                     <div class="modal fade" id="createAdminModal" tabindex="-1" aria-labelledby="createAdminLabel" aria-hidden="true">
@@ -141,19 +151,27 @@
                             <button type="submit" class="btn btn-primary">Create Admin</button>
                             </div>
                             </form>
-
                             </div>
                         </div>
                     </div>
+
                 </div> <!--end::Container-->
             </div> <!--end::App Content Header--> <!--begin::App Content-->
 
 
             <div class="container">
                 <h2>Daftar Admin</h2>
+                <!-- Button to trigger modal -->
+                <div class="col-md-6 text-end">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createAdminModal">
+                        Create Admin
+                    </button>
+                </div>
+
                 <table id="dataTablesAdmin" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
+                            <th>No</th>
                             <th>ID Admin</th>
                             <th>Nama Admin</th>
                             <th>Username</th>
@@ -164,6 +182,7 @@
                     <tbody>
                         @foreach($dataAdmin as $admin)
                         <tr>
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $admin->id_admin }}</td>
                             <td>{{ $admin->nama_admin }}</td>
                             <td>{{ $admin->username_admin }}</td>
@@ -197,7 +216,6 @@
             </div>
 
 
-            <!-- Modal for editing admin -->
             <div class="modal fade" id="editAdminModal" tabindex="-1" aria-labelledby="editAdminLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -206,21 +224,25 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form id="editAdminForm" action="" method="POST">
+                            <form id="editAdminForm" method="POST">
                                 @csrf
                                 @method('PUT')
+
                                 <div class="mb-3">
                                     <label for="edit_nama_admin" class="form-label">Nama Admin</label>
                                     <input type="text" class="form-control" id="edit_nama_admin" name="nama_admin" required>
                                 </div>
+
                                 <div class="mb-3">
                                     <label for="edit_username_admin" class="form-label">Username Admin</label>
                                     <input type="text" class="form-control" id="edit_username_admin" name="username_admin" required>
                                 </div>
+
                                 <div class="mb-3">
-                                    <label for="edit_password_admin" class="form-label">Password Admin</label>
-                                    <input type="password" class="form-control" id="edit_password_admin" name="password_admin" required>
+                                    <label for="edit_password_admin" class="form-label">Password Admin (Kosongkan jika tidak diubah)</label>
+                                    <input type="password" class="form-control" id="edit_password_admin" name="password_admin" placeholder="Biarkan kosong jika tidak ingin mengubah">
                                 </div>
+
                                 <div class="mb-3">
                                     <label for="edit_id_role" class="form-label">Role</label>
                                     <select class="form-select" id="edit_id_role" name="id_role" required>
@@ -228,17 +250,18 @@
                                         <option value="2">Admin</option>
                                     </select>
                                 </div>
+
                             </form>
                         </div>
-                        <form action="{{ route('admin.store') }}" method="POST">
-                            <div class="modal-footer">
+                        <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary" form="editAdminForm">Update Admin</button>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
+
+
 
         </main> <!--end::App Main--> <!--begin::Footer-->
     </div> <!--end::App Wrapper--> <!--begin::Script--> <!--begin::Third Party Plugin(OverlayScrollbars)-->
@@ -280,32 +303,39 @@
     </script> <!--end::OverlayScrollbars Configure--> <!--end::Script-->
     <!-- HTML Content -->
 
+
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var editButtons = document.querySelectorAll('.btn-edit-admin');
+        document.addEventListener("DOMContentLoaded", function () {
+            const editButtons = document.querySelectorAll(".btn-edit-admin");
 
-            editButtons.forEach(function(button) {
-                button.addEventListener('click', function() {
-                    var id = button.getAttribute('data-id');
-                    var nama = button.getAttribute('data-nama');
-                    var username = button.getAttribute('data-username');
-                    var password = button.getAttribute('data-password');
-                    var role = button.getAttribute('data-role');
+            editButtons.forEach(button => {
+                button.addEventListener("click", function () {
+                    const id = this.getAttribute("data-id");
+                    const nama = this.getAttribute("data-nama");
+                    const username = this.getAttribute("data-username");
+                    const role = this.getAttribute("data-role");
 
-                    document.getElementById('edit_nama_admin').value = nama;
-                    document.getElementById('edit_username_admin').value = username;
-                    document.getElementById('edit_password_admin').value = password;
-                    document.getElementById('edit_id_role').value = role;
+                    // Isi nilai form dengan data admin
+                    document.getElementById("edit_nama_admin").value = nama;
+                    document.getElementById("edit_username_admin").value = username;
+                    document.getElementById("edit_id_role").value = role;
 
-                    var form = document.getElementById('editAdminForm');
-                    form.action = '/admin/' + id;
+                    // Kosongkan kolom password
+                    document.getElementById("edit_password_admin").value = "";
 
-                    var editModal = new bootstrap.Modal(document.getElementById('editAdminModal'));
+                    // Set form action untuk update admin berdasarkan ID
+                    const form = document.getElementById("editAdminForm");
+                    form.action = `/admin/${id}`;
+
+                    // Buka modal edit
+                    const editModal = new bootstrap.Modal(document.getElementById("editAdminModal"));
                     editModal.show();
                 });
             });
         });
     </script>
+
+
 </body><!--end::Body-->
 
 </html>

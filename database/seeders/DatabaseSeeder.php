@@ -37,6 +37,8 @@ class DatabaseSeeder extends Seeder
             LayanansSeeder::class,
             StatusesSeeder::class,
             PegawaisSeeder::class,
+            BukuTamusSeeder::class,
+            DashboardAdminsSeeder::class,
         ]);
 
     }

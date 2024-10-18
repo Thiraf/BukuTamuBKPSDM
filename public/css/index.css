@@ -1,0 +1,48 @@
+
+.captcha-img {
+    width: 300px;
+    height: 100px;
+}
+
+#refresh-captcha {
+    margin-top: 10px;
+}
+
+#captcha {
+    margin-top: 20px;
+}
+
+/* Pastikan captcha dan tombol sejajar */
+.input-group {
+    display: flex;
+    align-items: center;
+}
+
+/* Gambar captcha tetap pada ukurannya */
+.captcha-img {
+    width: 200px;
+    height: 50px;
+    object-fit: cover;
+}
+
+/* Styling tombol refresh agar sejajar dengan captcha */
+.refresh-btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    margin-left: 100px;
+    display:flow-root;
+    align-items: center;
+    justify-content: center;
+}
+
+.refresh-btn i {
+    color: #03989E;
+    transition: transform 0.2s, color 0.2s;
+}
+
+/* Animasi hover untuk tombol refresh */
+.refresh-btn:hover i {
+    color: #03989E;
+    transform: rotate(90deg);
+}

@@ -26,6 +26,9 @@
         <div class="card shadow-sm">
             <div class="card-body">
                 <h3 class="text-center mb-4">Isi Buku Tamu</h3>
+
+
+
                 <form action="/buku-tamu/simpan-pegawai" method="POST">
                     @csrf
                     <div class="form-group">

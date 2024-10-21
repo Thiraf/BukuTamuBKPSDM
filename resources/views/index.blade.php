@@ -117,7 +117,7 @@
     });
 </script>
 
-<!-- Accessibility Script -->
+{{-- <!-- Accessibility Script -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const currentHour = new Date().getHours();
@@ -126,7 +126,7 @@
             window.location.href = '/'; // Arahkan ke halaman lain atau tampilkan pesan
         }
     });
-</script>
+</script> --}}
 
 <!-- External Scripts -->
 <script src="{{asset('form/js/jquery.min.js')}}"></script>

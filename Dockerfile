@@ -1,33 +1,20 @@
-# Menggunakan image dasar PHP dengan FPM
-FROM php:8.1-fpm
+FROM php:8.2-fpm
 
-# Install dependencies sistem
+# Install dependencies
 RUN apt-get update && apt-get install -y \
     libpng-dev \
-    libjpeg62-turbo-dev \
+    libjpeg-dev \
     libfreetype6-dev \
+    libonig-dev \
+    libxml2-dev \
     zip \
-    unzip \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd pdo pdo_mysql
+    unzip
 
-# Install Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Install PDO MySQL
+RUN docker-php-ext-install pdo_mysql
 
-# Set direktori kerja di dalam container
-WORKDIR /var/www/html
+# Clear cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Copy seluruh file project ke container
-COPY . .
-
-# Jalankan composer install untuk menginstal dependencies Laravel
-RUN composer install
-
-# Set permission untuk direktori storage dan bootstrap/cache
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
-
-# Expose port 9000 untuk FPM
-EXPOSE 9000
-
-# Jalankan PHP-FPM sebagai proses utama
-CMD ["php-fpm"]
+# Set working directory
+WORKDIR /var/www

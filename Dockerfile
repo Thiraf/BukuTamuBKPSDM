@@ -1,6 +1,5 @@
 FROM php:8.2-fpm
 
-# Install dependencies
 RUN apt-get update && apt-get install -y \
     libpng-dev \
     libjpeg-dev \
@@ -10,11 +9,9 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip
 
-# Install PDO MySQL
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd
+
 RUN docker-php-ext-install pdo_mysql
 
-# Clear cache
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# Set working directory
 WORKDIR /var/www

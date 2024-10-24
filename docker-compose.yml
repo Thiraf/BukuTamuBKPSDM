@@ -44,7 +44,20 @@ services:
     volumes:
       - dbdata:/var/lib/mysql
     ports:
-      - "3306"
+      - "3307:3306"
+    networks:
+      - laravel
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: laravel_phpmyadmin
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: # Masukkan password root MySQL Anda jika ada
+    ports:
+      - "8081:80"
+    depends_on:
+      - db
     networks:
       - laravel
 

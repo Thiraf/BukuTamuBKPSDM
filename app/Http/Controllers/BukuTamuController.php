@@ -45,15 +45,11 @@ class BukuTamuController extends Controller
                 ->withInput(); // Simpan input sebelumnya
         }
 
-
         // Validasi input NIK
         $nik = $request->input('nik');
 
-
         // Cari data pegawai berdasarkan NIK
         $pegawai = Pegawai::where('nik', $nik)->first();
-
-        // return view('buku_tamu.form_pekerja_baru',compact('nik'));
 
         if ($pegawai) {
             // Simpan data ke session jika ditemukan
@@ -184,8 +180,6 @@ class BukuTamuController extends Controller
             ->with('success', 'Data berhasil diperbarui');
     }
 
-
-
     public function addToDashboard($id_buku_tamu)
     {
 
@@ -202,7 +196,6 @@ class BukuTamuController extends Controller
         // Ambil nilai default id_status dari tabel statuses
         $defaultStatus = Status::where('status_name', 'Pending')->first();
 
-        print_r($defaultStatus);
         if (!$defaultStatus) {
             Log::info("Ambil nilai default");
             return redirect()->back()->withErrors(['error' => 'Default status tidak ditemukan di tabel statuses']);
@@ -232,7 +225,9 @@ class BukuTamuController extends Controller
         DashboardAdmin::create($dataDashboard);
 
         $dataDashboard= DashboardAdmin::all();
-        return view('admin.dashboard', compact('dataDashboard'));
+        // return view('admin.dashboard', compact('dataDashboard'));
+        return redirect()->route('admin.dashboard')->with('success', 'Data berhasil ditambahkan');
+
 
     }
 

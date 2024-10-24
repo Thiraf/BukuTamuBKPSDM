@@ -17,8 +17,6 @@ use Mews\Captcha\Captcha;
 
 
 
-
-
 // Client Buku Tamu
 
 // Route untuk verifikasi NIK

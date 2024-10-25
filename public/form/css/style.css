@@ -1965,6 +1965,7 @@ textarea.form-control {
   align-items: center; }
   .form-inline .form-check {
     width: 100%; }
+
   @media (min-width: 576px) {
     .form-inline label {
       display: -webkit-box;

@@ -1,0 +1,16 @@
+@media (max-width: 576px) {
+    select {
+      font-size: 12px; /* Ukuran teks yang lebih kecil */
+      padding: 2px; /* Mengurangi padding agar tidak terlalu besar */
+      width: 100%; /* Memastikan dropdown mengambil 100% lebar container */
+      height: auto; /* Sesuaikan tinggi otomatis sesuai konten */
+    }
+
+    option {
+      font-size: 12px; /* Sesuaikan ukuran font di dalam pilihan dropdown */
+    }
+
+    .form-control {
+      max-width: 100%; /* Pastikan form tidak melebar terlalu jauh */
+    }
+  }

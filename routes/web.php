@@ -26,22 +26,27 @@ Route::post('/buku-tamu/cek-nik', [BukuTamuController::class, 'cekNik']);
 // Gunakan middleware CheckNIK untuk semua route di group ini
 Route::middleware([CheckNIK::class])->group(function () {
 
-    // Route untuk halaman data pekerja jika NIK ditemukan
-    Route::get('/data-pekerja', [BukuTamuController::class, 'showDataPekerja'])
-        ->name('buku_tamu.data_pekerja');
+// Route untuk halaman data pekerja jika NIK ditemukan
+Route::get('/data-pekerja', [BukuTamuController::class, 'showDataPekerja'])
+->name('buku_tamu.data_pekerja');
 
-    // Route untuk halaman form pekerja baru jika NIK tidak ditemukan
-    Route::get('/form-pekerja-baru', [BukuTamuController::class, 'formPekerjaBaru'])
-        ->name('buku_tamu.form_pekerja_baru');
+// Route untuk halaman form pekerja baru jika NIK tidak ditemukan
+Route::get('/form-pekerja-baru', [BukuTamuController::class, 'formPekerjaBaru'])
+->name('buku_tamu.form_pekerja_baru');
 
-    // Route untuk menyimpan data pegawai dari form buku tamu
-    Route::post('/buku-tamu/simpan-pegawai', [BukuTamuController::class, 'simpanPegawai'])
-        ->name('buku_tamu.simpan_pegawai');
+// Route untuk menyimpan data pegawai dari form buku tamu
+Route::post('/buku-tamu/simpan-pegawai', [BukuTamuController::class, 'simpanPegawai'])
+->name('buku_tamu.simpan_pegawai');
 
-    // Mengarahkan ke halaman tujuan Informasi
-    Route::get('/tujuan-informasi/{id}', [BukuTamuController::class, 'tujuanInformasi'])
-        ->name('tujuan_informasi');
+// Mengarahkan ke halaman tujuan Informasi
+Route::get('/tujuan-informasi/{id}', [BukuTamuController::class, 'tujuanInformasi'])
+->name('tujuan_informasi');
+
 });
+
+
+
+
 
 
 Route::post('/buku-tamu/update-pegawai', [BukuTamuController::class, 'updatePegawai'])->name('update_pegawai');

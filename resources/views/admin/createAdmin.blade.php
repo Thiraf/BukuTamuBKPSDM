@@ -60,7 +60,6 @@
                                 </p>
                             </li>
                             <li class="user-footer">
-                                <a href="#" class="btn btn-default btn-flat">Profile</a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-default btn-flat float-end">Sign out</button>
@@ -188,27 +187,43 @@
                             <td>{{ $admin->username_admin }}</td>
                             <td>{{ $admin->role->nama_role }}</td>
                             <td>
-                                <!-- Button untuk Edit -->
-                                {{-- <a href="{{ route('admin.edit', $admin->id_admin) }}" class="btn btn-primary">Edit</a> --}}
+                                @if(Auth::guard('admin')->user()->id_admin == 1)
+                                    <!-- Super Admin dengan ID 1 bisa mengedit semua admin -->
+                                    <button
+                                        type="button"
+                                        class="btn btn-primary btn-edit-admin"
+                                        data-id="{{ $admin->id_admin }}"
+                                        data-nama="{{ $admin->nama_admin }}"
+                                        data-username="{{ $admin->username_admin }}"
+                                        data-password="{{ $admin->password_admin }}"
+                                        data-role="{{ $admin->id_role }}">
+                                        Edit
+                                    </button>
+                                @elseif(Auth::guard('admin')->user()->id_admin != 1 && $admin->id_admin != 1)
+                                    <!-- Super Admin lainnya dapat mengedit admin lain kecuali Super Admin ID 1 -->
+                                    <button
+                                        type="button"
+                                        class="btn btn-primary btn-edit-admin"
+                                        data-id="{{ $admin->id_admin }}"
+                                        data-nama="{{ $admin->nama_admin }}"
+                                        data-username="{{ $admin->username_admin }}"
+                                        data-password="{{ $admin->password_admin }}"
+                                        data-role="{{ $admin->id_role }}">
+                                        Edit
+                                    </button>
+                                @endif
 
-                                <button
-                                    type="button"
-                                    class="btn btn-primary btn-edit-admin"
-                                    data-id="{{ $admin->id_admin }}"
-                                    data-nama="{{ $admin->nama_admin }}"
-                                    data-username="{{ $admin->username_admin }}"
-                                    data-password="{{ $admin->password_admin }}"
-                                    data-role="{{ $admin->id_role }}">
-                                    Edit
-                                </button>
-
-                                <!-- Form untuk Delete -->
+                                <!-- Tombol delete, hanya muncul jika bukan Super Admin ID 1 -->
+                                @if($admin->id_admin != 1)
                                 <form action="{{ route('admin.destroy', $admin->id_admin) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah kamu yakin ingin menghapus admin ini?')">Delete</button>
                                 </form>
+                                @endif
                             </td>
+
+
                         </tr>
                         @endforeach
                     </tbody>

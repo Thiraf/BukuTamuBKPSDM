@@ -36,6 +36,8 @@ class BukuTamuController extends Controller
         $validator = Validator::make($request->all(), [
             'nik' => 'required',
             'captcha' => 'required|captcha', // Validasi CAPTCHA
+        ], [
+            'captcha.captcha' => 'Captcha salah, silahkan coba lagi.', // Pesan error khusus untuk captcha
         ]);
 
         // Jika validasi gagal, kembalikan ke halaman sebelumnya dengan pesan error
@@ -177,7 +179,7 @@ class BukuTamuController extends Controller
 
         // Redirect dengan pesan sukses
         return redirect()->route('index')
-            ->with('success', 'Data berhasil diperbarui');
+            ->with('success', 'Data berhasil disimpan');
     }
 
     public function addToDashboard($id_buku_tamu)

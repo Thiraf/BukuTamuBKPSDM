@@ -8,7 +8,7 @@
     <!-- Fonts and Stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{{asset('/form/css/style.css')}}">
+    {{-- <link rel="stylesheet" href="{{asset('/form/css/style.css')}}"> --}}
     <link rel="stylesheet" href="{{asset('css/index.css')}}">
 </head>
 <body>
@@ -19,7 +19,6 @@
     <div class="toast show" id="successToast" data-delay="5000" style="min-width: 300px; padding: 20px; background-color: #28a745; color: white; font-size: 1.2rem; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); border-radius: 10px;">
         <div class="toast-header" style="background-color: transparent; border-bottom: none; color: white;">
             <i class="fa fa-check-circle" style="font-size: 1.5rem; margin-right: 10px;"></i>
-            <strong class="mr-auto">Sukses</strong>
             <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close" style="color: white;">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -65,7 +64,7 @@
 
                     <!-- Form Section -->
                     <div class="login-wrap p-4 p-md-5">
-                        <h3 class="mb-4">Sign In</h3>
+                        <h3 class="mb-4"></h3>
                         <form action="/buku-tamu/cek-nik" method="POST" class="signin-form">
                             @csrf
                             <div class="form-group mb-3">
@@ -102,18 +101,29 @@
 
 
 <!-- Toast Display Script -->
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        @if ($errors->any())
-            $('#errorToast').toast('show');
-        @endif
-    });
-</script>
-
 <!-- Toast Display Script -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        $('#successToast').toast('show');
+        // Inisialisasi Toast untuk Error
+        @if ($errors->any())
+            $('#errorToast').toast({
+                autohide: true,   // Aktifkan auto-hide
+                delay: 5000       // Waktu tampil (5 detik)
+            }).toast('show');
+        @endif
+
+        // Inisialisasi Toast untuk Success
+        @if (session('success'))
+            $('#successToast').toast({
+                autohide: true,   // Aktifkan auto-hide
+                delay: 5000       // Waktu tampil (5 detik)
+            }).toast('show');
+        @endif
+
+        // Tutup toast secara manual jika tombol "x" ditekan
+        $('.toast .close').on('click', function () {
+            $(this).closest('.toast').toast('hide');
+        });
     });
 </script>
 
@@ -149,7 +159,9 @@ document.addEventListener('DOMContentLoaded', function () {
         $('#successToast').toast('show');
     @endif
 });
+
 </script>
+
 
 </body>
 </html>

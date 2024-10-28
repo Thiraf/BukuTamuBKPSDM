@@ -1,61 +1,62 @@
-Buku Tamu BKPSDM
-Buku Tamu BKPSDM adalah aplikasi berbasis web yang dirancang untuk membantu dalam pengelolaan kebutuhan administrasi karyawan di lingkungan Pemerintah Kabupaten Bantul. Aplikasi ini mempermudah pencatatan dan pengelolaan data tamu serta berbagai keperluan administrasi lainnya.
+# Buku Tamu BKPSDM
 
-Fitur Utama
-Pencatatan Data Tamu
-Memungkinkan pengguna untuk mencatat informasi tamu dengan mudah dan sistematis.
+Buku Tamu BKPSDM adalah sebuah aplikasi berbasis web yang dikembangkan untuk mempermudah manajemen kebutuhan karyawan di lingkungan Pemerintah Kabupaten Bantul. Aplikasi ini memungkinkan pengguna untuk mengisi buku tamu secara digital dan membantu admin dalam mengelola data tamu yang berkunjung.
 
-Validasi NIK
-Menggunakan NIK sebagai identifikasi, dengan validasi otomatis yang memastikan data tamu sesuai dengan database pegawai.
+## Fitur
 
-Dashboard Admin
-Menyediakan dashboard untuk admin dengan fitur manajemen data, termasuk pengaturan status data dan notifikasi untuk setiap perubahan.
+### Untuk Pengguna
+1. **Pengisian Data Tamu:**
+   - Pengguna dapat memasukkan NIK dan mengisi Captcha.
+   - Jika NIK pengguna belum terdaftar, form akan kosong. Jika sudah terdaftar, form akan terisi otomatis.
+   - Setelah mengisi tujuan informasi, pengguna dapat menyimpan data, dan aplikasi akan menampilkan notifikasi bahwa data telah berhasil disimpan.
 
-Manajemen Akun Admin
-Fitur untuk menambah, mengedit, dan menghapus akun admin dengan akses yang disesuaikan.
+### Untuk Admin
+1. **Login Admin:**
+   - Admin dapat mengakses halaman login dengan menambahkan `/login` pada URL aplikasi.
+   - Login menggunakan username, password, dan Captcha.
 
-Keamanan Login
-Menggunakan sistem captcha dan autentikasi untuk memastikan keamanan akses ke dashboard admin.
+2. **Dashboard Admin:**
+   - Setelah login, admin akan diarahkan ke dashboard yang menampilkan data tamu.
+   - Admin dapat mengubah status data tamu melalui dropdown dan menyimpan perubahan tersebut.
 
-Cara Penggunaan
-A. Sebagai Pengguna
-Buka aplikasi Buku Tamu BKPSDM melalui browser.
-Masukkan NIK dan sesuaikan Captcha yang ditampilkan.
-Jika NIK terdaftar, data pengguna akan otomatis terisi; jika tidak, pengguna dapat mengisi form manual.
-Pilih Tujuan Informasi sesuai kebutuhan, lalu klik Simpan.
-Setelah data tersimpan, pengguna akan diarahkan kembali ke halaman awal dengan notifikasi bahwa data berhasil disimpan.
+3. **Manajemen Admin:**
+   - Admin dengan peran super admin dapat menambahkan admin baru melalui fitur **Create Admin**.
+   - Fitur edit admin memungkinkan perubahan data admin yang sudah ada.
+   - Super admin juga memiliki kemampuan untuk menghapus admin selain dirinya.
 
-B. Sebagai Admin
-Masuk ke dashboard admin dengan mengakses /login pada URL aplikasi.
-Masukkan username, password, dan Captcha untuk masuk.
-Setelah login, admin akan diarahkan ke halaman dashboard yang memuat data dan fitur manajemen aplikasi.
-Admin dapat mengubah status data, menambah atau mengedit akun admin, dan melihat notifikasi perubahan data.
+4. **Logout Admin:**
+   - Admin dapat keluar dari aplikasi dengan menekan logo personal di pojok kanan atas dan memilih **Sign Out**.
 
-C. Mengelola Akun Admin
-Untuk menambah akun admin baru, pilih menu Create Admin, isi data yang diperlukan, dan klik Create Admin.
-Untuk mengedit akun admin, pilih akun yang ingin diubah, lakukan perubahan yang diperlukan, dan klik Update Admin.
-Admin dapat logout dengan mengklik ikon profil di pojok kanan atas dan memilih Sign Out.
-Teknologi yang Digunakan
-Frontend: HTML, CSS, JavaScript (Bootstrap)
-Backend: PHP (Laravel Framework)
-Database: MySQL
-Instalasi
-Clone repository ini ke dalam direktori lokal:
-bash
-Copy code
+## Panduan Penggunaan
 
-git clone https://github.com/username/buku-tamu-bkpsdm.git
-Masuk ke direktori project dan instal dependensi:
-bash
-Copy code
-cd buku-tamu-bkpsdm
-composer install
-Konfigurasi file .env untuk koneksi database dan pengaturan lainnya.
-Jalankan migrasi database:
-bash
-Copy code
-php artisan migrate
-Jalankan server lokal:
-bash
-Copy code
-php artisan serve
+### Pengguna
+1. Buka halaman Buku Tamu BKPSDM.
+2. Masukkan NIK dan lengkapi Captcha.
+3. Klik **Next** untuk melanjutkan.
+   - Jika NIK belum terdaftar, form akan kosong.
+   - Jika NIK sudah terdaftar, form akan terisi otomatis.
+4. Isi tujuan informasi sesuai kebutuhan, lalu klik **Simpan**. Sistem akan menampilkan notifikasi bahwa data berhasil disimpan.
+
+### Admin
+1. Buka halaman login admin dengan menambahkan `/login` pada URL.
+2. Masukkan username, password, dan Captcha, lalu klik **Sign In**.
+3. Setelah login, akan diarahkan ke dashboard untuk melihat data tamu.
+4. Untuk mengubah status data tamu, klik bagian status pada data yang diinginkan, pilih status baru pada dropdown, lalu klik **Simpan**.
+5. Untuk menambahkan admin baru, klik **Create Admin**, lalu isi form yang muncul dan klik **Create Admin** untuk menyimpan.
+6. Untuk mengedit admin, pilih admin yang ingin diubah, klik **Edit**, ubah data, dan klik **Update Admin**.
+7. Untuk logout, klik logo personal di pojok kanan atas dan pilih **Sign Out**.
+
+## Teknologi yang Digunakan
+- **Frontend:** HTML, CSS, JavaScript, Bootstrap
+- **Backend:** Laravel (PHP)
+- **Database:** MySQL
+
+## Kontribusi
+Jika Anda ingin berkontribusi pada proyek ini, silakan fork repository ini dan ajukan pull request dengan perubahan yang diusulkan.
+
+## Lisensi
+Aplikasi ini dibuat untuk keperluan internal Pemerintah Kabupaten Bantul dan tidak untuk didistribusikan ke pihak ketiga tanpa izin.
+
+---
+
+Selamat menggunakan Buku Tamu BKPSDM! Jika ada pertanyaan atau masukan, silakan hubungi tim pengembang.

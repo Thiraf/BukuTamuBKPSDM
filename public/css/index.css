@@ -1,6 +1,6 @@
 h2 {
     text-align:center; /* Mengatur agar teks berada di tengah */
-    font-size: 28px; /* Menyesuaikan ukuran font */
+    font-size: 40px; /* Menyesuaikan ukuran font */
     font-weight: bold; /* Menebalkan teks */
     margin-bottom: 20px; /* Memberikan jarak antara judul dan elemen di bawahnya */
 }
@@ -63,8 +63,6 @@ body {
     justify-content: center;
     align-items: flex-start;
 }
-
-
 
 
 /* Pengaturan grup elemen dalam form */
@@ -238,6 +236,12 @@ input[type="text"]::placeholder {
 /* Desain responsif */
 @media (max-width: 985px) {
 
+    h2 {
+        text-align:center; /* Mengatur agar teks berada di tengah */
+        font-size: 30px; /* Menyesuaikan ukuran font */
+        font-weight: bold; /* Menebalkan teks */
+        margin-bottom: 20px; /* Memberikan jarak antara judul dan elemen di bawahnya */
+    }
 
     .ftco-section {
         padding: 0em ; /* Menambahkan padding atas dan bawah sebesar 4em */

@@ -25,7 +25,7 @@
     <div class="container" style="max-width: 600px;">
         <div class="card shadow-sm">
             <div class="card-body">
-                <h3 class="text-center mb-4">Isi Buku Tamu</h3>
+                <h3 class="text-center mb-4">Form Buku Tamu</h3>
 
 
 

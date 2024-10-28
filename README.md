@@ -1,62 +1,70 @@
 # Buku Tamu BKPSDM
 
-Buku Tamu BKPSDM adalah sebuah aplikasi berbasis web yang dikembangkan untuk mempermudah manajemen kebutuhan karyawan di lingkungan Pemerintah Kabupaten Bantul. Aplikasi ini memungkinkan pengguna untuk mengisi buku tamu secara digital dan membantu admin dalam mengelola data tamu yang berkunjung.
+Buku Tamu BKPSDM adalah aplikasi berbasis web yang dirancang untuk membantu dalam pengelolaan kebutuhan administrasi karyawan di lingkungan Pemerintah Kabupaten Bantul. Aplikasi ini mempermudah pencatatan dan pengelolaan data tamu serta berbagai keperluan administrasi lainnya.
 
-## Fitur
+## Fitur Utama
 
-### Untuk Pengguna
-1. **Pengisian Data Tamu:**
-   - Pengguna dapat memasukkan NIK dan mengisi Captcha.
-   - Jika NIK pengguna belum terdaftar, form akan kosong. Jika sudah terdaftar, form akan terisi otomatis.
-   - Setelah mengisi tujuan informasi, pengguna dapat menyimpan data, dan aplikasi akan menampilkan notifikasi bahwa data telah berhasil disimpan.
+- **Pencatatan Data Tamu**: Memungkinkan pengguna untuk mencatat data tamu secara efektif dan efisien.
+- **Pengelolaan Informasi**: Admin dapat mengakses dan mengelola informasi tamu yang sudah masuk.
+- **Sistem Login Admin**: Admin memiliki akses khusus dengan sistem login untuk mengelola aplikasi.
+- **Status Kehadiran**: Fitur untuk mengubah status kehadiran atau kebutuhan administrasi lainnya.
+- **Pengaturan Admin**: Admin superuser dapat menambah dan mengedit informasi admin lainnya.
 
-### Untuk Admin
-1. **Login Admin:**
-   - Admin dapat mengakses halaman login dengan menambahkan `/login` pada URL aplikasi.
-   - Login menggunakan username, password, dan Captcha.
+## Cara Penggunaan
 
-2. **Dashboard Admin:**
-   - Setelah login, admin akan diarahkan ke dashboard yang menampilkan data tamu.
-   - Admin dapat mengubah status data tamu melalui dropdown dan menyimpan perubahan tersebut.
+### A. Penggunaan dari Perspektif Pengguna Umum
 
-3. **Manajemen Admin:**
-   - Admin dengan peran super admin dapat menambahkan admin baru melalui fitur **Create Admin**.
-   - Fitur edit admin memungkinkan perubahan data admin yang sudah ada.
-   - Super admin juga memiliki kemampuan untuk menghapus admin selain dirinya.
+1. **Mengakses Website Buku Tamu**  
+   Buka aplikasi Buku Tamu BKPSDM melalui browser Anda.
 
-4. **Logout Admin:**
-   - Admin dapat keluar dari aplikasi dengan menekan logo personal di pojok kanan atas dan memilih **Sign Out**.
+2. **Mengisi Data Pengguna**  
+   Masukkan **NIK** Anda dan lengkapi Captcha. Jika Captcha yang dimasukkan tidak sesuai, akan muncul notifikasi error.
 
-## Panduan Penggunaan
+3. **Validasi NIK**  
+   Klik tombol **Next**:
+   - Jika **NIK tidak terdaftar**, form akan kosong.
+   - Jika **NIK terdaftar**, data akan terisi otomatis sesuai informasi yang sudah ada di sistem.
 
-### Pengguna
-1. Buka halaman Buku Tamu BKPSDM.
-2. Masukkan NIK dan lengkapi Captcha.
-3. Klik **Next** untuk melanjutkan.
-   - Jika NIK belum terdaftar, form akan kosong.
-   - Jika NIK sudah terdaftar, form akan terisi otomatis.
-4. Isi tujuan informasi sesuai kebutuhan, lalu klik **Simpan**. Sistem akan menampilkan notifikasi bahwa data berhasil disimpan.
+4. **Mengisi Tujuan Informasi**  
+   Setelah validasi, masukkan tujuan informasi yang diperlukan, kemudian klik **Simpan**. Anda akan diarahkan kembali ke halaman awal dengan notifikasi bahwa data berhasil disimpan.
 
-### Admin
-1. Buka halaman login admin dengan menambahkan `/login` pada URL.
-2. Masukkan username, password, dan Captcha, lalu klik **Sign In**.
-3. Setelah login, akan diarahkan ke dashboard untuk melihat data tamu.
-4. Untuk mengubah status data tamu, klik bagian status pada data yang diinginkan, pilih status baru pada dropdown, lalu klik **Simpan**.
-5. Untuk menambahkan admin baru, klik **Create Admin**, lalu isi form yang muncul dan klik **Create Admin** untuk menyimpan.
-6. Untuk mengedit admin, pilih admin yang ingin diubah, klik **Edit**, ubah data, dan klik **Update Admin**.
-7. Untuk logout, klik logo personal di pojok kanan atas dan pilih **Sign Out**.
+### B. Akses ke Dashboard Admin
 
-## Teknologi yang Digunakan
-- **Frontend:** HTML, CSS, JavaScript, Bootstrap
-- **Backend:** Laravel (PHP)
-- **Database:** MySQL
+1. **Login Admin**  
+   Untuk masuk sebagai admin, tambahkan `/login` pada URL, lalu masukkan **username**, **password**, dan **Captcha** untuk masuk.
 
-## Kontribusi
-Jika Anda ingin berkontribusi pada proyek ini, silakan fork repository ini dan ajukan pull request dengan perubahan yang diusulkan.
+2. **Dashboard Admin**  
+   Setelah login, Anda akan diarahkan ke halaman dashboard yang memuat data tamu dan fungsi administrasi.
 
-## Lisensi
-Aplikasi ini dibuat untuk keperluan internal Pemerintah Kabupaten Bantul dan tidak untuk didistribusikan ke pihak ketiga tanpa izin.
+### C. Mengubah Status pada Dashboard
+
+1. **Memilih Status**  
+   Pilih data tamu yang ingin diubah statusnya, lalu klik pada bagian **Status**.
+
+2. **Mengubah Status**  
+   Akan muncul jendela dengan dropdown untuk memilih status baru. Pilih status yang diinginkan, kemudian klik **Simpan**.
+
+### D. Menambah Admin Baru
+
+1. **Akses Menu Create Admin**  
+   Pilih menu **Create Admin** dari dashboard.
+
+2. **Mengisi Formulir Admin Baru**  
+   Isi form untuk menambahkan admin baru, lalu klik **Create Admin**. Admin baru akan segera tersedia dalam sistem.
+
+### E. Mengedit Admin yang Sudah Ada
+
+1. **Memilih Admin yang Ingin Diedit**  
+   Pilih admin yang ingin diubah datanya, lalu klik tombol **Edit**.
+
+2. **Memperbarui Data Admin**  
+   Ubah data yang diperlukan dan klik **Update Admin** untuk menyimpan perubahan.
+
+### F. Logout Admin
+
+1. **Logout**  
+   Untuk keluar dari aplikasi, klik ikon profil di pojok kanan atas, lalu pilih **Sign Out**.
 
 ---
 
-Selamat menggunakan Buku Tamu BKPSDM! Jika ada pertanyaan atau masukan, silakan hubungi tim pengembang.
+Aplikasi ini dikembangkan untuk mempermudah proses administrasi dan pencatatan data tamu di lingkungan BKPSDM, membantu memastikan kelancaran operasional dan keteraturan administrasi di Pemerintah Kabupaten Bantul.

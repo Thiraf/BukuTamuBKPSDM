@@ -11,8 +11,8 @@ Buku Tamu BKPSDM adalah aplikasi berbasis web yang dirancang untuk membantu dala
 - **Pengaturan Admin**: Admin superuser dapat menambah dan mengedit informasi admin lainnya.
 
 ## 💻 Teknologi yang Digunakan
-- **Frontend**:HTML,CSS,Javascript,AdminLTE
-- **Backend**:PHP(Laravel 11)
+- **Frontend**:HTML, CSS, Javascript, AdminLTE
+- **Backend**:PHP (Laravel 11)
 - **Database**:MySQL
 - **Package**:
     - **Axios**
@@ -31,7 +31,7 @@ Sebelum memulai, pastikan telah terinstall:
 
 ## 🔧 Instalasi & Penggunaan
 
-1. **Mengakses Website Buku Tamu**  
+1. **Clone Repository**  
    ```
     git clone https://github.com/Thiraf/BukuTamuBKPSDM.git
     cd BukuTamuBKPSDM

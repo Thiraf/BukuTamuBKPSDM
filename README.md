@@ -2,7 +2,7 @@
 
 **Buku Tamu BKPSDM** adalah aplikasi berbasis web yang dikembangkan untuk mempermudah manajemen kebutuhan karyawan di lingkungan Pemerintah Kabupaten Bantul. Aplikasi ini memungkinkan pengguna untuk mengisi buku tamu secara digital dan membantu admin dalam mengelola data tamu yang berkunjung.
 
-## Fitur
+🚀## Fitur
 
 ### Untuk Pengguna
 1. **Pengisian Data Tamu**:
@@ -58,5 +58,5 @@ Untuk menginstal dan menjalankan aplikasi ini di lingkungan lokal, ikuti langkah
 ### 1. Clone Repository
 Clone repository ini ke komputer lokal Anda:
 ```bash
-git clone https://github.com/username/repository-name.git
+git clone https://github.com/Thiraf/BukuTamuBKPSDM.git
 cd repository-name

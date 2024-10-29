@@ -15,11 +15,11 @@ Buku Tamu BKPSDM adalah aplikasi berbasis web yang dirancang untuk membantu dala
 - **Backend**:PHP(Laravel 11)
 - **Database**:MySQL
 - **Package**:
--Axios
--Bootstrap
--Laravel
--Popper.js
--Vite
+    -**Axios**
+    -**Bootstrap**
+    -**Laravel**
+    -**Popper.js**
+    -**Vite**
 
 ## 📋 Prasyarat
 Sebelum memulai, pastikan telah terinstall:
@@ -74,6 +74,7 @@ Sebelum memulai, pastikan telah terinstall:
     ```
     sudo apt install docker-ce docker-ce-cli containerd.io
     ```
+
 2. **Menjalankan Docker Compose**
     ```
     docker-compose up -d
@@ -109,3 +110,7 @@ Sebelum memulai, pastikan telah terinstall:
     - Hanya role Super Admin saja yang bisa mengakses fitur Create Admin
     - Hanya ID Admin 1 saja yang dapat mengedit dirinya sendiri
     - ID Admin 1 tidak bisa dihapus
+
+
+
+

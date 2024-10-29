@@ -1,62 +1,111 @@
 # Buku Tamu BKPSDM
 
-**Buku Tamu BKPSDM** adalah aplikasi berbasis web yang dikembangkan untuk mempermudah manajemen kebutuhan karyawan di lingkungan Pemerintah Kabupaten Bantul. Aplikasi ini memungkinkan pengguna untuk mengisi buku tamu secara digital dan membantu admin dalam mengelola data tamu yang berkunjung.
+Buku Tamu BKPSDM adalah aplikasi berbasis web yang dirancang untuk membantu dalam pengelolaan kebutuhan administrasi karyawan di lingkungan Pemerintah Kabupaten Bantul. Aplikasi ini mempermudah pencatatan dan pengelolaan data tamu serta berbagai keperluan administrasi lainnya.
 
-🚀## Fitur
+## 🚀 Fitur Utama 
 
-### Untuk Pengguna
-1. **Pengisian Data Tamu**:
-   - Pengguna dapat memasukkan NIK dan mengisi Captcha.
-   - Jika NIK pengguna belum terdaftar, form akan kosong. Jika sudah terdaftar, form akan terisi otomatis.
-   - Setelah mengisi tujuan kunjungan, pengguna dapat menyimpan data, dan aplikasi akan menampilkan notifikasi bahwa data telah berhasil disimpan.
+- **Pencatatan Data Tamu**: Memungkinkan pengguna untuk mencatat data tamu secara efektif dan efisien.
+- **Pengelolaan Informasi**: Admin dapat mengakses dan mengelola informasi tamu yang sudah masuk.
+- **Sistem Login Admin**: Admin memiliki akses khusus dengan sistem login untuk mengelola aplikasi.
+- **Status Kehadiran**: Fitur untuk mengubah status kehadiran atau kebutuhan administrasi lainnya.
+- **Pengaturan Admin**: Admin superuser dapat menambah dan mengedit informasi admin lainnya.
 
-### Untuk Admin
-1. **Login Admin**:
-   - Admin dapat mengakses halaman login dengan menambahkan `/login` pada URL aplikasi.
-   - Login menggunakan username, password, dan Captcha.
+## 💻 Teknologi yang Digunakan
+- **Frontend**:HTML,CSS,Javascript,AdminLTE
+- **Backend**:PHP(Laravel 11)
+- **Database**:MySQL
+- **Package**:
+-Axios
+-Bootstrap
+-Laravel
+-Popper.js
+-Vite
 
-2. **Dashboard Admin**:
-   - Setelah login, admin akan diarahkan ke dashboard yang menampilkan data tamu.
-   - Admin dapat mengubah status data tamu melalui dropdown dan menyimpan perubahan tersebut.
+## 📋 Prasyarat
+Sebelum memulai, pastikan telah terinstall:
+- **PHP >= 8.1**
+- **Composer**
+- **MySQL**
+- **Git**
+- **Docker**
 
-3. **Manajemen Admin**:
-   - Admin dengan peran super admin dapat menambahkan admin baru melalui fitur **Create Admin**.
-   - Fitur edit admin memungkinkan perubahan data admin yang sudah ada.
-   - Super admin juga memiliki kemampuan untuk menghapus admin selain dirinya.
+## 🔧 Instalasi & Penggunaan
 
-4. **Logout Admin**:
-   - Admin dapat keluar dari aplikasi dengan menekan logo personal di pojok kanan atas dan memilih **Sign Out**.
+1. **Mengakses Website Buku Tamu**  
+   ```
+    git clone https://github.com/Thiraf/BukuTamuBKPSDM.git
+    cd BukuTamuBKPSDM
+    ```
 
-## Panduan Penggunaan
+2. **Install dependencies**  
+   ```
+   composer install
+   ```
 
-### Pengguna
-1. Buka halaman Buku Tamu BKPSDM.
-2. Masukkan NIK dan lengkapi Captcha.
-3. Klik **Next** untuk melanjutkan.
-   - Jika NIK belum terdaftar, form akan kosong.
-   - Jika NIK sudah terdaftar, form akan terisi otomatis.
-4. Isi tujuan kunjungan sesuai kebutuhan, lalu klik **Simpan**. Sistem akan menampilkan notifikasi bahwa data berhasil disimpan.
+3. **Setup environment**  
+    ```
+    cp .env.example .env
+    php artisan key:generate
+    ```
 
-### Admin
-1. Buka halaman login admin dengan menambahkan `/login` pada URL.
-2. Masukkan username, password, dan Captcha, lalu klik **Sign In**.
-3. Setelah login, akan diarahkan ke dashboard untuk melihat data tamu.
-4. Untuk mengubah status data tamu, klik bagian status pada data yang diinginkan, pilih status baru pada dropdown, lalu klik **Simpan**.
-5. Untuk menambahkan admin baru, klik **Create Admin**, lalu isi form yang muncul dan klik **Create Admin** untuk menyimpan.
-6. Untuk mengedit admin, pilih admin yang ingin diubah, klik **Edit**, ubah data, dan klik **Update Admin**.
-7. Untuk logout, klik logo personal di pojok kanan atas dan pilih **Sign Out**.
+4. **Konfigurasi database di file .env**  
+   ```
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=bkpsdm
+    DB_USERNAME=root
+    DB_PASSWORD=
+    ```
+5. **Jalankan migration dan seeder**
+    ```
+    php artisan migrate
+    php artisan db:seed
+    ```
 
-## Teknologi yang Digunakan
-- **Frontend:** HTML, CSS, JavaScript, Bootstrap
-- **Backend:** Laravel (PHP)
-- **Database:** MySQL
+6. **Jalankan Server**
+    ```
+    php artisan serve
+    ```
+    
+## 🛜 Setup Docker
 
-## Terminal
+1. **Pastikan sudah menginstall docker compose**
+    ```
+    sudo apt install docker-ce docker-ce-cli containerd.io
+    ```
+2. **Menjalankan Docker Compose**
+    ```
+    docker-compose up -d
+    ```
+3. **Verifikasi Layanan**
+    ```
+    docker-compose ps
+    ```
+    
 
-Untuk menginstal dan menjalankan aplikasi ini di lingkungan lokal, ikuti langkah-langkah berikut:
+## 🔍 Fitur Detail 
 
-### 1. Clone Repository
-Clone repository ini ke komputer lokal Anda:
-```bash
-git clone https://github.com/Thiraf/BukuTamuBKPSDM.git
-cd repository-name
+1. **Update Status**
+    - Mengubah Status data pengisi buku tamu
+    - Menampilkan perubahan pada detail updatenya
+    
+2. **Filter Data**
+    -  Menyaring data menurut parameter tanggal,bulan,tahun,jam, dan status
+    
+3. **Search data**
+    - Mencari data berdasarkan semua parameter
+
+4. **Create Admin**
+    - Membuat admin ada 2 tipe role : Admin dan Superadmin
+    - Menghapus data admin
+    - Mengedit data admin 
+
+## 🔐 Validasi & Batasan 
+1. **Captcha**
+    - Input pola captcha harus sesuai dengan yang ditampilkan untuk mengakses aplikasi
+
+2. **Admin**
+    - Hanya role Super Admin saja yang bisa mengakses fitur Create Admin
+    - Hanya ID Admin 1 saja yang dapat mengedit dirinya sendiri
+    - ID Admin 1 tidak bisa dihapus

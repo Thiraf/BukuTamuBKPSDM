@@ -15,11 +15,11 @@ Buku Tamu BKPSDM adalah aplikasi berbasis web yang dirancang untuk membantu dala
 - **Backend**:PHP(Laravel 11)
 - **Database**:MySQL
 - **Package**:
-    -**Axios**
-    -**Bootstrap**
-    -**Laravel**
-    -**Popper.js**
-    -**Vite**
+    - **Axios**
+    - **Bootstrap**
+    - **Laravel**
+    - **Popper.js**
+    - **Vite**
 
 ## 📋 Prasyarat
 Sebelum memulai, pastikan telah terinstall:

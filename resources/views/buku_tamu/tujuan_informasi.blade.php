@@ -33,7 +33,7 @@
         <div class="container" style="max-width: 600px;">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <h2 class="text-center">Tujuan Informasi</h2>
+                    <h1 class="text-center">Tujuan Informasi</h1>
                     <!-- Form untuk update data buku tamu -->
                     <form action="{{ route('buku-tamu.update', $bukuTamu->id_buku_tamu) }}" method="POST">
                         @csrf
@@ -64,7 +64,7 @@
 
                         <!-- Tombol untuk submit form -->
                         <div class="text-center mt-4">
-                            <button type="submit" class="btn btn-primary" data-bs-dismiss="alert" aria-label="Close">Simpan</button>
+                            <button type="submit" class="btn" data-bs-dismiss="alert" aria-label="Close">Simpan</button>
                         </div>
                     </form>
                 </div>

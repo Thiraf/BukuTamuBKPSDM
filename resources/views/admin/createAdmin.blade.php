@@ -36,7 +36,6 @@
             <div class="container-fluid"> <!--begin::Start Navbar Links-->
                 <ul class="navbar-nav ms-auto"> <!--begin::Navbar Search-->
 
-
                     <!-- User Menu Dropdown -->
                     <li class="nav-item dropdown user-menu">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
@@ -48,19 +47,40 @@
                             <li class="user-header" style="background-color: #03989E; color: #ffffff;">
                                 <img src="{{asset('AdminLTE')}}/dist/assets/img/logoProfile.jpg" class="rounded-circle shadow" alt="User Image">
                                 <p>
-                                    {{ Auth::guard('admin')->user()->username_admin }}  <!-- Nama Username Admin -->
-                                    <small>{{ Auth::guard('admin')->user()->role->nama_role }}</small>  <!-- Role Admin -->
+                                    {{ Auth::guard('admin')->user()->username_admin }}
+                                    <small>{{ Auth::guard('admin')->user()->role->nama_role }}</small>
                                 </p>
                             </li>
                             <li class="user-footer">
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: inline;">
-                                    @csrf
-                                    <button type="submit" class="btn btn-default btn-flat float-end">Sign out</button>
-                                </form>
+                                <button type="button" class="btn btn-default btn-flat float-end" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                                    Sign out
+                                </button>
                             </li>
-                            <!-- Tombol Profile dan Logout -->
                         </ul>
                     </li>
+
+                    <!-- Modal Konfirmasi -->
+                    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content" style="background-color: rgb(247, 243, 243);"> <!-- Ganti dengan warna yang diinginkan -->
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="logoutModalLabel">Konfirmasi Logout</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Apakah Anda yakin ingin keluar?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                    <button type="button" class="btn btn-primary" id="confirmLogout">Keluar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
 
                 </ul> <!--end::End Navbar Links-->
             </div> <!--end::Container-->
@@ -342,6 +362,12 @@
             });
         });
     </script>
+    <script>
+        document.getElementById('confirmLogout').addEventListener('click', function() {
+            document.getElementById('logout-form').submit(); // Mengirim form ketika dikonfirmasi
+        });
+    </script>
+
 
 
 

@@ -13,7 +13,9 @@
     <link rel="stylesheet" href="{{ asset('/form/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
 </head>
-<body class="d-flex justify-content-center align-items-center bg-light" style="height: 100vh;">
+<body class="d-flex justify-content-center align-items-center bg-light">
+
+    <div class="overlay"></div> <!-- Layer hitam -->
 
     <div class="container">
         <div class="row justify-content-center">
@@ -90,4 +92,5 @@
     </script>
 
 </body>
+
 </html>

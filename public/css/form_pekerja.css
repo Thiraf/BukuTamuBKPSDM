@@ -1,0 +1,102 @@
+/* Atur gambar sebagai background di seluruh halaman */
+body {
+    background-image: url('/form/images/pemkab.jpg');
+    background-size: cover;
+    background-position: center bottom; /* Pindahkan gambar ke atas */
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.btn {
+    background: #03989E; /* Warna latar tombol awal */
+    color: white; /* Warna teks putih */
+    border: none;
+    padding: 10px 15px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Tambahkan transisi warna */
+    width: 100%;
+}
+
+.btn:hover {
+    background-color: #027c83; /* Warna latar saat di-hover */
+    color: white; /* Pastikan warna teks tetap putih saat di-hover */
+}
+
+/* Atur ukuran elemen form-control secara umum */
+.form-control {
+    width: 100%; /* Pastikan input mengambil lebar penuh container */
+    max-width: 100%; /* Hindari input melebihi lebar container */
+    padding: 10px 15px; /* Sesuaikan padding untuk kenyamanan input */
+    font-size: 16px; /* Ukuran font yang cukup besar agar mudah dibaca */
+    border: 1px solid #ced4da; /* Warna border abu muda */
+    border-radius: 5px; /* Tambahkan lengkungan */
+    box-sizing: border-box; /* Atur box-sizing untuk menghindari overflow */
+    margin-bottom: 15px; /* Jarak antar elemen input */
+}
+
+/* Efek fokus pada input untuk memberi highlight */
+.form-control:focus {
+    border-color: #03989E; /* Warna border saat difokuskan */
+    outline: none; /* Hilangkan outline default */
+}
+
+
+
+/* Pengaturan container */
+.container {
+    max-width: 600px;
+    border-radius: 12px; /* Sudut membulat pada kotak */
+    padding: 20px;
+    overflow: hidden; /* Agar latar belakang semi-transparan tidak melewati batas */
+}
+
+/* Kurangi padding di dalam form untuk tampilan yang lebih kompak */
+.card-body {
+    padding: 15px; /* Sesuaikan padding sesuai kebutuhan */
+}
+
+
+@media (max-width: 576px) {
+    h1{
+        font-size: 25px;
+    }
+    body {
+        background-image: none; /* Hilangkan gambar di layar kecil */
+    }
+
+    .container {
+        max-width: 90%; /* Perkecil lebar container di layar kecil */
+        padding: 1px; /* Kurangi padding di container */
+    }
+
+    .form-control {
+        padding: 5px 10px; /* Kurangi padding untuk layar kecil */
+        font-size: 5px; /* Ukuran font lebih kecil di perangkat mobile */
+        margin-bottom: 10px; /* Kurangi jarak antar elemen input */
+        height: 30px;
+    }
+
+    .card {
+        padding: 15px; /* Kurangi padding di dalam card */
+        border-radius: 10px; /* Kurangi lengkungan */
+    }
+
+    h2, .btn, .form-control, label {
+        font-size: 14px; /* Perkecil ukuran font */
+    }
+
+    select, input, textarea {
+        font-size: 14px; /* Ukuran font lebih kecil di dalam form */
+        padding: 8px; /* Sesuaikan padding */
+    }
+
+    .btn {
+        padding: 8px; /* Padding lebih kecil pada tombol */
+        font-size: 14px;
+    }
+}

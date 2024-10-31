@@ -3,16 +3,17 @@ h2 {
     font-size: 40px; /* Menyesuaikan ukuran font */
     font-weight: bold; /* Menebalkan teks */
     margin-bottom: 20px; /* Memberikan jarak antara judul dan elemen di bawahnya */
+    color: #ffffff;
 }
 
 .mb-4{
-    padding: 30px;
+    padding: 10px;
 }
 
 /* Global settings untuk body halaman */
 body {
     font-family: 'Lato', sans-serif; /* Menggunakan font 'Lato' untuk teks */
-    background-color: #f8f9fa; /* Warna latar belakang abu muda */
+    background-color: #ffffff; /* Warna latar belakang abu muda */
     margin: 0; /* Menghapus margin default pada seluruh body */
     padding: 0; /* Menghapus padding default pada seluruh body */
     justify-content: center; /* Menempatkan konten di tengah secara horizontal */
@@ -21,30 +22,43 @@ body {
 }
 
 
-/* Pengaturan container untuk section */
 .ftco-section {
-    padding: 7em 0; /* Menambahkan padding atas dan bawah sebesar 4em */
-    background-color: #f8f9fa; /* Warna latar belakang abu muda */
+    position: relative;
+    padding: 6em 0;
+    background-image: url('/form/images/pemkab.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    min-height: 100vh;
+    background-blend-mode: darken;
+    background-color: rgba(0, 0, 0, 0.5); /* Overlay semi-transparan */
+    box-sizing: border-box; /* Mengatasi padding yang bisa menambah tinggi */
+}
+
+.wrap {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.btn:hover {
+    background-color: #027c83; /* Efek hover */
+    transition: background-color 0.3s ease;
 }
 
 /* Pengaturan container utama */
 .container {
     max-width: 960px; /* Batas lebar maksimum 960px */
     margin: 0 auto; /* Posisikan container di tengah secara horizontal */
+    margin-top:2m ;
 }
 
-
-.wrap {
-    display: flex;
-    justify-content: center; /* Agar elemen berada di tengah secara horizontal */
-    align-items: stretch; /* Sesuaikan tinggi secara vertikal */
-    width: 100%;
-    max-width: 960px; /* Batas maksimum lebar untuk menjaga tata letak */
-    margin: 0 auto; /* Posisikan di tengah secara horizontal */
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
 
 .img {
     background-size: cover; /* Agar gambar mengisi elemen */
@@ -52,6 +66,7 @@ body {
     width: 75%; /* Gambar mengambil 50% dari lebar container */
     min-height: 500px; /* Tinggi minimum gambar */
     background-image: url('/form/images/bkpsdm.jpg'); /* Pastikan URL gambar sudah benar */
+    border-radius: 10px 0 0 10px; /* Kiri atas, kanan atas, kanan bawah, kiri bawah */
 }
 
 .login-wrap {
@@ -62,6 +77,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+    border-radius: 15px; /* Atur lengkungan pada sudut */
 }
 
 
@@ -81,9 +97,10 @@ body {
 
 /* Efek fokus pada input */
 .form-control:focus {
-    border-color: #80bdff; /* Warna border saat difokuskan */
-    box-shadow: 0 0 5px rgba(128, 189, 255, 0.5); /* Efek bayangan biru saat difokuskan */
+    border-color: #03989E; /* Ganti dengan warna yang diinginkan */
+    outline: none; /* Hapus outline default jika ada */
 }
+
 
 /* Pengaturan label */
 .label {
@@ -130,7 +147,7 @@ input[type="text"] {
     background: none; /* Menghilangkan latar belakang */
     border: none; /* Menghilangkan border */
     cursor: pointer; /* Mengubah kursor menjadi pointer */
-    padding: 0; /* Hilangkan padding default */
+    padding: 10; /* Hilangkan padding default */
     display: flex; /* Untuk menyelaraskan item secara fleksibel */
     align-items: center; /* Posisikan ikon di tengah vertikal */
     height: 50px; /* Samakan tinggi tombol dengan gambar captcha */
@@ -139,35 +156,44 @@ input[type="text"] {
 /* Pengaturan ikon refresh */
 .refresh-btn i {
     color: #03989E; /* Warna ikon abu muda */
-    font-size: 24px; /* Ukuran ikon */
+    font-size: 30px; /* Ukuran ikon */
     transition: transform 0.2s, color 0.2s;
 }
 
 /* Animasi hover untuk tombol refresh */
 .refresh-btn:hover i {
-    color: #03989E;
+    color: #e4f1f1;
     transform: rotate(90deg);
 }
 
-/* Placeholder teks di input */
-input[type="text"]::placeholder {
-    color: #6c757d; /* Warna placeholder abu */
-}
 
 .toast {
-    position: fixed;
-    top: 50px; /* Jarak dari atas */
-    right: 20px; /* Jarak dari kanan */
-    z-index: 9999; /* Pastikan toast berada di atas elemen lain */
-    min-width: 300px;
-    padding: 20px;
-    background-color: rgba(255, 0, 0, 0.8); /* Warna latar belakang merah */
-    color: white;
-    font-size: 1.2rem;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    position: relative; /* Dibutuhkan untuk positioning elemen di dalamnya */
+    max-width: 350px;
+    overflow: hidden;
+    font-size: 0.875rem;
+    background-color: rgba(255, 255, 255, 0.85);
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    border-radius: 0.25rem;
+    transition: opacity 0.5s ease-out, filter 0.5s ease-out; /* Transisi untuk opacity dan blur */
 }
+    .toast:not(:last-child) {
+      margin-bottom: 0.75rem; }
+    .toast.showing {
+      opacity: 1; }
+    .toast.show {
+      display: block;
+      opacity: 1; }
+    .toast.hide {
+      display: none; }
+    .toast-body {
+    padding: 0.75rem; }
+
 
 .toast-header {
     background-color: transparent;
@@ -206,32 +232,6 @@ input[type="text"]::placeholder {
     padding-top: 10px;
 }
 
-.toast {
-    max-width: 350px;
-    overflow: hidden;
-    font-size: 0.875rem;
-    background-color: rgba(255, 255, 255, 0.85);
-    background-clip: padding-box;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    -webkit-box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
-    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    opacity: 0;
-    border-radius: 0.25rem; }
-    .toast:not(:last-child) {
-      margin-bottom: 0.75rem; }
-    .toast.showing {
-      opacity: 1; }
-    .toast.show {
-      display: block;
-      opacity: 1; }
-    .toast.hide {
-      display: none; }
-
-  .toast-body {
-    padding: 0.75rem; }
-
 
 /* Desain responsif */
 @media (max-width: 985px) {
@@ -241,12 +241,31 @@ input[type="text"]::placeholder {
         font-size: 30px; /* Menyesuaikan ukuran font */
         font-weight: bold; /* Menebalkan teks */
         margin-bottom: 20px; /* Memberikan jarak antara judul dan elemen di bawahnya */
+        color: #000000;
     }
 
-    .ftco-section {
-        padding: 0em ; /* Menambahkan padding atas dan bawah sebesar 4em */
-        background-color: #f8f9fa; /* Warna latar belakang abu muda */
+    .mb-4{
+        padding: 0px;
     }
+    /* Pengaturan label */
+    .label {
+        font-weight: 600; /* Ketebalan font untuk label */
+        padding-top: 0px;
+        font-size: 20px; /* Ukuran font 14px */
+        color: #333; /* Warna teks label */
+    }
+
+    /* Pengaturan input teks */
+    input[type="text"] {
+        height: 20px; /* Tinggi input teks */
+    }
+
+    .login-wrap{
+        padding: 0px;
+        width: 100%; /* Form mengambil lebar penuh */
+        margin: 0 50px 0 30px;
+    }
+
 
     .wrap {
         flex-direction: column; /* Gambar dan form ditumpuk secara vertikal pada layar kecil */
@@ -260,36 +279,68 @@ input[type="text"]::placeholder {
         gap: 5px; /* Jarak antar elemen flex */
     }
 
+    .ftco-section {
+        padding: 0em;
+        background-color: #f8f9fa; /* Warna latar belakang abu muda */
+        background-image: none; /* Menghilangkan gambar background */
+        justify-content: center; /* Memusatkan secara horizontal */
+        align-items: center; /* Memusatkan secara vertikal */
+    }
+
+
     .img {
         background-size: contain; /* Gambar menutupi seluruh elemen */
         background-position: center center; /* Gambar berada di tengah secara horizontal dan vertikal */
         background-repeat: no-repeat; /* Menghindari pengulangan gambar */
         width: 100%; /* Lebar bagian gambar 100% dari kontainer induk */
-        min-height: 400px; /* Tinggi minimum gambar */
+        min-height: 300px; /* Tinggi minimum gambar */
         height: 20vh; /* Tinggi menyesuaikan dengan tinggi viewport */
         background-color: #fff; /* Warna latar belakang jika gambar tidak memuat */
-    }
-
-    .login-wrap {
-        width: 100%; /* Form mengambil lebar penuh */
-        padding: 1em; /* Kurangi padding agar tidak terlalu lebar pada layar kecil */
+        margin-bottom: 10px; /* Sesuaikan nilai sesuai kebutuhan */
     }
 
     .mb-4{
-        padding: 1px;
+        padding: none;
+    }
+
+    form {
+        margin-top: 0 auto; /* Atur form agar berada di tengah */
+        width: 100%; /* Atur lebar form sesuai kebutuhan */
+        max-width: 400px; /* Batas maksimum lebar form */
     }
 
     .form-control {
         border-radius: 5px; /* Sudut melengkung */
-        padding: 10px 15px; /* Padding dalam elemen input */
+        margin-right: 30px;
         font-size: 16px; /* Ukuran font 16px */
-        width: 100%; /* Input mengambil lebar penuh elemen */
+        width: 75%; /* Input mengambil lebar penuh elemen */
+        position: relative;
+        padding: 8px 10px;
     }
 
     .form-group {
         margin-bottom: 1.5rem; /* Jarak antara elemen form */
-        margin: 30px
+        margin: 20px
     }
 
+    .toast {
+        max-width: 90%; /* Sesuaikan lebar agar lebih kecil pada layar smartphone */
+        font-size: 0.75rem; /* Perkecil ukuran font */
+        padding: 10px; /* Kurangi padding */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Tambahkan efek bayangan ringan */
+    }
 
+    .toast .toast-header {
+        font-size: 1rem; /* Sesuaikan ukuran font header */
+        padding: 0.25rem 0.5rem; /* Kurangi padding */
+    }
+
+    .toast .toast-body {
+        padding: 0.5rem; /* Kurangi padding dalam body */
+    }
 }
+
+
+
+
+

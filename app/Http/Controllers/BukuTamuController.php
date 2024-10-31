@@ -177,9 +177,13 @@ class BukuTamuController extends Controller
         // Hapus session NIK
         session()->forget('nik');
 
-        // Redirect dengan pesan sukses
-        return redirect()->route('index')
-            ->with('success', 'Data berhasil disimpan');
+        // // Redirect dengan pesan sukses
+        // return redirect()->route('index')
+        //     ->with('success', 'Data berhasil disimpan');
+
+        // Redirect ke URL tertentu setelah data berhasil di-update
+        return redirect()->away('https://skm.bantulkab.go.id/opd-eccbc87e4b5ce2fe28308fd9f2a7baf3.asp')
+        ->with('success', 'Data berhasil disimpan');
     }
 
     public function addToDashboard($id_buku_tamu)
@@ -227,7 +231,6 @@ class BukuTamuController extends Controller
         DashboardAdmin::create($dataDashboard);
 
         $dataDashboard= DashboardAdmin::all();
-        // return view('admin.dashboard', compact('dataDashboard'));
         return redirect()->route('admin.dashboard')->with('success', 'Data berhasil ditambahkan');
 
 

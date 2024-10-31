@@ -390,7 +390,6 @@ class AdminController extends Controller
     }
 
 
-
     public function logout(Request $request)
     {
         Auth::logout(); // Untuk mengakhiri sesi pengguna yang sedang login

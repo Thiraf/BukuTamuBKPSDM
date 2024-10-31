@@ -26,6 +26,12 @@ Route::post('/buku-tamu/cek-nik', [BukuTamuController::class, 'cekNik']);
 // Gunakan middleware CheckNIK untuk semua route di group ini
 Route::middleware([CheckNIK::class])->group(function () {
 
+
+
+
+});
+
+
 // Route untuk halaman data pekerja jika NIK ditemukan
 Route::get('/data-pekerja', [BukuTamuController::class, 'showDataPekerja'])
 ->name('buku_tamu.data_pekerja');
@@ -41,10 +47,6 @@ Route::post('/buku-tamu/simpan-pegawai', [BukuTamuController::class, 'simpanPega
 // Mengarahkan ke halaman tujuan Informasi
 Route::get('/tujuan-informasi/{id}', [BukuTamuController::class, 'tujuanInformasi'])
 ->name('tujuan_informasi');
-
-});
-
-
 
 
 

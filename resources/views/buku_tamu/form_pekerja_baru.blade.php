@@ -10,12 +10,12 @@
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="{{asset('/form/css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('css/form_pekerja.css')}}">
 
 	<!-- Tambahkan jQuery -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<!-- Panggil file JS eksternal -->
 	<script src="{{ asset('/js/form.js') }}"></script>
-
 	</head>
 
 
@@ -26,8 +26,6 @@
         <div class="card shadow-sm">
             <div class="card-body">
                 <h3 class="text-center mb-4">Form Buku Tamu</h3>
-
-
 
                 <form action="/buku-tamu/simpan-pegawai" method="POST">
                     @csrf
@@ -47,7 +45,7 @@
                     </div>
 
                     <div class="text-center mt-4">
-                        <button type="submit" class="btn btn-primary">Next</button>
+                        <button type="submit" class="btn">Next</button>
                     </div>
 
                 </form>

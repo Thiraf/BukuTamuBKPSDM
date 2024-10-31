@@ -1,32 +1,65 @@
+body {
+    background-image: url('/form/images/pemkab.jpg');
+    background-position: center bottom;
+    background-size: cover; /* Memastikan gambar mengisi seluruh latar belakang */
+    background-repeat: no-repeat; /* Mencegah gambar diulang */
+    height: 100vh; /* Tinggi penuh untuk body */
+    position: relative; /* Agar posisi absolute layer hitam relatif terhadap body */
+}
+
+.overlay {
+    position: absolute; /* Posisi absolute untuk menempatkan overlay */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Layer hitam dengan transparansi 50% */
+    z-index: 1; /* Pastikan overlay di atas gambar */
+}
+
+.container {
+    position: relative; /* Agar konten berada di atas overlay */
+    z-index: 2; /* Konten di atas overlay */
+}
+
+/* Pengaturan gambar captcha */
 .captcha-img {
-    width: 300px; /* Atur lebar sesuai keinginan */
-    height: 100px; /* Atur tinggi sesuai keinginan */
+    max-height: 50px; /* Tinggi maksimum untuk gambar captcha */
+    padding-right: 10px; /* Jarak padding di kanan gambar captcha */
 }
 
-#refresh-captcha {
-margin-top: 10px; /* Atur jarak di antara gambar captcha dan tombol */
-}
-
-#captcha {
-    margin-top: 20px; /* Atur jarak di antara tombol refresh dan input captcha */
-}
+/* Pengaturan tombol refresh captcha */
 .refresh-btn {
-    border: none;
-    background: none;
-    cursor: pointer;
-    margin-left: 100px;
-    display:flow-root;
-    align-items: center;
-    justify-content: center;
+    background: none; /* Menghilangkan latar belakang */
+    margin-left: 20px;
+    border: none; /* Menghilangkan border */
+    cursor: pointer; /* Mengubah kursor menjadi pointer */
+    padding-right: 10; /* Hilangkan padding default */
+    display: flex; /* Untuk menyelaraskan item secara fleksibel */
+    align-items: center; /* Posisikan ikon di tengah vertikal */
+    height: 50px; /* Samakan tinggi tombol dengan gambar captcha */
 }
 
+/* Pengaturan ikon refresh */
 .refresh-btn i {
-    color: #03989E;
+    color: #03989E; /* Warna ikon abu muda */
+    font-size: 30px; /* Ukuran ikon */
     transition: transform 0.2s, color 0.2s;
+}
+
+.refresh-btn:hover {
+    background-color: #027c83; /* Warna saat di-hover */
+    color: #03989E;;
 }
 
 /* Animasi hover untuk tombol refresh */
 .refresh-btn:hover i {
-    color: #03989E;
+    color: #e4f1f1;
     transform: rotate(90deg);
+}
+
+.btn-primary {
+    padding: 15px 30px; /* Ukuran padding */
+    font-size: 18px; /* Ukuran font */
+    width: 100%; /* Lebar penuh */
 }

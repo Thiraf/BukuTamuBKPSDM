@@ -47,8 +47,6 @@
     @endif
 </div>
 
-
-
 <section class="ftco-section">
     <div class="container">
         <div class="row justify-content-center">
@@ -99,33 +97,32 @@
     </div>
 </section>
 
-
 <!-- Toast Display Script -->
-<!-- Toast Display Script -->
-<script>
+{{-- <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Inisialisasi Toast untuk Error
-        @if ($errors->any())
-            $('#errorToast').toast({
-                autohide: true,   // Aktifkan auto-hide
-                delay: 5000       // Waktu tampil (5 detik)
-            }).toast('show');
-        @endif
+    // Inisialisasi Toast untuk Error
+    @if ($errors->any())
+        $('#errorToast').toast('show').delay(4000).fadeOut(500, function () {
+            $(this).remove(); // Hapus elemen setelah fadeOut selesai
+        });
+    @endif
 
-        // Inisialisasi Toast untuk Success
-        @if (session('success'))
-            $('#successToast').toast({
-                autohide: true,   // Aktifkan auto-hide
-                delay: 5000       // Waktu tampil (5 detik)
-            }).toast('show');
-        @endif
+    // Inisialisasi Toast untuk Success
+    @if (session('success'))
+        $('#successToast').toast('show').delay(4000).fadeOut(500, function () {
+            $(this).remove(); // Hapus elemen setelah fadeOut selesai
+        });
+    @endif
 
-        // Tutup toast secara manual jika tombol "x" ditekan
-        $('.toast .close').on('click', function () {
-            $(this).closest('.toast').toast('hide');
+    // Tutup toast secara manual jika tombol "x" ditekan
+    $('.toast .close').on('click', function () {
+        $(this).closest('.toast').fadeOut( function () {
+            $(this).remove();
         });
     });
-</script>
+});
+
+</script> --}}
 
 {{-- <!-- Accessibility Script -->
 <script>

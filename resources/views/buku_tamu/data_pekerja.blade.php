@@ -24,7 +24,7 @@
             <div class="card-body">
                 <h3 class="text-center mb-4">Data Pegawai</h3>
                 <!-- Tombol untuk melanjutkan -->
-                <form action="/buku-tamu/simpan-pegawai" method="POST">
+                {{-- <form action="/buku-tamu/simpan-pegawai" method="POST">
                     @csrf
                     <div class="form-group">
                         <label>Nama</label>
@@ -42,7 +42,37 @@
                     <div class="text-center mt-4">
                         <button type="submit" class="btn btn-primary">Next</button>
                     </div>
+                </form> --}}
+
+                <form action="/buku-tamu/simpan-pegawai" method="POST">
+                    @csrf
+                    <div class="form-group">
+                        <label>Nama</label>
+                        <input type="text" name="nama_pegawai"
+                               value="{{ session('data_source') === 'api' ? session('pegawai')['nama'] : session('pegawai')->nama_pegawai }}"
+                               class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Jabatan</label>
+                        <input type="text" name="jabatan_pegawai"
+                               value="{{ session('data_source') === 'api' ? session('pegawai')['jabatan'] : session('pegawai')->jabatan_pegawai }}"
+                               class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Unit Kerja</label>
+                        <input type="text" name="unit_kerja_pegawai"
+                               value="{{ session('data_source') === 'api' ? session('pegawai')['unorl2'] : session('pegawai')->unit_kerja_pegawai }}"
+                               class="form-control">
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
                 </form>
+
+
             </div>
         </div>
     </div>

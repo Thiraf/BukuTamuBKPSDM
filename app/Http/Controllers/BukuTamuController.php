@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Cache;
+
 use App\Models\Pegawai;
 use App\Models\BukuTamu;
 use Illuminate\Http\Request;
@@ -25,46 +28,160 @@ class BukuTamuController extends Controller
         $this->adminController = $adminController;
     }
 
+    private function getApiToken()
+    {
+        try {
+            if (Cache::has('api_token')) {
+                return Cache::get('api_token');
+            }
+
+            $client = new Client();
+            $response = $client->post('https://asn-api.bantulkab.go.id/wsgo/getToken', [
+                'json' => [
+                    'username' => 'dabinkes',
+                    'password' => 'S4tu&Duw4'
+                ],
+                'headers' => [
+                    'Content-Type' => 'application/json'
+                ]
+            ]);
+
+            $data = json_decode($response->getBody()->getContents());
+
+            if (isset($data->token)) {
+                Cache::put('api_token', $data->token, now()->addHour());
+                return $data->token;
+            } else {
+                throw new \Exception("Token not found in response");
+            }
+        } catch (\Exception $e) {
+            Log::error('Failed to get API token: ' . $e->getMessage());
+            abort(500, 'Unable to authenticate with the API');
+        }
+    }
+
+
+
+    // public function cekNIK(Request $request)
+    // {
+
+    //     // Log informasi untuk request POST
+    //     Log::info('Masuk ke Function Cek Nik');
+
+    //     // Validasi input NIK dan CAPTCHA
+    //     $validator = Validator::make($request->all(), [
+    //         'nik' => 'required',
+    //         'captcha' => 'required|captcha', // Validasi CAPTCHA
+    //     ], [
+    //         'captcha.captcha' => 'Captcha salah, silahkan coba lagi.', // Pesan error khusus untuk captcha
+    //     ]);
+
+    //     // Jika validasi gagal, kembalikan ke halaman sebelumnya dengan pesan error
+    //     if ($validator->fails()) {
+    //         return redirect()->back()
+    //             ->withErrors($validator) // Kirim error ke view
+    //             ->withInput(); // Simpan input sebelumnya
+    //     }
+
+    //     // Validasi input NIK
+    //     $nik = $request->input('nik');
+
+    //     // Cari data pegawai berdasarkan NIK
+    //     $pegawai = Pegawai::where('nik', $nik)->first();
+
+    //     if ($pegawai) {
+    //         // Simpan data ke session jika ditemukan
+    //         session(['nik' => $nik]);
+    //         session(['pegawai' => $pegawai]);
+    //         // Jika data pegawai ditemukan, arahkan ke halaman data_pekerja
+    //         return redirect()->route('buku_tamu.data_pekerja'); // Pastikan ada route untuk ini
+    //     } else {
+    //         // Jika data pegawai tidak ditemukan, arahkan ke halaman form_pekerja_baru dengan NIK
+    //         session(['nik' => $nik]);
+    //         return redirect()->route('buku_tamu.form_pekerja_baru'); // Pastikan ada route untuk ini
+    //     }
+    // }
 
     public function cekNIK(Request $request)
     {
-
-        // Log informasi untuk request POST
         Log::info('Masuk ke Function Cek Nik');
 
-        // Validasi input NIK dan CAPTCHA
         $validator = Validator::make($request->all(), [
             'nik' => 'required',
-            'captcha' => 'required|captcha', // Validasi CAPTCHA
+            'captcha' => 'required|captcha',
         ], [
-            'captcha.captcha' => 'Captcha salah, silahkan coba lagi.', // Pesan error khusus untuk captcha
+            'captcha.captcha' => 'Captcha salah, silahkan coba lagi.',
         ]);
 
-        // Jika validasi gagal, kembalikan ke halaman sebelumnya dengan pesan error
         if ($validator->fails()) {
             return redirect()->back()
-                ->withErrors($validator) // Kirim error ke view
-                ->withInput(); // Simpan input sebelumnya
+                ->withErrors($validator)
+                ->withInput();
         }
 
-        // Validasi input NIK
         $nik = $request->input('nik');
 
-        // Cari data pegawai berdasarkan NIK
-        $pegawai = Pegawai::where('nik', $nik)->first();
+        // Dapatkan token API
+        $token = $this->getApiToken();
 
-        if ($pegawai) {
-            // Simpan data ke session jika ditemukan
+        // Log untuk memastikan token berhasil diambil
+        Log::info('Token API yang didapatkan:', ['token' => $token]);
+
+        // Panggil API untuk memeriksa NIK
+        $client = new Client();
+        $response = $client->post('https://asn-api.bantulkab.go.id/wsgo/simpeg/Profil', [
+            'json' => [
+                'Nip' => $nik
+            ],
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Bearer ' . $token
+            ]
+        ]);
+
+        // Decode response JSON
+        $profileData = json_decode($response->getBody()->getContents(), true);
+
+        // Log response API untuk memastikan struktur data
+        Log::info('Respons API Profil:', ['response' => $profileData]);
+
+        // Cek apakah profil ditemukan
+        if (!empty($profileData) && isset($profileData['Data']) && !empty($profileData['Data'][0])) {
+            Log::info('Data pegawai ditemukan di API:', ['pegawai' => $profileData['Data'][0]]);
+
+            // Simpan data pegawai dari API ke session
             session(['nik' => $nik]);
-            session(['pegawai' => $pegawai]);
-            // Jika data pegawai ditemukan, arahkan ke halaman data_pekerja
-            return redirect()->route('buku_tamu.data_pekerja'); // Pastikan ada route untuk ini
+            session(['pegawai' => $profileData['Data'][0]]); // Sesuaikan dengan struktur data API
+            session(['data_source' => 'api']); // Tandai bahwa data berasal dari API
+            return redirect()->route('buku_tamu.data_pekerja');
         } else {
-            // Jika data pegawai tidak ditemukan, arahkan ke halaman form_pekerja_baru dengan NIK
-            session(['nik' => $nik]);
-            return redirect()->route('buku_tamu.form_pekerja_baru'); // Pastikan ada route untuk ini
+            Log::info('Data pegawai tidak ditemukan di API, coba cari di database lokal.');
+
+            // Jika data pegawai tidak ditemukan di API, coba cari di database lokal
+            $pegawai = Pegawai::where('nik', $nik)->first();
+
+            if ($pegawai) {
+                Log::info('Data pegawai ditemukan di database lokal:', ['pegawai' => $pegawai]);
+
+                // Jika data ditemukan di database, simpan ke session
+                session(['nik' => $nik]);
+                session(['pegawai' => $pegawai]);
+                session(['data_source' => 'local']); // Tandai bahwa data berasal dari database lokal
+                return redirect()->route('buku_tamu.data_pekerja');
+            } else {
+                Log::info('Data pegawai tidak ditemukan di API maupun database lokal. Mengarahkan ke form pekerja baru.');
+
+                // Jika data pegawai tidak ditemukan di API maupun di database, arahkan ke form pekerja baru
+                session(['nik' => $nik]);
+                return redirect()->route('buku_tamu.form_pekerja_baru');
+            }
         }
     }
+
+
+
+
+
 
     public function showDataPekerja(Request $request)
     {
@@ -177,13 +294,13 @@ class BukuTamuController extends Controller
         // Hapus session NIK
         session()->forget('nik');
 
-        // // Redirect dengan pesan sukses
-        // return redirect()->route('index')
-        //     ->with('success', 'Data berhasil disimpan');
+        // Redirect dengan pesan sukses
+        return redirect()->route('index')
+            ->with('success', 'Data berhasil disimpan');
 
         // Redirect ke URL tertentu setelah data berhasil di-update
-        return redirect()->away('https://skm.bantulkab.go.id/opd-eccbc87e4b5ce2fe28308fd9f2a7baf3.asp')
-        ->with('success', 'Data berhasil disimpan');
+        // return redirect()->away('https://skm.bantulkab.go.id/opd-eccbc87e4b5ce2fe28308fd9f2a7baf3.asp')
+        // ->with('success', 'Data berhasil disimpan');
     }
 
     public function addToDashboard($id_buku_tamu)

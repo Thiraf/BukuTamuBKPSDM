@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Models\Admin; // Pastikan model Admin sudah ada dan disesuaikan
 use Illuminate\Support\Facades\Hash; // Untuk verifikasi password
@@ -107,7 +108,7 @@ class AdminController extends Controller
         $totalCount = $pendingCount + $processCount + $completedCount;
 
         // Mengirim data ke view
-        return view('admin.dashboard', compact('dataDashboard','statuses','pendingCount','processCount','completedCount','totalCount'));
+        return view('admin.dashboard', compact('dataDashboard', 'statuses', 'pendingCount', 'processCount', 'completedCount', 'totalCount'));
     }
 
     public function updateStatus(Request $request, $id_dashboard_admin)
@@ -135,7 +136,6 @@ class AdminController extends Controller
     public function filterData(Request $request)
     {
         Log::info("Filter Data");
-
 
         // Validasi tanggal hanya jika diisi
         $request->validate([
@@ -167,7 +167,7 @@ class AdminController extends Controller
         $dataDashboard = $dataDashboard->get(); // Eksekusi query
 
         // Log hasil data
-        foreach($dataDashboard as $dataTamu) {
+        foreach ($dataDashboard as $dataTamu) {
             Log::info('ID Dashboard Admin: ' . $dataTamu->id_dashboard_admin);
         }
 
@@ -181,7 +181,7 @@ class AdminController extends Controller
         $statuses = Status::all(); // Ambil semua status untuk dropdown
 
         // Kembalikan view dengan data yang sudah difilter, statuses, dan status counts
-        return view('admin.dashboard', compact('dataDashboard', 'statuses', 'pendingCount', 'processCount', 'completedCount','totalCount'));
+        return view('admin.dashboard', compact('dataDashboard', 'statuses', 'pendingCount', 'processCount', 'completedCount', 'totalCount'));
     }
 
 
@@ -200,7 +200,7 @@ class AdminController extends Controller
         }
 
         // Jika pengguna adalah Super Admin, tampilkan halaman Create Admin
-        $dataAdmin= Admin::all();
+        $dataAdmin = Admin::all();
         $dataAdmin = Admin::with('role')->get();
         return view('admin.createAdmin', compact('dataAdmin'));
     }
@@ -252,125 +252,63 @@ class AdminController extends Controller
         if ($dataAdmin) {
             return redirect()->route('createAdmin')
                 ->with('success', 'Admin account created successfully.');
-        }else {
+        } else {
             return redirect()->route('admin.create')->with('error', 'Failed to create admin account.');
         }
     }
 
     public function update(Request $request, $id)
-{
-    Log::info("Update Request");
+    {
+        Log::info("Update Request");
 
-    // Validasi input
-    $request->validate([
-        'nama_admin' => 'required|string|max:255',
-        'username_admin' => 'required|string|max:255',
-        'password_admin' => 'nullable|string|max:255', // Password bisa kosong jika tidak diubah
-        'id_role' => 'required|integer',
-    ]);
-
-    // Ambil data admin berdasarkan ID
-    $admin = DB::table('admins')->where('id_admin', $id)->first();
-
-    if (!$admin) {
-        Log::warning('Admin not found', ['id' => $id]);
-        return redirect()->route('createAdmin')->with('error', 'Admin not found.');
-    }
-
-    // Siapkan data untuk diupdate (tanpa password terlebih dahulu)
-    $updateData = [
-        'nama_admin' => $request->nama_admin,
-        'username_admin' => $request->username_admin,
-        'id_role' => $request->id_role,
-        'updateAdd' => now(),
-        'updated_at' => now(),
-    ];
-
-    // Cek jika password ingin diubah (tidak kosong)
-    if (!empty($request->password_admin)) {
-        // Hash password sebelum menyimpan
-        $hashedPassword = Hash::make($request->password_admin);
-        $updateData['password_admin'] = $hashedPassword; // Hanya update jika password diisi
-    }
-
-    // Update data admin di database
-    $isUpdated = DB::table('admins')->where('id_admin', $id)->update($updateData);
-
-    if ($isUpdated) {
-        Log::info('Admin updated', [
-            'id' => $id,
-            'new_data' => $updateData,
+        // Validasi input
+        $request->validate([
+            'nama_admin' => 'required|string|max:255',
+            'username_admin' => 'required|string|max:255',
+            'password_admin' => 'nullable|string|max:255', // Password bisa kosong jika tidak diubah
+            'id_role' => 'required|integer',
         ]);
 
-        return redirect()->route('createAdmin')->with('success', 'Admin updated successfully.');
-    } else {
-        Log::warning('Failed to update admin', ['id' => $id]);
+        // Ambil data admin berdasarkan ID
+        $admin = DB::table('admins')->where('id_admin', $id)->first();
 
-        return redirect()->route('createAdmin')->with('error', 'Failed to update admin.');
+        if (!$admin) {
+            Log::warning('Admin not found', ['id' => $id]);
+            return redirect()->route('createAdmin')->with('error', 'Admin not found.');
+        }
+
+        // Siapkan data untuk diupdate (tanpa password terlebih dahulu)
+        $updateData = [
+            'nama_admin' => $request->nama_admin,
+            'username_admin' => $request->username_admin,
+            'id_role' => $request->id_role,
+            'updateAdd' => now(),
+            'updated_at' => now(),
+        ];
+
+        // Cek jika password ingin diubah (tidak kosong)
+        if (!empty($request->password_admin)) {
+            // Hash password sebelum menyimpan
+            $hashedPassword = Hash::make($request->password_admin);
+            $updateData['password_admin'] = $hashedPassword; // Hanya update jika password diisi
+        }
+
+        // Update data admin di database
+        $isUpdated = DB::table('admins')->where('id_admin', $id)->update($updateData);
+
+        if ($isUpdated) {
+            Log::info('Admin updated', [
+                'id' => $id,
+                'new_data' => $updateData,
+            ]);
+
+            return redirect()->route('createAdmin')->with('success', 'Admin updated successfully.');
+        } else {
+            Log::warning('Failed to update admin', ['id' => $id]);
+
+            return redirect()->route('createAdmin')->with('error', 'Failed to update admin.');
+        }
     }
-}
-
-
-    // public function update(Request $request, $id)
-    // {
-    //     Log::info("Update Request");
-
-    //     // Validasi input
-    //     $request->validate([
-    //         'nama_admin' => 'required|string|max:255',
-    //         'username_admin' => 'required|string|max:255',
-    //         'password_admin' => 'nullable|string|max:255', // Password bisa kosong jika tidak diubah
-    //         'id_role' => 'required|integer',
-    //     ]);
-
-    //     // Ambil data admin berdasarkan ID
-    //     $admin = DB::table('admins')->where('id_admin', $id)->first();
-
-    //     if (!$admin) {
-    //         Log::warning('Admin not found', ['id' => $id]);
-    //         return redirect()->route('createAdmin')->with('error', 'Admin not found.');
-    //     }
-
-    //     // Simpan data lama untuk log
-    //     $oldData = [
-    //         'nama_admin' => $admin->nama_admin,
-    //         'username_admin' => $admin->username_admin,
-    //         'id_role' => $admin->id_role,
-    //     ];
-
-    //     // Siapkan data untuk diupdate
-    //     $updateData = [
-    //         'nama_admin' => $request->nama_admin,
-    //         'username_admin' => $request->username_admin,
-    //         'id_role' => $request->id_role,
-    //         'updateAdd' => now(),
-    //         'updated_at' => now(),
-    //     ];
-
-    //     if (!empty($request->password_admin)) {
-    //         $hashedPassword = Hash::make($request->password_admin);
-    //         $updateData['password_admin'] = $hashedPassword;
-    //     } else {
-    //         $updateData['password_admin'] = $admin->password_admin; // Pertahankan password lama jika tidak diubah
-    //     }
-
-    //     // Update data admin di database
-    //     $isUpdated = DB::table('admins')->where('id_admin', $id)->update($updateData);
-
-    //     if ($isUpdated) {
-    //         Log::info('Admin updated', [
-    //             'id' => $id,
-    //             'old_data' => $oldData,
-    //             'new_data' => $updateData,
-    //         ]);
-
-    //         return redirect()->route('createAdmin')->with('success', 'Admin updated successfully.');
-    //     } else {
-    //         Log::warning('Failed to update admin', ['id' => $id]);
-
-    //         return redirect()->route('createAdmin')->with('error', 'Failed to update admin.');
-    //     }
-    // }
 
 
     public function destroy($id)
@@ -399,8 +337,4 @@ class AdminController extends Controller
 
         return redirect('/login'); // Arahkan kembali ke halaman login
     }
-
 }
-
-
-

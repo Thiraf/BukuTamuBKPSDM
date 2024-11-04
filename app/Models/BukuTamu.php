@@ -19,7 +19,7 @@ class BukuTamu extends Model
         'id_bidang',
         'id_layanan',
         'id_bidang',
-        'nik',
+        'nip',
         'tujuan_informasi',
         'nama_pegawai',
         'tempat_tanggal_lahir_pegawai',

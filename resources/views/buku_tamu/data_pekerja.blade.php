@@ -23,27 +23,6 @@
         <div class="card shadow-sm">
             <div class="card-body">
                 <h3 class="text-center mb-4">Data Pegawai</h3>
-                <!-- Tombol untuk melanjutkan -->
-                {{-- <form action="/buku-tamu/simpan-pegawai" method="POST">
-                    @csrf
-                    <div class="form-group">
-                        <label>Nama</label>
-                        <input type="text"  name="nama_pegawai" value="{{ $pegawai->nama_pegawai }}" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Bidang</label>
-                        <input type="text"  name="jabatan_pegawai" value="{{ $pegawai->bidang['nama_bidang'] }}"  class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Unit Kerja</label>
-                        <input type="text"  name="unit_kerja_pegawai" value="{{ $pegawai->unit_kerja_pegawai}}"  class="form-control" required>
-                    </div>
-
-                    <div class="text-center mt-4">
-                        <button type="submit" class="btn btn-primary">Next</button>
-                    </div>
-                </form> --}}
-
                 <form action="/buku-tamu/simpan-pegawai" method="POST">
                     @csrf
                     <div class="form-group">
@@ -63,7 +42,7 @@
                     <div class="form-group">
                         <label>Unit Kerja</label>
                         <input type="text" name="unit_kerja_pegawai"
-                               value="{{ session('data_source') === 'api' ? session('pegawai')['unorl2'] : session('pegawai')->unit_kerja_pegawai }}"
+                               value="{{ session('data_source') === 'api' ? session('pegawai')['unorl1'] : session('pegawai')->unit_kerja_pegawai }}"
                                class="form-control">
                     </div>
 

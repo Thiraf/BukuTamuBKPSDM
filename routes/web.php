@@ -9,7 +9,7 @@ Route::get('/', function () {
 use App\Http\Controllers\BukuTamuController;
 use App\Http\Controllers\AdminController;
 use App\Http\Middleware\CheckSuperAdmin;
-use App\Http\Middleware\CheckNIK;
+use App\Http\Middleware\CheckNIP;
 
 use Mews\Captcha\Captcha;
 
@@ -19,12 +19,12 @@ use Mews\Captcha\Captcha;
 
 // Client Buku Tamu
 
-// Route untuk verifikasi NIK
-Route::post('/buku-tamu/cek-nik', [BukuTamuController::class, 'cekNik']);
+// Route untuk verifikasi NIP
+Route::post('/buku-tamu/cek-nip', [BukuTamuController::class, 'cekNip']);
 
 
-// Gunakan middleware CheckNIK untuk semua route di group ini
-Route::middleware([CheckNIK::class])->group(function () {
+// Gunakan middleware CheckNIP untuk semua route di group ini
+Route::middleware([CheckNIP::class])->group(function () {
 
 
 

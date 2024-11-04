@@ -17,7 +17,7 @@ class PegawaisSeeder extends Seeder
         DB::table('pegawais')->insert([
             [
                 'id_pegawai'=>'1',
-                'nik' => '123',
+                'nip' => '123',
                 'nama_pegawai' => 'John Doe',
                 'jabatan_pegawai' => 'Manager',
                 'unit_kerja_pegawai' => 'Finance',
@@ -31,7 +31,7 @@ class PegawaisSeeder extends Seeder
             ],
             [
                 'id_pegawai'=>'2',
-                'nik' => '321',
+                'nip' => '321',
                 'nama_pegawai' => 'Jane Smith',
                 'jabatan_pegawai' => 'Staff',
                 'unit_kerja_pegawai' => 'IT',

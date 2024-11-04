@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('pegawais', function (Blueprint $table) {
             $table->bigIncrements('id_pegawai'); // Primary Key
-            $table->string('nik', 20)->unique(); // Nomor induk pegawai, harus unik
+            $table->string('nip', 20)->unique(); // Nomor induk pegawai, harus unik
             $table->string('nama_pegawai', 255); // Nama pegawai
             $table->string('jabatan_pegawai',255)->nullable();
             $table->string('unit_kerja_pegawai',255)->nullable();

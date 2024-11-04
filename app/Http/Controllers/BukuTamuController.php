@@ -102,12 +102,12 @@ class BukuTamuController extends Controller
     //     }
     // }
 
-    public function cekNIK(Request $request)
+    public function cekNIP(Request $request)
     {
-        Log::info('Masuk ke Function Cek Nik');
+        Log::info('Masuk ke Function Cek Nip');
 
         $validator = Validator::make($request->all(), [
-            'nik' => 'required',
+            'nip' => 'required',
             'captcha' => 'required|captcha',
         ], [
             'captcha.captcha' => 'Captcha salah, silahkan coba lagi.',
@@ -119,7 +119,7 @@ class BukuTamuController extends Controller
                 ->withInput();
         }
 
-        $nik = $request->input('nik');
+        $nip = $request->input('nip');
 
         // Dapatkan token API
         $token = $this->getApiToken();
@@ -127,11 +127,11 @@ class BukuTamuController extends Controller
         // Log untuk memastikan token berhasil diambil
         Log::info('Token API yang didapatkan:', ['token' => $token]);
 
-        // Panggil API untuk memeriksa NIK
+        // Panggil API untuk memeriksa NIP
         $client = new Client();
         $response = $client->post('https://asn-api.bantulkab.go.id/wsgo/simpeg/Profil', [
             'json' => [
-                'Nip' => $nik
+                'Nip' => $nip
             ],
             'headers' => [
                 'Content-Type' => 'application/json',
@@ -150,7 +150,7 @@ class BukuTamuController extends Controller
             Log::info('Data pegawai ditemukan di API:', ['pegawai' => $profileData['Data'][0]]);
 
             // Simpan data pegawai dari API ke session
-            session(['nik' => $nik]);
+            session(['nip' => $nip]);
             session(['pegawai' => $profileData['Data'][0]]); // Sesuaikan dengan struktur data API
             session(['data_source' => 'api']); // Tandai bahwa data berasal dari API
             return redirect()->route('buku_tamu.data_pekerja');
@@ -158,13 +158,13 @@ class BukuTamuController extends Controller
             Log::info('Data pegawai tidak ditemukan di API, coba cari di database lokal.');
 
             // Jika data pegawai tidak ditemukan di API, coba cari di database lokal
-            $pegawai = Pegawai::where('nik', $nik)->first();
+            $pegawai = Pegawai::where('nip', $nip)->first();
 
             if ($pegawai) {
                 Log::info('Data pegawai ditemukan di database lokal:', ['pegawai' => $pegawai]);
 
                 // Jika data ditemukan di database, simpan ke session
-                session(['nik' => $nik]);
+                session(['nip' => $nip]);
                 session(['pegawai' => $pegawai]);
                 session(['data_source' => 'local']); // Tandai bahwa data berasal dari database lokal
                 return redirect()->route('buku_tamu.data_pekerja');
@@ -172,7 +172,7 @@ class BukuTamuController extends Controller
                 Log::info('Data pegawai tidak ditemukan di API maupun database lokal. Mengarahkan ke form pekerja baru.');
 
                 // Jika data pegawai tidak ditemukan di API maupun di database, arahkan ke form pekerja baru
-                session(['nik' => $nik]);
+                session(['nip' => $nip]);
                 return redirect()->route('buku_tamu.form_pekerja_baru');
             }
         }
@@ -187,10 +187,10 @@ class BukuTamuController extends Controller
     {
         Log::info('Show Data Pekerja');
 
-        if (!$request->session()->has('nik')) {
-            return redirect()->route('buku_tamu.cek_nik')->withErrors('Silakan masukkan NIK terlebih dahulu.');
+        if (!$request->session()->has('nip')) {
+            return redirect()->route('buku_tamu.cek_nip')->withErrors('Silakan masukkan NIP terlebih dahulu.');
         }
-        Log::info('Cek session NIK:', ['session_nik' => $request->session()->get('nik')]);
+        Log::info('Cek session NIP:', ['session_nip' => $request->session()->get('nip')]);
 
         $pegawai = session('pegawai');
 
@@ -201,22 +201,22 @@ class BukuTamuController extends Controller
     {
         Log::info('Masuk ke Function Form Pekerja Baru');
 
-        if (!$request->session()->has('nik')) {
-            return redirect()->route('buku_tamu.cek_nik')->withErrors('Silakan masukkan NIK terlebih dahulu.');
+        if (!$request->session()->has('nip')) {
+            return redirect()->route('buku_tamu.cek_nip')->withErrors('Silakan masukkan NIP terlebih dahulu.');
         }
-        Log::info('Cek session NIK:', ['session_nik' => $request->session()->get('nik')]);
+        Log::info('Cek session NIP:', ['session_nip' => $request->session()->get('nip')]);
 
 
-        $nik = $request->session()->get('nik');
+        $nip = $request->session()->get('nip');
 
-        return view('buku_tamu.form_pekerja_baru', compact('nik'));
+        return view('buku_tamu.form_pekerja_baru', compact('nip'));
     }
 
     public function simpanPegawai(Request $request)
     {
         Log::info('Masuk ke Function Simpan Pegawai');
 
-        Log::info('Cek session NIK:', ['session_nik' => $request->session()->get('nik')]);
+        Log::info('Cek session NIP:', ['session_nip' => $request->session()->get('nip')]);
 
 
         // Validasi data yang dikirimkan
@@ -227,12 +227,12 @@ class BukuTamuController extends Controller
         ]);
         Log::info('cek');
 
-        // Ambil NIK dari session (disimpan sebelumnya pada cekNIK)
-        $nik = session('nik');
+        // Ambil NIP dari session (disimpan sebelumnya pada cekNIP)
+        $nip = session('nip');
 
         // Simpan data ke tabel buku_tamus
         $bukuTamuId = DB::table('buku_tamus')->insertGetId([
-            'nik' => $nik,  // Simpan NIK di sini
+            'nip' => $nip,  // Simpan NIP di sini
             'nama_pegawai' => $request->nama_pegawai,
             'jabatan_pegawai' => $request->jabatan_pegawai,
             'unit_kerja_pegawai' => $request->unit_kerja_pegawai,
@@ -251,14 +251,14 @@ class BukuTamuController extends Controller
 
         Log::info('Simpan Pegawai Berhasil dilakukan');
 
-        Log::info('Cek session NIK:', ['session_nik' => $request->session()->get('nik')]);
+        Log::info('Cek session NIP:', ['session_nip' => $request->session()->get('nip')]);
 
 
         // Ambil data buku tamu berdasarkan ID
         $bukuTamu = DB::table('buku_tamus')->where('id_buku_tamu', $id)->first();
         $layanans = Layanan::all();
 
-        session()->forget('nik');
+        session()->forget('nip');
 
         // Kirim data ke view tujuan_informasi
         return view('buku_tamu.tujuan_informasi', compact('bukuTamu', 'layanans'));
@@ -291,8 +291,8 @@ class BukuTamuController extends Controller
         // Panggil function addToDashboard setelah data buku tamu berhasil di-update
         $this->addToDashboard($id_buku_tamu);
 
-        // Hapus session NIK
-        session()->forget('nik');
+        // Hapus session NIP
+        session()->forget('nip');
 
         // Redirect dengan pesan sukses
         return redirect()->route('index')
@@ -328,7 +328,7 @@ class BukuTamuController extends Controller
         $dataDashboard = [
             'id_buku_tamu' => $bukuTamu->id_buku_tamu,
             'id_admin' => $bukuTamu->id_admin ?? 1,
-            'nik' => $bukuTamu->nik,
+            'nip' => $bukuTamu->nip,
             'nama_pegawai' => $bukuTamu->nama_pegawai,
             'jabatan_pegawai' => $bukuTamu->jabatan_pegawai,
             'unit_kerja_pegawai' => $bukuTamu->unit_kerja_pegawai,

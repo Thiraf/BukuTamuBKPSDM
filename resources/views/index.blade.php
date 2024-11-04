@@ -63,11 +63,11 @@
                     <!-- Form Section -->
                     <div class="login-wrap p-4 p-md-5">
                         <h3 class="mb-4"></h3>
-                        <form action="/buku-tamu/cek-nik" method="POST" class="signin-form">
+                        <form action="/buku-tamu/cek-nip" method="POST" class="signin-form">
                             @csrf
                             <div class="form-group mb-3">
-                                <label class="label" for="nik">ID/NIK</label>
-                                <input type="text" name="nik" class="form-control" placeholder="Silahkan masukkan ID/NIK" required>
+                                <label class="label" for="nip">NIP</label>
+                                <input type="text" name="nip" class="form-control" placeholder="Silahkan masukkan NIP" required>
                             </div>
 
                             <div class="form-group mb-3">

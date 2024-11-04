@@ -17,7 +17,7 @@ return new class extends Migration
             // $table->unsignedBigInteger('id_bidang'); // Foreign Key ke tabel Bidang
             $table->unsignedBigInteger('id_layanan')->nullable(); // Foreign Key ke tabel Layanan
             $table->unsignedBigInteger('id_bidang')->nullable(); // Foreign Key ke tabel Layanan
-            $table->bigInteger('nik')->nullable(); // NIP, nullable
+            $table->bigInteger('nip')->nullable(); // NIP, nullable
             $table->string('nama_pegawai', 255)->nullable(); // Nama pegawai, sesuai ERD (nullable)
             $table->string('jabatan_pegawai',255)->nullable();
             $table->string('unit_kerja_pegawai',255)->nullable();

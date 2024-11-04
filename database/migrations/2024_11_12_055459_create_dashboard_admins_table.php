@@ -17,7 +17,7 @@ return new class extends Migration
             $table->bigIncrements('id_dashboard_admin'); // Primary Key
             $table->unsignedBigInteger('id_buku_tamu');  // Foreign key ke tabel Buku Tamu
             $table->unsignedBigInteger('id_admin');      // Foreign key ke tabel Admin
-            $table->bigInteger('nik')->nullable(); // NIP, nullable
+            $table->bigInteger('nip')->nullable(); // NIP, nullable
             $table->string('nama_pegawai', 255)->nullable();
             $table->string('jabatan_pegawai',255)->nullable();
             $table->string('unit_kerja_pegawai',255)->nullable();

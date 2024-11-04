@@ -247,7 +247,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>ID</th>
-                                <th>NIK</th>
+                                <th>NIP</th>
                                 <th>Nama Pegawai</th>
                                 <th>Jabatan Pegawai</th>
                                 <th>Unit Kerja Pegawai</th>
@@ -269,7 +269,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $dataTamu->id_buku_tamu }}</td>
-                                        <td>{{ $dataTamu->nik }}</td>
+                                        <td>{{ $dataTamu->nip }}</td>
                                         <td>{{ $dataTamu->nama_pegawai }}</td>
                                         <td>{{ $dataTamu->jabatan_pegawai }}</td>
                                         <td>{{ $dataTamu->unit_kerja_pegawai }}</td>

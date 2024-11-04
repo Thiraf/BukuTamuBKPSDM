@@ -19,7 +19,7 @@ class DashboardAdmin extends Model
     protected $fillable = [
         'id_buku_tamu',
         'id_admin',
-        'nik',
+        'nip',
         'nama_pegawai',
         'jabatan_pegawai',
         'unit_kerja_pegawai',

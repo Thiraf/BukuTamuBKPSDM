@@ -244,6 +244,15 @@ input[type="text"] {
         color: #000000;
     }
 
+    .label {
+        margin-top: 20px;
+        font-weight: 600; /* Ketebalan font untuk label */
+        padding-top: 50px;
+        font-size: 20px; /* Ukuran font 14px */
+        color: #333; /* Warna teks label */
+        display: block; /* Pastikan label tampil dalam satu baris penuh */
+    }
+
     .mb-4{
         padding: 0px;
     }

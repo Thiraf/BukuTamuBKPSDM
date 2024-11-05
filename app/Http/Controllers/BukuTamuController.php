@@ -61,47 +61,6 @@ class BukuTamuController extends Controller
     }
 
 
-
-    // public function cekNIK(Request $request)
-    // {
-
-    //     // Log informasi untuk request POST
-    //     Log::info('Masuk ke Function Cek Nik');
-
-    //     // Validasi input NIK dan CAPTCHA
-    //     $validator = Validator::make($request->all(), [
-    //         'nik' => 'required',
-    //         'captcha' => 'required|captcha', // Validasi CAPTCHA
-    //     ], [
-    //         'captcha.captcha' => 'Captcha salah, silahkan coba lagi.', // Pesan error khusus untuk captcha
-    //     ]);
-
-    //     // Jika validasi gagal, kembalikan ke halaman sebelumnya dengan pesan error
-    //     if ($validator->fails()) {
-    //         return redirect()->back()
-    //             ->withErrors($validator) // Kirim error ke view
-    //             ->withInput(); // Simpan input sebelumnya
-    //     }
-
-    //     // Validasi input NIK
-    //     $nik = $request->input('nik');
-
-    //     // Cari data pegawai berdasarkan NIK
-    //     $pegawai = Pegawai::where('nik', $nik)->first();
-
-    //     if ($pegawai) {
-    //         // Simpan data ke session jika ditemukan
-    //         session(['nik' => $nik]);
-    //         session(['pegawai' => $pegawai]);
-    //         // Jika data pegawai ditemukan, arahkan ke halaman data_pekerja
-    //         return redirect()->route('buku_tamu.data_pekerja'); // Pastikan ada route untuk ini
-    //     } else {
-    //         // Jika data pegawai tidak ditemukan, arahkan ke halaman form_pekerja_baru dengan NIK
-    //         session(['nik' => $nik]);
-    //         return redirect()->route('buku_tamu.form_pekerja_baru'); // Pastikan ada route untuk ini
-    //     }
-    // }
-
     public function cekNIP(Request $request)
     {
         Log::info('Masuk ke Function Cek Nip');

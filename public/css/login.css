@@ -63,3 +63,25 @@ body {
     font-size: 18px; /* Ukuran font */
     width: 100%; /* Lebar penuh */
 }
+
+/* Toast Initial Style */
+.toast {
+    opacity: 1;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* Toast Hide Animation */
+.toast.hide-toast {
+    opacity: 0;
+    transform: translateY(-20px); /* Sedikit bergerak ke atas saat menghilang */
+    pointer-events: none; /* Mencegah interaksi setelah animasi selesai */
+}
+
+.btn-close {
+    padding: 0;
+    margin: 0;
+    background: none;
+    border: none;
+}
+
+

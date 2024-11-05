@@ -42,6 +42,8 @@ class AdminController extends Controller
             'username_admin' => 'required|string|max:255',
             'password' => 'required|string|max:10',
             'captcha' => 'required|captcha',  // Validasi CAPTCHA
+        ], [
+            'captcha.captcha' => 'Captcha salah, silahkan coba lagi.',
         ]);
 
         // dd($request->all());

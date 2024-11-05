@@ -97,32 +97,6 @@
     </div>
 </section>
 
-<!-- Toast Display Script -->
-{{-- <script>
-    document.addEventListener('DOMContentLoaded', function () {
-    // Inisialisasi Toast untuk Error
-    @if ($errors->any())
-        $('#errorToast').toast('show').delay(4000).fadeOut(500, function () {
-            $(this).remove(); // Hapus elemen setelah fadeOut selesai
-        });
-    @endif
-
-    // Inisialisasi Toast untuk Success
-    @if (session('success'))
-        $('#successToast').toast('show').delay(4000).fadeOut(500, function () {
-            $(this).remove(); // Hapus elemen setelah fadeOut selesai
-        });
-    @endif
-
-    // Tutup toast secara manual jika tombol "x" ditekan
-    $('.toast .close').on('click', function () {
-        $(this).closest('.toast').fadeOut( function () {
-            $(this).remove();
-        });
-    });
-});
-
-</script> --}}
 
 {{-- <!-- Accessibility Script -->
 <script>

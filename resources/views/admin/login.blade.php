@@ -15,6 +15,41 @@
 </head>
 <body class="d-flex justify-content-center align-items-center bg-light">
 
+    <!-- Toast Success Notification -->
+    <div aria-live="polite" aria-atomic="true" style="position: fixed; top: 20px; right: 20px; z-index: 9999;">
+        @if(session('success'))
+        <div class="toast show" id="successToast" data-delay="5000" style="min-width: 300px; padding: 20px; background-color: #28a745; color: white; font-size: 1.2rem; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); border-radius: 10px;">
+            <div class="toast-header" style="background-color: transparent; border-bottom: none; color: white;">
+                <i class="fa fa-check-circle" style="font-size: 1.5rem; margin-right: 10px;"></i>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close" style="color: white;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                {{ session('success') }}
+            </div>
+        </div>
+        @endif
+    </div>
+
+    <!-- Toast Error Notification -->
+    <div aria-live="polite" aria-atomic="true" style="position: fixed; top: 100px; right: 20px; z-index: 9999;">
+        @if($errors->any())
+        <div class="toast show" id="errorToast" data-delay="5000" style="min-width: 300px; padding: 15px; background-color: rgba(255, 0, 0, 0.8); color: white; font-size: 1.2rem; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); border-radius: 10px;">
+            <div class="toast-header" style="background-color: transparent; border-bottom: none;">
+                <strong class="mr-auto" style="color: white;">Peringatan</strong>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close" style="color: white;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                {{ $errors->first() }}
+            </div>
+        </div>
+        @endif
+    </div>
+
+
     <div class="overlay"></div> <!-- Layer hitam -->
 
     <div class="container">
@@ -82,6 +117,20 @@
         </div>
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Menampilkan toast sesuai kondisi
+            @if ($errors->any())
+                const errorToast = new bootstrap.Toast(document.getElementById('errorToast'));
+                errorToast.show();
+            @elseif(session('success'))
+                const successToast = new bootstrap.Toast(document.getElementById('successToast'));
+                successToast.show();
+            @endif
+        });
+        </script>
+
+
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript">
@@ -90,6 +139,34 @@
             captcha.src = '/captcha/default?' + Math.random();
         });
     </script>
+
+<script>
+    // Function to hide toast with animation
+    function hideToast(toast) {
+        toast.classList.add('hide-toast'); // Tambahkan class hide-toast untuk animasi
+
+        // Hapus toast dari DOM setelah animasi selesai
+        setTimeout(() => {
+            toast.style.display = 'none';
+        }, 500); // Sesuaikan waktu ini dengan durasi animasi CSS (0.5s)
+    }
+
+    // Menyembunyikan toast secara otomatis setelah 3 detik
+    document.querySelectorAll('.toast').forEach(toast => {
+        // Timer otomatis untuk menghilangkan toast setelah 3 detik
+        setTimeout(() => {
+            hideToast(toast);
+        }, 3000); // 3 detik
+
+        // Menambahkan event listener pada tombol close untuk menghilangkan toast jika di-click
+        const closeButton = toast.querySelector('.close, .btn-close');
+        if (closeButton) {
+            closeButton.addEventListener('click', () => hideToast(toast));
+        }
+    });
+</script>
+
+
 
 </body>
 

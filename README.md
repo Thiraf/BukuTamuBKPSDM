@@ -83,6 +83,11 @@ Sebelum memulai, pastikan telah terinstall:
     ```
     docker-compose ps
     ```
+
+4. **Memasukkan Seeder**
+    ```
+    docker-compose exec app php artisan db:seed
+    ```
     
 
 ## 🔍 Fitur Detail 

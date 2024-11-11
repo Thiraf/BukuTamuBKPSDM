@@ -61,6 +61,82 @@ class BukuTamuController extends Controller
     }
 
 
+    // public function cekNIP(Request $request)
+    // {
+    //     Log::info('Masuk ke Function Cek Nip');
+
+    //     $validator = Validator::make($request->all(), [
+    //         'nip' => 'required',
+    //         'captcha' => 'required|captcha',
+    //     ], [
+    //         'captcha.captcha' => 'Captcha salah, silahkan coba lagi.',
+    //     ]);
+
+    //     if ($validator->fails()) {
+    //         return redirect()->back()
+    //             ->withErrors($validator)
+    //             ->withInput();
+    //     }
+
+    //     $nip = $request->input('nip');
+
+    //     // Dapatkan token API
+    //     $token = $this->getApiToken();
+
+    //     // Log untuk memastikan token berhasil diambil
+    //     Log::info('Token API yang didapatkan:', ['token' => $token]);
+
+    //     // Panggil API untuk memeriksa NIP
+    //     $client = new Client();
+    //     $response = $client->post('https://asn-api.bantulkab.go.id/wsgo/simpeg/Profil', [
+    //         'json' => [
+    //             'Nip' => $nip
+    //         ],
+    //         'headers' => [
+    //             'Content-Type' => 'application/json',
+    //             'Authorization' => 'Bearer ' . $token
+    //         ]
+    //     ]);
+
+    //     // Decode response JSON
+    //     $profileData = json_decode($response->getBody()->getContents(), true);
+
+    //     // Log response API untuk memastikan struktur data
+    //     Log::info('Respons API Profil:', ['response' => $profileData]);
+
+    //     // Cek apakah profil ditemukan
+    //     if (!empty($profileData) && isset($profileData['Data']) && !empty($profileData['Data'][0])) {
+    //         Log::info('Data pegawai ditemukan di API:', ['pegawai' => $profileData['Data'][0]]);
+
+    //         // Simpan data pegawai dari API ke session
+    //         session(['nip' => $nip]);
+    //         session(['pegawai' => $profileData['Data'][0]]); // Sesuaikan dengan struktur data API
+    //         session(['data_source' => 'api']); // Tandai bahwa data berasal dari API
+    //         return redirect()->route('buku_tamu.data_pekerja');
+    //     } else {
+    //         Log::info('Data pegawai tidak ditemukan di API, coba cari di database lokal.');
+
+    //         // Jika data pegawai tidak ditemukan di API, coba cari di database lokal
+    //         $pegawai = Pegawai::where('nip', $nip)->first();
+
+    //         if ($pegawai) {
+    //             Log::info('Data pegawai ditemukan di database lokal:', ['pegawai' => $pegawai]);
+
+    //             // Jika data ditemukan di database, simpan ke session
+    //             session(['nip' => $nip]);
+    //             session(['pegawai' => $pegawai]);
+    //             session(['data_source' => 'local']); // Tandai bahwa data berasal dari database lokal
+    //             return redirect()->route('buku_tamu.data_pekerja');
+    //         } else {
+    //             Log::info('Data pegawai tidak ditemukan di API maupun database lokal. Mengarahkan ke form pekerja baru.');
+
+    //             // Jika data pegawai tidak ditemukan di API maupun di database, arahkan ke form pekerja baru
+    //             session(['nip' => $nip]);
+    //             return redirect()->route('buku_tamu.form_pekerja_baru');
+    //         }
+    //     }
+    // }
+
     public function cekNIP(Request $request)
     {
         Log::info('Masuk ke Function Cek Nip');
@@ -116,29 +192,26 @@ class BukuTamuController extends Controller
         } else {
             Log::info('Data pegawai tidak ditemukan di API, coba cari di database lokal.');
 
-            // Jika data pegawai tidak ditemukan di API, coba cari di database lokal
-            $pegawai = Pegawai::where('nip', $nip)->first();
+            // Jika data pegawai tidak ditemukan di API, coba cari di tabel `buku_tamus`
+            $pegawai = DB::table('buku_tamus')->where('nip', $nip)->first();
 
             if ($pegawai) {
-                Log::info('Data pegawai ditemukan di database lokal:', ['pegawai' => $pegawai]);
+                Log::info('Data pegawai ditemukan di tabel buku_tamus:', ['pegawai' => $pegawai]);
 
-                // Jika data ditemukan di database, simpan ke session
+                // Jika data ditemukan di `buku_tamus`, simpan ke session
                 session(['nip' => $nip]);
                 session(['pegawai' => $pegawai]);
-                session(['data_source' => 'local']); // Tandai bahwa data berasal dari database lokal
+                session(['data_source' => 'local']); // Tandai bahwa data berasal dari tabel buku_tamus
                 return redirect()->route('buku_tamu.data_pekerja');
             } else {
-                Log::info('Data pegawai tidak ditemukan di API maupun database lokal. Mengarahkan ke form pekerja baru.');
+                Log::info('Data pegawai tidak ditemukan di API maupun di tabel buku_tamus. Mengarahkan ke form pekerja baru.');
 
-                // Jika data pegawai tidak ditemukan di API maupun di database, arahkan ke form pekerja baru
+                // Jika data pegawai tidak ditemukan di API maupun di `buku_tamus`, arahkan ke form pekerja baru
                 session(['nip' => $nip]);
                 return redirect()->route('buku_tamu.form_pekerja_baru');
             }
         }
     }
-
-
-
 
 
 
@@ -177,7 +250,6 @@ class BukuTamuController extends Controller
 
         Log::info('Cek session NIP:', ['session_nip' => $request->session()->get('nip')]);
 
-
         // Validasi data yang dikirimkan
         $request->validate([
             'nama_pegawai' => 'required|string|max:255',
@@ -197,6 +269,7 @@ class BukuTamuController extends Controller
             'unit_kerja_pegawai' => $request->unit_kerja_pegawai,
             'created_at' => now(),
             'updated_at' => now(),
+            'userAdd' => $bukuTamu->userAdd ?? 1, // Nilai default jika user tidak ditemukan
         ]);
 
         // Berpindah ke halaman tujuan_informasi dengan ID data yang baru disimpan

@@ -14,11 +14,10 @@ RUN apt-get update && apt-get install -y \
 
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd
-
-WORKDIR /var/www
+RUN docker-php-ext-install pdo_mysql
 
 # Unduh installer Composer
-RUN curl -o composer-setup.php https://getcomposer.org/installer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Jalankan installer untuk memasang Composer
 RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer
@@ -32,8 +31,6 @@ RUN chown -R www-data:www-data /var/www \
 
 # Menjalankan migrate
 CMD php artisan migrate --force && php-fpm
-
-RUN docker-php-ext-install pdo_mysql
 
 EXPOSE 9000
 

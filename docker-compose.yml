@@ -22,7 +22,7 @@ services:
       - laravel
 
   webserver:
-    image: nginx:alpine
+    image: hirziin/bukutamu:1.0
     container_name: laravel_webserver
     working_dir: /var/www
     volumes:

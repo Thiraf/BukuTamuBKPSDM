@@ -35,4 +35,4 @@ WORKDIR /var/www
 CMD sh -c "php artisan migrate --force && php artisan db:seed --force && php-fpm"
 
 # Ekspos port PHP-FPM
-EXPOSE 9000
+EXPOSE 9000

@@ -21,19 +21,14 @@ RUN docker-php-ext-install pdo_mysql
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Pastikan izin direktori tepat untuk server
-RUN mkdir -p /var/www/storage/logs /var/www/bootstrap/cache \
-    && chmod -R 775 /var/www/storage /var/www/bootstrap/cache \
-    && chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
+RUN chown -R www-data:www-data /var/www \
+    && chmod -R 755 /var/www
 
-# Salin aplikasi Laravel ke dalam container
-COPY . /var/www
-
-# Atur direktori kerja ke /var/www
-WORKDIR /var/www
-
-# Jalankan migrasi, seeder, dan PHP-FPM
-CMD sh -c "php artisan migrate --force && php artisan db:seed --force && php-fpm"
+# Jalankan migrate saat container dijalankan
+CMD php artisan migrate --force && php-fpm
 
 # Ekspos port PHP-FPM
 EXPOSE 9000
 
+# Atur direktori kerja ke /var/www
+WORKDIR /var/www

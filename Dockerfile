@@ -24,11 +24,11 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN chown -R www-data:www-data /var/www \
     && chmod -R 755 /var/www
 
-# Atur direktori kerja ke /var/www
-WORKDIR /var/www
-
-# Jalankan migrasi, seeder, dan PHP-FPM
-CMD sh -c "sleep 10 && php artisan migrate --force && php artisan db:seed --force && php-fpm"
+# Jalankan migrate saat container dijalankan
+CMD php artisan migrate --force && php-fpm
 
 # Ekspos port PHP-FPM
 EXPOSE 9000
+
+# Atur direktori kerja ke /var/www
+WORKDIR /var/www

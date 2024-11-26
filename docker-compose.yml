@@ -20,7 +20,7 @@ services:
       DB_DATABASE: bkpsdm
       DB_USERNAME: admin
       DB_PASSWORD: adminaja
-    command: sh -c "sleep 10 && php artisan migrate --force && php-fpm"
+    command: sh -c "sleep 10 && php artisan migrate --force && php artisan db:seed --force && php-fpm"
     networks:
       - laravel
     restart: always
@@ -74,4 +74,4 @@ networks:
   laravel:
 
 volumes:
-  dbdata:
+  dbdata:

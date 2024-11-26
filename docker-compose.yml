@@ -74,4 +74,4 @@ networks:
   laravel:
 
 volumes:
-  dbdata:
+  dbdata:

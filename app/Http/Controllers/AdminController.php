@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Admin; // Pastikan model Admin sudah ada dan disesuaikan
+use App\Models\Admin;
 use Illuminate\Support\Facades\Hash; // Untuk verifikasi password
-use Illuminate\Support\Facades\Session; // Untuk session
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -14,18 +13,13 @@ use App\Models\BukuTamu;
 use App\Models\Status;
 use Illuminate\Http\RedirectResponse;
 use Mews\Captcha\Captcha;
-use App\Http\Controllers\Closure;
-
-
-use App\Models\Role;
-
 
 class AdminController extends Controller
 {
     public function showLoginForm()
     {
         Log::info("Cek Login");
-        return view('admin.login'); // Sesuaikan dengan lokasi view Anda
+        return view('admin.login');
     }
 
     public function generateCaptcha(Captcha $captcha)
@@ -37,11 +31,11 @@ class AdminController extends Controller
     public function login(Request $request): RedirectResponse
     {
         Log::info('Proses autentikasi dimulai');
-        // Validasi input
+
         $credentials = $request->validate([
             'username_admin' => 'required|string|max:255',
             'password' => 'required|string|max:10',
-            'captcha' => 'required|captcha',  // Validasi CAPTCHA
+            'captcha' => 'required|captcha',
         ], [
             'captcha.captcha' => 'Captcha salah, silahkan coba lagi.',
         ]);
@@ -61,19 +55,13 @@ class AdminController extends Controller
 
         // Cek autentikasi admin
         if (Auth::guard('admin')->attempt(['username_admin' => $request->username_admin, 'password' => $request->password])) {
-            // Jika cocok, simpan informasi admin ke dalam session
+
             session(['admin' => $admin]);
 
-            // Debug untuk memastikan login berhasil
-            Log::info('Login berhasil', ['id' => $admin->id_admin]);
 
-            Log::info('Login successful:', ['username' => $credentials['username_admin']]);
-
-            // Redirect ke halaman dashboard
             return to_route('showdashboard')->with('success', 'Login berhasil!');
         } else {
-            // Debug untuk login gagal
-            // Log::warning('Login gagal: Username atau password salah');
+
 
             Log::warning('Login failed:', ['username' => $credentials['username_admin']]);
             Log::warning('Login failed:', ['password' => $credentials['password']]);
@@ -139,20 +127,29 @@ class AdminController extends Controller
     {
         Log::info("Filter Data");
 
-        // Validasi tanggal hanya jika diisi
         $request->validate([
-            'startDate' => 'nullable|date',  // nullable = tidak wajib
-            'endDate' => 'nullable|date|after_or_equal:startDate',  // tidak wajib, tapi harus >= startDate jika diisi
+            'startDate' => 'nullable|date',
+            'endDate' => 'nullable|date|after_or_equal:startDate',
         ]);
 
-        // Ambil input tanggal dari form
         $startDate = $request->input('startDate');
         $endDate = $request->input('endDate');
         $statusFilter = $request->input('statusFilter');
 
 
+        if ($startDate) {
+            // Mengonversi input datetime-local menjadi format 'Y-m-d H:i:s'
+            $startDate = \Carbon\Carbon::parse($startDate)->format('Y-m-d H:i:s');
+        }
+
+        if ($endDate) {
+            // Mengonversi input datetime-local menjadi format 'Y-m-d H:i:s'
+            $endDate = \Carbon\Carbon::parse($endDate)->format('Y-m-d H:i:s');
+        }
+
         // Query data DashboardAdmin
         $dataDashboard = DashboardAdmin::with(['bidang', 'layanan', 'status', 'bukuTamu']);
+
 
         // Tambahkan kondisi untuk tanggal hanya jika diisi
         if ($startDate && $endDate) {
@@ -161,16 +158,29 @@ class AdminController extends Controller
             });
         }
 
-        // Tambahkan filter berdasarkan status jika status dipilih
+        // dd($dataDashboard);
+
+
         if ($statusFilter) {
             $dataDashboard->where('id_status', $statusFilter);
         }
 
         $dataDashboard = $dataDashboard->get(); // Eksekusi query
 
-        // Log hasil data
+        // Log setiap item dalam data yang ter-filter
         foreach ($dataDashboard as $dataTamu) {
-            Log::info('ID Dashboard Admin: ' . $dataTamu->id_dashboard_admin);
+            Log::info('Data Tamu:', [
+                'id_dashboard_admin' => $dataTamu->id_dashboard_admin,
+                'nip' => $dataTamu->nip,
+                'nama_pegawai' => $dataTamu->nama_pegawai,
+                'jabatan_pegawai' => $dataTamu->jabatan_pegawai,
+                'unit_kerja_pegawai' => $dataTamu->unit_kerja_pegawai,
+                'tujuan_informasi' => $dataTamu->tujuan_informasi,
+                'bidang' => $dataTamu->bidang->nama_bidang,
+                'layanan' => $dataTamu->layanan->nama_layanan,
+                'created_at' => $dataTamu->created_at->timezone('Asia/Jakarta')->format('d-m-Y, H:i:s'),
+                'updated_at' => $dataTamu->updated_at->timezone('Asia/Jakarta')->format('d-m-Y, H:i:s'),
+            ]);
         }
 
         // Hitung status (Pending, Process, Completed)
@@ -181,6 +191,13 @@ class AdminController extends Controller
 
         // Fetch all statuses
         $statuses = Status::all(); // Ambil semua status untuk dropdown
+
+        Log::debug('Filter Data:', [
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+            'statusFilter' => $statusFilter
+        ]);
+
 
         // Kembalikan view dengan data yang sudah difilter, statuses, dan status counts
         return view('admin.dashboard', compact('dataDashboard', 'statuses', 'pendingCount', 'processCount', 'completedCount', 'totalCount'));

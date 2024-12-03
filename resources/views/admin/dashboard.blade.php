@@ -16,13 +16,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/styles/overlayscrollbars.min.css" integrity="sha256-dSokZseQNT08wYEWiz5iLI8QPlKxG+TswNRD8k35cpg=" crossorigin="anonymous"><!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Third Party Plugin(Bootstrap Icons)-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.min.css" integrity="sha256-Qsx5lrStHZyR9REqhUF8iQt73X06c8LGIUPzpOhwRrI=" crossorigin="anonymous"><!--end::Third Party Plugin(Bootstrap Icons)--><!--begin::Required Plugin(AdminLTE)-->
     <link rel="stylesheet" href="{{asset('AdminLTE')}}/dist/css/adminlte.css"><!--end::Required Plugin(AdminLTE)--><!-- apexcharts -->
-    <link rel="stylesheet" href="{{asset('AdminLTE')}}//dist/apexcharts.css" integrity="sha256-4MX+61mt9NVvvuPjUWdUdyfZfxSB1/Rf9WtqRHgG5S0=" crossorigin="anonymous"><!-- jsvectormap -->
-    <link rel="stylesheet" href="{{asset('AdminLTE')}}//jsvectormap@1.5.3/dist/css/jsvectormap.min.css" integrity="sha256-+uGLJmmTKOqBr+2E6KDYs/NRsHxSkONXFHUL0fy2O/4=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap4.css">
 
-    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}"> <!-- Muat CSS eksternal -->
+    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/dataTables.css') }}">
 
 
 </head> <!--end::Head--> <!--begin::Body-->
@@ -215,11 +212,13 @@
                     <div class="row mb-4">
                         <div class="col-md-3">
                             <label for="startDate">Dari Tanggal:</label>
-                            <input type="datetime-local" id="startDate" name="startDate" class="form-control">
+                            {{-- <input type="datetime-local" id="startDate" name="startDate" class="form-control"> --}}
+                            <input type="datetime-local" id="startDate" name="startDate" class="form-control" value="{{ request('startDate') }}">
                         </div>
                         <div class="col-md-3">
                             <label for="endDate">Sampai Tanggal:</label>
-                            <input type="datetime-local" id="endDate" name="endDate" class="form-control">
+                            {{-- <input type="datetime-local" id="endDate" name="endDate" class="form-control"> --}}
+                            <input type="datetime-local" id="endDate" name="endDate" class="form-control" value="{{ request('endDate') }}">
                         </div>
                         <div class="col-md-3">
                             <label for="statusFilter">Status:</label>
@@ -276,8 +275,8 @@
                                         <td>{{ $dataTamu->tujuan_informasi }}</td>
                                         <td>{{ $dataTamu->bidang->nama_bidang }}</td>
                                         <td>{{ $dataTamu->layanan->nama_layanan }}</td>
-                                        <td>{{ $dataTamu->created_at->timezone('Asia/Jakarta')->format('d-m-Y, H:i:s') }}</td>
-                                        <td>{{ $dataTamu->updated_at->timezone('Asia/Jakarta')->format('d-m-Y, H:i:s') }}</td>
+                                        <td>{{ $dataTamu->created_at }}</td>
+                                        <td>{{ $dataTamu->updated_at }}</td>
                                         <td>
                                             <button
                                                 type="button"
@@ -330,9 +329,9 @@
                                 @endforeach
                             @endif
                         </tbody>
+
                     </table>
                 </div>
-
             </div>
         </div>
                         </div> <!-- /.Start col -->
@@ -389,79 +388,19 @@
         });
     </script> <!-- apexcharts -->
     <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.min.js" integrity="sha256-+vh8GkaU7C9/wbSLIcwq82tQ2wTf44aOHA8HlBMwRI8=" crossorigin="anonymous"></script> <!-- ChartJS -->
-    <script>
-        // NOTICE!! DO NOT USE ANY OF THIS JAVASCRIPT
-        // IT'S ALL JUST JUNK FOR DEMO
-        // ++++++++++++++++++++++++++++++++++++++++++
-
-        const sales_chart_options = {
-            series: [{
-                    name: "Digital Goods",
-                    data: [28, 48, 40, 19, 86, 27, 90],
-                },
-                {
-                    name: "Electronics",
-                    data: [65, 59, 80, 81, 56, 55, 40],
-                },
-            ],
-            chart: {
-                height: 300,
-                type: "area",
-                toolbar: {
-                    show: false,
-                },
-            },
-            legend: {
-                show: false,
-            },
-            colors: ["#0d6efd", "#20c997"],
-            dataLabels: {
-                enabled: false,
-            },
-            stroke: {
-                curve: "smooth",
-            },
-            xaxis: {
-                type: "datetime",
-                categories: [
-                    "2023-01-01",
-                    "2023-02-01",
-                    "2023-03-01",
-                    "2023-04-01",
-                    "2023-05-01",
-                    "2023-06-01",
-                    "2023-07-01",
-                ],
-            },
-            tooltip: {
-                x: {
-                    format: "MMMM yyyy",
-                },
-            },
-        };
-
-        const sales_chart = new ApexCharts(
-            document.querySelector("#revenue-chart"),
-            sales_chart_options,
-        );
-        sales_chart.render();
-    </script> <!-- jsvectormap -->
     <script src="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/js/jsvectormap.min.js" integrity="sha256-/t1nN2956BT869E6H4V1dnt0X5pAQHPytli+1nTZm2Y=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/maps/world.js" integrity="sha256-XPpPaZlU8S/HWf7FZLAncLg2SAkP8ScUTII89x9D3lY=" crossorigin="anonymous"></script> <!-- jsvectormap -->
+
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+    <script src="{{ asset('js/dataTables.js') }}"></script>
     <script>
-        let table = new DataTable('#myDataTable');
+        let table = $('#myDataTable').DataTable();
     </script>
     <script>
-            $(document).ready(function() {
-        let table = $('#myDataTable').DataTable();
-
-        // Terapkan CSS ulang setelah filter digunakan
+        $(document).ready(function() {
+            let table = $('#myDataTable').DataTable();
         table.on('draw', function() {
-            // Terapkan ukuran font kembali setiap kali tabel di-refresh
             $('table th, table td').css('font-size', '18px');
             $('.btn-sm').css({
                 'font-size': '16px',
@@ -470,120 +409,6 @@
         });
     });
     </script>
-
-
-
-    <script>
-        const visitorsData = {
-            US: 398, // USA
-            SA: 400, // Saudi Arabia
-            CA: 1000, // Canada
-            DE: 500, // Germany
-            FR: 760, // France
-            CN: 300, // China
-            AU: 700, // Australia
-            BR: 600, // Brazil
-            IN: 800, // India
-            GB: 320, // Great Britain
-            RU: 3000, // Russia
-        };
-
-        // World map by jsVectorMap
-        const map = new jsVectorMap({
-            selector: "#world-map",
-            map: "world",
-        });
-
-        // Sparkline charts
-        const option_sparkline1 = {
-            series: [{
-                data: [1000, 1200, 920, 927, 931, 1027, 819, 930, 1021],
-            }, ],
-            chart: {
-                type: "area",
-                height: 50,
-                sparkline: {
-                    enabled: true,
-                },
-            },
-            stroke: {
-                curve: "straight",
-            },
-            fill: {
-                opacity: 0.3,
-            },
-            yaxis: {
-                min: 0,
-            },
-            colors: ["#DCE6EC"],
-        };
-
-        const sparkline1 = new ApexCharts(
-            document.querySelector("#sparkline-1"),
-            option_sparkline1,
-        );
-        sparkline1.render();
-
-        const option_sparkline2 = {
-            series: [{
-                data: [515, 519, 520, 522, 652, 810, 370, 627, 319, 630, 921],
-            }, ],
-            chart: {
-                type: "area",
-                height: 50,
-                sparkline: {
-                    enabled: true,
-                },
-            },
-            stroke: {
-                curve: "straight",
-            },
-            fill: {
-                opacity: 0.3,
-            },
-            yaxis: {
-                min: 0,
-            },
-            colors: ["#DCE6EC"],
-        };
-
-        const sparkline2 = new ApexCharts(
-            document.querySelector("#sparkline-2"),
-            option_sparkline2,
-        );
-        sparkline2.render();
-
-        const option_sparkline3 = {
-            series: [{
-                data: [15, 19, 20, 22, 33, 27, 31, 27, 19, 30, 21],
-            }, ],
-            chart: {
-                type: "area",
-                height: 50,
-                sparkline: {
-                    enabled: true,
-                },
-            },
-            stroke: {
-                curve: "straight",
-            },
-            fill: {
-                opacity: 0.3,
-            },
-            yaxis: {
-                min: 0,
-            },
-            colors: ["#DCE6EC"],
-        };
-
-        const sparkline3 = new ApexCharts(
-            document.querySelector("#sparkline-3"),
-            option_sparkline3,
-        );
-        sparkline3.render();
-
-
-    </script> <!--end::Script-->
 
     <script>
         document.getElementById('confirmLogout').addEventListener('click', function() {

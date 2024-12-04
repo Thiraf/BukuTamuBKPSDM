@@ -28,11 +28,20 @@ RUN mkdir -p /var/www/storage/logs /var/www/bootstrap/cache \
 # Salin aplikasi Laravel ke dalam container
 COPY . /var/www
 
+# Salin entrypoint.sh ke dalam container
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+
+# Atur izin agar skrip dapat dieksekusi
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
 # Atur direktori kerja ke /var/www
 WORKDIR /var/www
 
-# Jalankan migrasi, seeder, dan PHP-FPM
-CMD sh -c "php artisan migrate --force && php artisan db:seed --force && php-fpm"
+# Gunakan entrypoint.sh untuk menjalankan perintah migrasi hanya sekali
+ENTRYPOINT ["entrypoint.sh"]
+
+# Jalankan PHP-FPM
+CMD ["php-fpm"]
 
 # Ekspos port PHP-FPM
 EXPOSE 9000

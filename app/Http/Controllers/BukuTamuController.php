@@ -368,8 +368,8 @@ class BukuTamuController extends Controller
             'id_bidang' => $bukuTamu->id_bidang,
             'id_layanan' => $bukuTamu->id_layanan, // Pastikan ini sudah ada dan terisi'
             'id_status' => $defaultStatus->id_status,
-            'createdAdd' => now(),
-            'updatedAdd' => now(),
+            'createAdd' => now(),
+            'updateAdd' => now(),
             'userAdd' => $bukuTamu->userAdd ?? 1, // Nilai default jika user tidak ditemukan
             'created_at' => now(),
             'updated_at' => now(),

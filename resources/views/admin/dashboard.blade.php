@@ -24,22 +24,6 @@
 
 </head> <!--end::Head--> <!--begin::Body-->
 
-<!-- Toast Notification -->
-<div aria-live="polite" aria-atomic="true" style="position: fixed; top: 20px; right: 20px; z-index: 9999;">
-    @if(session('success'))
-        <div class="toast show" id="successToast" data-bs-delay="5000" style="min-width: 300px; background-color: #28a745; color: white; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);">
-            <div class="toast-header" style="background-color: transparent; border-bottom: none; color: white;">
-                <i class="fa fa-check-circle" style="font-size: 1.5rem; margin-right: 9px;"></i>
-                <strong class="me-auto">Sukses</strong>
-                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close" style="color: white;"></button>
-            </div>
-            <div class="toast-body" style="font-size: 1.2rem;">
-                {{ session('success') }}
-            </div>
-        </div>
-    @endif
-</div>
-
 
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary"> <!--begin::App Wrapper-->
     <div class="app-wrapper"> <!--begin::Header-->
@@ -275,8 +259,8 @@
                                         <td>{{ $dataTamu->tujuan_informasi }}</td>
                                         <td>{{ $dataTamu->bidang->nama_bidang }}</td>
                                         <td>{{ $dataTamu->layanan->nama_layanan }}</td>
-                                        <td>{{ $dataTamu->created_at }}</td>
-                                        <td>{{ $dataTamu->updated_at }}</td>
+                                        <td>{{ $dataTamu->created_at->timezone('Asia/Jakarta')->format('d-m-Y, H:i:s') }}</td>
+                                        <td>{{ $dataTamu->updated_at->timezone('Asia/Jakarta')->format('d-m-Y, H:i:s') }}</td>
                                         <td>
                                             <button
                                                 type="button"

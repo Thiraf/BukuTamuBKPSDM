@@ -28,8 +28,8 @@ return new class extends Migration
 
 
             // Kolom createdAdd, updatedAdd, dan userAdd untuk audit log
-            $table->timestamp('createdAdd')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updatedAdd')->nullable()->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+            $table->timestamp('createAdd')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updateAdd')->nullable()->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
             $table->unsignedBigInteger('userAdd');  // ID pengguna yang menambah atau mengubah data
 
             // Relasi dengan tabel Buku Tamu, Admin, dan Status

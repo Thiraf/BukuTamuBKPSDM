@@ -1,3 +1,5 @@
+#!/bin/bash
+
 
 if [ ! -f /var/www/storage/.migrations_ran ]; then
     echo "Menjalankan migrasi dan seeder..."
@@ -8,6 +10,5 @@ if [ ! -f /var/www/storage/.migrations_ran ]; then
 else
     echo "Migrasi dan seeder sudah dijalankan sebelumnya."
 fi
-
 
 exec php-fpm

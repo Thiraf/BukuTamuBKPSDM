@@ -12,9 +12,7 @@
 	<link rel="stylesheet" href="{{asset('/form/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('css/form_pekerja.css')}}">
 
-	<!-- Tambahkan jQuery -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<!-- Panggil file JS eksternal -->
 	<script src="{{ asset('/js/form.js') }}"></script>
 	</head>
 

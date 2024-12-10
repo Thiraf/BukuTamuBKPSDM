@@ -22,7 +22,6 @@ use Mews\Captcha\Captcha;
 // Route untuk verifikasi NIP
 Route::post('/buku-tamu/cek-nip', [BukuTamuController::class, 'cekNip']);
 
-
 // Gunakan middleware CheckNIP untuk semua route di group ini
 Route::middleware([CheckNIP::class])->group(function () {
 

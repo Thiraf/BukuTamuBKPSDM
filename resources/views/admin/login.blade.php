@@ -5,11 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('/form/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
 </head>
@@ -119,7 +116,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Menampilkan toast sesuai kondisi
             @if ($errors->any())
                 const errorToast = new bootstrap.Toast(document.getElementById('errorToast'));
                 errorToast.show();
@@ -130,8 +126,6 @@
         });
         </script>
 
-
-    <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript">
         document.getElementById('refresh-captcha').addEventListener('click', function () {
@@ -141,24 +135,19 @@
     </script>
 
 <script>
-    // Function to hide toast with animation
     function hideToast(toast) {
-        toast.classList.add('hide-toast'); // Tambahkan class hide-toast untuk animasi
+        toast.classList.add('hide-toast');
 
-        // Hapus toast dari DOM setelah animasi selesai
         setTimeout(() => {
             toast.style.display = 'none';
-        }, 500); // Sesuaikan waktu ini dengan durasi animasi CSS (0.5s)
+        }, 500);
     }
 
-    // Menyembunyikan toast secara otomatis setelah 3 detik
     document.querySelectorAll('.toast').forEach(toast => {
-        // Timer otomatis untuk menghilangkan toast setelah 3 detik
         setTimeout(() => {
             hideToast(toast);
-        }, 3000); // 3 detik
+        }, 3000);
 
-        // Menambahkan event listener pada tombol close untuk menghilangkan toast jika di-click
         const closeButton = toast.querySelector('.close, .btn-close');
         if (closeButton) {
             closeButton.addEventListener('click', () => hideToast(toast));

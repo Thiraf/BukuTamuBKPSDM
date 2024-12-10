@@ -9,10 +9,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{asset('/form/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('css/tujuan_informasi.css')}}">
-
-
-
-    <!-- Script untuk mencegah back button browser -->
     <script type="text/javascript">
         (function () {
             window.history.forward();
@@ -25,7 +21,6 @@
     </head>
 
     <body>
-        <!-- Menghubungkan ke layout utama -->
         @extends('layouts.app')
 
     @section('content')
@@ -34,7 +29,6 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h1 class="text-center">Tujuan Informasi</h1>
-                    <!-- Form untuk update data buku tamu -->
                     <form action="{{ route('buku-tamu.update', $bukuTamu->id_buku_tamu) }}" method="POST">
                         @csrf
                         @method('PUT') <!-- Menggunakan method PUT untuk update -->

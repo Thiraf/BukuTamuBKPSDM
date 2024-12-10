@@ -14,10 +14,10 @@ class AdminFactory extends Factory
     {
         return [
             'nama_admin' => $this->faker->name,
-            'id_role' => rand(1, 2), // Asumsikan ada 2 role
+            'id_role' => rand(1, 2),
             'username_admin' => $this->faker->userName,
-            'password_admin' => bcrypt('password'), // Default password
-            'userAdd' => rand(1, 10), // Asumsikan ada 10 pengguna
+            'password_admin' => bcrypt('password'),
+            'userAdd' => rand(1, 10),
         ];
     }
 }

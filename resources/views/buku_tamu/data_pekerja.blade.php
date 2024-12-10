@@ -19,7 +19,6 @@
 @section('content')
 <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
     <div class="container" style="max-width: 600px;">
-        <!-- Tambahkan card untuk membuat kotak -->
         <div class="card shadow-sm">
             <div class="card-body">
                 <h3 class="text-center mb-4">Data Pegawai</h3>

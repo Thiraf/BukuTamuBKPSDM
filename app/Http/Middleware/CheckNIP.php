@@ -16,13 +16,10 @@ class CheckNIP
      */
     public function handle(Request $request, Closure $next)
     {
-        // Cek apakah session memiliki data NIK
         if (!$request->session()->has('nip')) {
-            // Jika NIK belum ada di session, redirect ke halaman awal dengan pesan error
             return redirect()->route('index')->withErrors('Silakan masukkan NIK terlebih dahulu.');
         }
 
-        // Jika NIK ada di session, lanjutkan request
         return $next($request);
     }
 }

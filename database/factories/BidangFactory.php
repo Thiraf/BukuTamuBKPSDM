@@ -12,9 +12,9 @@ class BidangFactory extends Factory
     public function definition()
     {
         $bidang = ['ppk', 'pkd', 'mutasi', 'sekretariat'];
-        
+
         return [
-            'nama_bidang' => $this->faker->randomElement($bidang),  // Pilih random bidang
+            'nama_bidang' => $this->faker->randomElement($bidang),
             'is_active' => 1,  // Semua bidang di-set aktif
             'userAdd' => 1,    // Misalnya ID user yang menambahkan
         ];

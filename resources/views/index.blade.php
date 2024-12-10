@@ -5,17 +5,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Fonts and Stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    {{-- <link rel="stylesheet" href="{{asset('/form/css/style.css')}}"> --}}
     <link rel="stylesheet" href="{{asset('css/index.css')}}">
 </head>
 <body>
 
 <!-- Toast Success Notification -->
 <div aria-live="polite" aria-atomic="true" style="position: fixed; top: 20px; right: 20px; z-index: 9999;">
-    @if(session('success'))  <!-- Kondisi: Tampilkan hanya jika ada session success -->
+    @if(session('success'))
     <div class="toast show" id="successToast" data-delay="5000" style="min-width: 300px; padding: 20px; background-color: #28a745; color: white; font-size: 1.2rem; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); border-radius: 10px;">
         <div class="toast-header" style="background-color: transparent; border-bottom: none; color: white;">
             <i class="fa fa-check-circle" style="font-size: 1.5rem; margin-right: 10px;"></i>
@@ -32,7 +30,7 @@
 
 <!-- Toast Error Notification -->
 <div aria-live="polite" aria-atomic="true" style="position: fixed; top: 100px; right: 20px; z-index: 9999;">
-    @if($errors->any())  <!-- Kondisi: Tampilkan hanya jika ada error -->
+    @if($errors->any())
     <div class="toast show" id="errorToast" data-delay="5000" style="min-width: 300px; padding: 15px; background-color: rgba(255, 0, 0, 0.8); color: white; font-size: 1.2rem; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); border-radius: 10px;">
         <div class="toast-header" style="background-color: transparent; border-bottom: none;">
             <strong class="mr-auto" style="color: white;">Peringatan</strong>
@@ -118,8 +116,8 @@
 <!-- Refresh Captcha Script -->
 <script type="text/javascript">
     document.getElementById('refresh-captcha').addEventListener('click', function () {
-        var captcha = document.querySelector('.input-group-text img'); // Mengambil elemen gambar captcha
-        captcha.src = '/captcha/default?' + Math.random(); // Menambah parameter acak agar captcha dimuat ulang
+        var captcha = document.querySelector('.input-group-text img');
+        captcha.src = '/captcha/default?' + Math.random();
     });
 </script>
 <script>

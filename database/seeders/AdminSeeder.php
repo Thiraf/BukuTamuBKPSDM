@@ -8,9 +8,6 @@ use Illuminate\Support\Facades\DB;
 
 class AdminSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
 
@@ -18,11 +15,11 @@ class AdminSeeder extends Seeder
         DB::table('admins')->insert([
             'nama_admin' => 'Super Admin',
             'username_admin' => 'Super',
-            'password_admin' => bcrypt('superadmin'), // Hash password
+            'password_admin' => bcrypt('superadmin'),
             'id_role' => 1,
             'createAdd' => now(),
             'updateAdd' => now(),
-            'userAdd' => 1, // Default value atau bisa diubah jika sesuai dengan user
+            'userAdd' => 1,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -30,11 +27,11 @@ class AdminSeeder extends Seeder
         DB::table('admins')->insert([
             'nama_admin' => 'Admins',
             'username_admin' => 'Admins',
-            'password_admin' => bcrypt('adminsbiasa'), // Hash password
+            'password_admin' => bcrypt('adminsbiasa'),
             'id_role' => 2,
             'createAdd' => now(),
             'updateAdd' => now(),
-            'userAdd' => 1, // Default value atau bisa diubah jika sesuai dengan user
+            'userAdd' => 1,
             'created_at' => now(),
             'updated_at' => now(),
         ]);

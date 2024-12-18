@@ -12,7 +12,7 @@ class BukuTamusSeeder extends Seeder
     {
         DB::table('buku_tamus')->insert([
             [
-                'id_buku_tamu' => 1,
+                'id_buku_tamu' => 123,
                 'id_layanan' => 1,
                 'id_bidang' => 3,
                 'nip' => 101,
@@ -27,7 +27,7 @@ class BukuTamusSeeder extends Seeder
                 'updated_at' => '2024-10-13',
             ],
             [
-                'id_buku_tamu' => 2,
+                'id_buku_tamu' => 234,
                 'id_layanan' => 1,
                 'id_bidang' => 2,
                 'nip' => 102,
@@ -42,7 +42,7 @@ class BukuTamusSeeder extends Seeder
                 'updated_at' => '2024-10-13',
             ],
             [
-                'id_buku_tamu' => 3,
+                'id_buku_tamu' => 345,
                 'id_layanan' => 1,
                 'id_bidang' => 1,
                 'nip' => 103,
@@ -57,7 +57,7 @@ class BukuTamusSeeder extends Seeder
                 'updated_at' => '2024-10-14',
             ],
             [
-                'id_buku_tamu' => 4,
+                'id_buku_tamu' => 456,
                 'id_layanan' => 1,
                 'id_bidang' => 1,
                 'nip' => 104,
@@ -72,7 +72,7 @@ class BukuTamusSeeder extends Seeder
                 'updated_at' => '2024-10-12',
             ],
             [
-                'id_buku_tamu' => 5,
+                'id_buku_tamu' => 567,
                 'id_layanan' => 1,
                 'id_bidang' => 1,
                 'nip' => 105,
@@ -87,7 +87,7 @@ class BukuTamusSeeder extends Seeder
                 'updated_at' => '2024-10-13',
             ],
             [
-                'id_buku_tamu' => 6,
+                'id_buku_tamu' => 678,
                 'id_layanan' => 1,
                 'id_bidang' => 1,
                 'nip' => 106,
@@ -102,7 +102,7 @@ class BukuTamusSeeder extends Seeder
                 'updated_at' => '2024-10-11',
             ],
             [
-                'id_buku_tamu' => 7,
+                'id_buku_tamu' => 789,
                 'id_layanan' => 1,
                 'id_bidang' => 1,
                 'nip' => 107,
@@ -117,7 +117,7 @@ class BukuTamusSeeder extends Seeder
                 'updated_at' => '2024-10-07',
             ],
             [
-                'id_buku_tamu' => 8,
+                'id_buku_tamu' => 8910,
                 'id_layanan' => 1,
                 'id_bidang' => 1,
                 'nip' => 108,
@@ -132,7 +132,7 @@ class BukuTamusSeeder extends Seeder
                 'updated_at' => '2024-10-14',
             ],
             [
-                'id_buku_tamu' => 9,
+                'id_buku_tamu' => 91011,
                 'id_layanan' => 1,
                 'id_bidang' => 1,
                 'nip' => 109,
@@ -147,7 +147,7 @@ class BukuTamusSeeder extends Seeder
                 'updated_at' => '2024-10-13',
             ],
             [
-                'id_buku_tamu' => 10,
+                'id_buku_tamu' => 101112,
                 'id_layanan' => 1,
                 'id_bidang' => 1,
                 'nip' => 110,

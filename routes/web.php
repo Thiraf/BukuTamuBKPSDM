@@ -14,6 +14,9 @@ use App\Http\Middleware\CheckNIP;
 use Mews\Captcha\Captcha;
 
 
+use App\Exports\DashboardAdminExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 
 
@@ -115,6 +118,12 @@ Route::get('createAdmin', [AdminController::class, 'createAdmin'])
     ->middleware(CheckSuperAdmin::class)
     ->name('createAdmin');
 
+
+//  Route::get('/history-admin', [AdminController::class, 'showHistory'])->name('history.admin');
+ Route::get('historyAdmin',[AdminController::class, 'showHistory'])->name('historyAdmin');
+
+
+
 Route::post('/storeAdmin', [AdminController::class, 'store'])->name('admin.store');
 
 
@@ -137,7 +146,10 @@ Route::put('/admin/{id}', [AdminController::class, 'update'])->name('admin.updat
 Route::delete('/admin/{id}', [AdminController::class, 'destroy'])->name('admin.destroy');
 
 
-
+// Export Excel
+Route::get('/export-dashboard-admin', function () {
+    return Excel::download(new DashboardAdminExport, 'dashboard_admin.xlsx');
+});
 
 
 

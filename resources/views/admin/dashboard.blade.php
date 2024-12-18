@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.min.css" integrity="sha256-Qsx5lrStHZyR9REqhUF8iQt73X06c8LGIUPzpOhwRrI=" crossorigin="anonymous"><!--end::Third Party Plugin(Bootstrap Icons)--><!--begin::Required Plugin(AdminLTE)-->
     <link rel="stylesheet" href="{{asset('AdminLTE')}}/dist/css/adminlte.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dataTables.css') }}">
@@ -104,6 +106,11 @@
                         <li class="nav-item">
                             <a href="{{ route('createAdmin') }}" class="nav-link">
                                 <i class="bi bi-person-plus nav-icon"></i> Create Admin
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('historyAdmin') }}" class="nav-link">
+                                <i class="bi bi-clock-history nav-icon"></i> History
                             </a>
                         </li>
                         @endif
@@ -221,13 +228,21 @@
                     </div>
                 </form>
 
+                <div class="d-flex justify-content-end mb-3">
+                    <a href="{{ url('/export-dashboard-admin') }}" class="btn btn-success">
+                        <i class="fa-solid fa-file-excel me-2"></i> Export to Excel
+                    </a>
+                </div>
+
+
+
 
                 <div class="table-responsive">
                     <table id="myDataTable" class="table table-striped table-bordered" style="width:100%;">
                         <thead class="table-white">
                             <tr>
                                 <th>No</th>
-                                <th>ID</th>
+                                <th>ID Buku Tamu</th>
                                 <th>NIP</th>
                                 <th>Nama Pegawai</th>
                                 <th>Jabatan Pegawai</th>
@@ -236,7 +251,6 @@
                                 <th>Bidang</th>
                                 <th>Layanan</th>
                                 <th>Waktu Input</th>
-                                <th>Waktu Update</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
@@ -258,7 +272,6 @@
                                         <td>{{ $dataTamu->bidang->nama_bidang }}</td>
                                         <td>{{ $dataTamu->layanan->nama_layanan }}</td>
                                         <td>{{ $dataTamu->created_at->timezone('Asia/Jakarta')->format('d-m-Y, H:i:s') }}</td>
-                                        <td>{{ $dataTamu->updated_at->timezone('Asia/Jakarta')->format('d-m-Y, H:i:s') }}</td>
                                         <td>
                                             <button
                                                 type="button"
@@ -314,6 +327,7 @@
 
                     </table>
                 </div>
+
             </div>
         </div>
                         </div>

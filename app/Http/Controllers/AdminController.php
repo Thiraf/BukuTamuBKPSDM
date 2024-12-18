@@ -11,11 +11,13 @@ use Illuminate\Support\Facades\Log;
 use App\Models\DashboardAdmin;
 use App\Models\BukuTamu;
 use App\Models\Status;
+use App\Models\StatusHistory;
 use Illuminate\Http\RedirectResponse;
 use Mews\Captcha\Captcha;
 
 class AdminController extends Controller
 {
+
     public function showLoginForm()
     {
         Log::info("Cek Login");
@@ -93,26 +95,78 @@ class AdminController extends Controller
         return view('admin.dashboard', compact('dataDashboard', 'statuses', 'pendingCount', 'processCount', 'completedCount', 'totalCount'));
     }
 
-    public function updateStatus(Request $request, $id_dashboard_admin)
-    {
-        Log::info("Update Status");
-        Log::info('ID Dashboard Admin: ' . $id_dashboard_admin);
+    // public function updateStatus(Request $request, $id_dashboard_admin)
+    // {
+    //     Log::info("Update Status");
+    //     Log::info('ID Dashboard Admin: ' . $id_dashboard_admin);
 
+    //     $request->validate([
+    //         'id_status' => 'required|exists:statuses,id_status',
+    //     ]);
+
+
+    //     $dashboardAdmin = DashboardAdmin::findOrFail($id_dashboard_admin);
+
+    //     Log::info("Id ditemukan");
+
+    //     $dashboardAdmin->id_status = $request->input('id_status');
+
+    //     $dashboardAdmin->save();
+
+    //     return redirect()->back();
+    // }
+
+    public function showHistory()
+    {
+        $historyData = StatusHistory::with('dashboardAdmin')->get(); // Ambil semua data history
+        return view('admin.historyAdmin', compact('historyData'));
+    }
+
+    public function updateStatus(Request $request, $id_buku_tamu)
+    {
         $request->validate([
             'id_status' => 'required|exists:statuses,id_status',
         ]);
 
+        // Ambil data Dashboard Admin
+        $dashboardAdmin = DashboardAdmin::findOrFail($id_buku_tamu);
 
-        $dashboardAdmin = DashboardAdmin::findOrFail($id_dashboard_admin);
+        // dd($dashboardAdmin);
+        $oldStatus = $dashboardAdmin->status->status_name ?? 'N/A';
 
-        Log::info("Id ditemukan");
+        Log::info('Cek Data Sebelum Update', [
+            'ID Buku Tamu' => $dashboardAdmin->id_buku_tamu,
+            'Old Status' => $oldStatus,
+            'Request ID Status' => $request->input('id_status'),
+        ]);
 
         $dashboardAdmin->id_status = $request->input('id_status');
-
         $dashboardAdmin->save();
 
-        return redirect()->back();
+        // Reload relasi status untuk mendapatkan data terbaru
+        $dashboardAdmin->refresh();
+
+        // dd($oldStatus, $dashboardAdmin->status->status_name);
+
+
+        // Simpan log perubahan ke status_histories
+        StatusHistory::create([
+            'id_dashboard_admin' => $dashboardAdmin->id_buku_tamu,
+            'username_admin' => Auth::guard('admin')->user()->username_admin, // Menggunakan guard admin
+            'old_status' => $oldStatus,
+            'new_status' => $dashboardAdmin->status->status_name,
+            'updated_at' => now(),
+        ]);
+
+        Log::info('Cek Data Setelah Update', [
+            'ID Buku Tamu' => $dashboardAdmin->id_buku_tamu,
+            'New Status' => $dashboardAdmin->status->status_name,
+        ]);
+
+        return redirect()->back()->with('success', 'Status berhasil diperbarui');
     }
+
+
 
     public function filterData(Request $request)
     {
@@ -194,6 +248,21 @@ class AdminController extends Controller
         $dataAdmin = Admin::with('role')->get();
         return view('admin.createAdmin', compact('dataAdmin'));
     }
+
+    // public function historyAdmin()
+    // {
+    //     $admin = Auth::guard('admin')->user();
+
+    //     if ($admin->id_role != 1) {
+    //         return redirect()->route('dashboard')->with('error', 'Akses ditolak. Hanya Super Admin yang bisa mengakses halaman ini.');
+    //     }
+
+    //     $dataAdmin = Admin::all();
+    //     $dataAdmin = Admin::with('role')->get();
+    //     return view('admin.historyAdmin');
+    // }
+
+
 
 
     public function store(Request $request)
@@ -305,6 +374,8 @@ class AdminController extends Controller
 
         return redirect()->route('createAdmin')->with('success', 'Admin account deleted successfully.');
     }
+
+
 
 
     public function logout(Request $request)

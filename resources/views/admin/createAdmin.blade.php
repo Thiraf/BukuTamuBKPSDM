@@ -98,7 +98,7 @@
                 <nav>
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a href="./dashboard" class="nav-link ">
+                            <a href="./dashboard" class="nav-link">
                                 <i class="bi bi-journal nav-icon"></i> Buku Tamu
                             </a>
                         </li>
@@ -106,6 +106,11 @@
                         <li class="nav-item">
                             <a href="{{ route('createAdmin') }}" class="nav-link active">
                                 <i class="bi bi-person-plus nav-icon"></i> Create Admin
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('historyAdmin') }}" class="nav-link">
+                                <i class="bi bi-clock-history nav-icon"></i> History
                             </a>
                         </li>
                         @endif

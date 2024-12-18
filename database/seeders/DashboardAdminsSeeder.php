@@ -13,7 +13,7 @@ class DashboardAdminsSeeder extends Seeder
         DB::table('dashboard_admins')->insert([
             [
                 'id_dashboard_admin' => 1,
-                'id_buku_tamu' => 1,
+                'id_buku_tamu' => 123,
                 'id_admin' => 1,
                 'nip' => 101,
                 'nama_pegawai' => 'Budi Santoso',
@@ -31,7 +31,7 @@ class DashboardAdminsSeeder extends Seeder
             ],
             [
                 'id_dashboard_admin' => 2,
-                'id_buku_tamu' => 2,
+                'id_buku_tamu' => 234,
                 'id_admin' => 1,
                 'nip' => 102,
                 'nama_pegawai' => 'Siti Aminah',
@@ -49,7 +49,7 @@ class DashboardAdminsSeeder extends Seeder
             ],
             [
                 'id_dashboard_admin' => 3,
-                'id_buku_tamu' => 3,
+                'id_buku_tamu' => 345,
                 'id_admin' => 1,
                 'nip' => 103,
                 'nama_pegawai' => 'Ahmad Zaki',
@@ -67,7 +67,7 @@ class DashboardAdminsSeeder extends Seeder
             ],
             [
                 'id_dashboard_admin' => 4,
-                'id_buku_tamu' => 4,
+                'id_buku_tamu' => 456,
                 'id_admin' => 1,
                 'nip' => 104,
                 'nama_pegawai' => 'Ratna Dewi',
@@ -85,7 +85,7 @@ class DashboardAdminsSeeder extends Seeder
             ],
             [
                 'id_dashboard_admin' => 5,
-                'id_buku_tamu' => 5,
+                'id_buku_tamu' => 567,
                 'id_admin' => 1,
                 'nip' => 105,
                 'nama_pegawai' => 'Yusuf Pratama',
@@ -103,7 +103,7 @@ class DashboardAdminsSeeder extends Seeder
             ],
             [
                 'id_dashboard_admin' => 6,
-                'id_buku_tamu' => 6,
+                'id_buku_tamu' => 678,
                 'id_admin' => 1,
                 'nip' => 106,
                 'nama_pegawai' => 'Dian Sari',
@@ -121,7 +121,7 @@ class DashboardAdminsSeeder extends Seeder
             ],
             [
                 'id_dashboard_admin' => 7,
-                'id_buku_tamu' => 7,
+                'id_buku_tamu' => 789,
                 'id_admin' => 1,
                 'nip' => 107,
                 'nama_pegawai' => 'Farhan Aditya',
@@ -139,7 +139,7 @@ class DashboardAdminsSeeder extends Seeder
             ],
             [
                 'id_dashboard_admin' => 8,
-                'id_buku_tamu' => 8,
+                'id_buku_tamu' => 8910,
                 'id_admin' => 1,
                 'nip' => 108,
                 'nama_pegawai' => 'Lina Kurnia',
@@ -157,7 +157,7 @@ class DashboardAdminsSeeder extends Seeder
             ],
             [
                 'id_dashboard_admin' => 9,
-                'id_buku_tamu' => 9,
+                'id_buku_tamu' => 91011,
                 'id_admin' => 1,
                 'nip' => 109,
                 'nama_pegawai' => 'Rizal Fikri',
@@ -175,7 +175,7 @@ class DashboardAdminsSeeder extends Seeder
             ],
             [
                 'id_dashboard_admin' => 10,
-                'id_buku_tamu' => 10,
+                'id_buku_tamu' => 101112,
                 'id_admin' => 1,
                 'nip' => 110,
                 'nama_pegawai' => 'Andi Rahmat',

@@ -227,11 +227,6 @@ class BukuTamuController extends Controller
 
         return redirect()->route('index')
             ->with('success', 'Data berhasil disimpan');
-
-        // Alternatife Request
-        // Redirect ke URL tertentu setelah data berhasil di-update
-        // return redirect()->away('https://skm.bantulkab.go.id/opd-eccbc87e4b5ce2fe28308fd9f2a7baf3.asp')
-        // ->with('success', 'Data berhasil disimpan');
     }
 
     public function addToDashboard($id_buku_tamu)
@@ -277,5 +272,4 @@ class BukuTamuController extends Controller
 
 
     }
-
 }

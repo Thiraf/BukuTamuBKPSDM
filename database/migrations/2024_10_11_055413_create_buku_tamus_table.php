@@ -11,7 +11,6 @@ return new class extends Migration
     {
         Schema::create('buku_tamus', function (Blueprint $table) {
             $table->bigIncrements('id_buku_tamu');
-            // $table->unsignedBigInteger('id_bidang'); // Foreign Key ke tabel Bidang
             $table->unsignedBigInteger('id_layanan')->nullable();
             $table->unsignedBigInteger('id_bidang')->nullable();
             $table->bigInteger('nip')->nullable();

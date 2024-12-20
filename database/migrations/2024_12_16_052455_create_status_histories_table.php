@@ -9,12 +9,12 @@ class CreateStatusHistoriesTable extends Migration
     public function up()
     {
         Schema::create('status_histories', function (Blueprint $table) {
-            $table->unsignedBigInteger('id_dashboard_admin'); // Foreign key
-            $table->string('username_admin'); // Nama admin yang melakukan perubahan
-            $table->string('old_status')->nullable(); // Status sebelum diubah
-            $table->string('new_status'); // Status setelah diubah
+            $table->unsignedBigInteger('id_dashboard_admin');
+            $table->string('username_admin');
+            $table->string('old_status')->nullable();
+            $table->string('new_status');
             $table->timestamp('created_at');
-            $table->timestamp('updated_at')->useCurrent(); // Waktu perubahan
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 

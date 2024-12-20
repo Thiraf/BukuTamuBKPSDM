@@ -6,15 +6,11 @@
   	<title>Buku Tamu BKPSDM</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
-
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
 	<link rel="stylesheet" href="{{asset('/form/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('css/data_pekerja.css')}}">
-
-	</head>
+</head>
 
 @section('content')
 <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
@@ -49,8 +45,6 @@
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
                 </form>
-
-
             </div>
         </div>
     </div>

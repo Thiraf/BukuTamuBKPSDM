@@ -9,13 +9,10 @@ class DashboardAdmin extends Model
 {
     use HasFactory;
 
-    // Secara eksplisit menentukan nama tabel
     protected $table = 'dashboard_admins';
 
-    // Primary key dari tabel
     protected $primaryKey = 'id_dashboard_admin';
 
-    // Kolom yang bisa diisi secara massal (mass assignable)
     protected $fillable = [
         'id_buku_tamu',
         'id_admin',

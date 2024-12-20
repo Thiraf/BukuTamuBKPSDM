@@ -15,7 +15,7 @@ use App\Models\StatusHistory;
 use Illuminate\Http\RedirectResponse;
 use Mews\Captcha\Captcha;
 
-class AdminController extends Controller
+class AdminController
 {
 
     public function showLoginForm()

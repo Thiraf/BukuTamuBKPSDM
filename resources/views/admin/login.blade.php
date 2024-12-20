@@ -10,8 +10,8 @@
     <link rel="stylesheet" href="{{ asset('/form/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
 </head>
-<body class="d-flex justify-content-center align-items-center bg-light">
 
+<body class="d-flex justify-content-center align-items-center bg-light">
     <!-- Toast Success Notification -->
     <div aria-live="polite" aria-atomic="true" style="position: fixed; top: 20px; right: 20px; z-index: 9999;">
         @if(session('success'))
@@ -48,7 +48,6 @@
 
 
     <div class="overlay"></div> <!-- Layer hitam -->
-
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
@@ -155,8 +154,5 @@
     });
 </script>
 
-
-
 </body>
-
 </html>

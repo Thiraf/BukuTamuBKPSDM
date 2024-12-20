@@ -9,13 +9,10 @@ class Layanan extends Model
 {
     use HasFactory;
 
-    // Secara eksplisit mendefinisikan nama tabel
     protected $table = 'layanans';
 
-    // Primary key dari tabel
     protected $primaryKey = 'id_layanan';
 
-    // Kolom yang bisa diisi secara massal (mass assignable)
     protected $fillable = [
         'nama_layanan',
         'id_bidang',

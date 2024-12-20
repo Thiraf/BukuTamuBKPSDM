@@ -18,7 +18,7 @@
             null;
         };
     </script>
-    </head>
+ </head>
 
     <body>
         @extends('layouts.app')
@@ -31,9 +31,7 @@
                     <h1 class="text-center">Tujuan Informasi</h1>
                     <form action="{{ route('buku-tamu.update', $bukuTamu->id_buku_tamu) }}" method="POST">
                         @csrf
-                        @method('PUT') <!-- Menggunakan method PUT untuk update -->
-
-                        <!-- Hidden input untuk menyimpan ID buku tamu -->
+                        @method('PUT')
                         <input type="hidden" name="id_buku_tamu" value="{{ $bukuTamu->id_buku_tamu }}">
 
                         <!-- Dropdown untuk memilih layanan -->
@@ -66,5 +64,6 @@
         </div>
     </div>
     @endsection
+
   </body>
 </html>

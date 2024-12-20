@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Validator;
 
 
 
-class BukuTamuController extends Controller
+class BukuTamuController
 {
 
     protected $adminController;

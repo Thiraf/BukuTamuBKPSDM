@@ -18,12 +18,8 @@
     <link rel="stylesheet" href="{{asset('AdminLTE')}}/dist/css/adminlte.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dataTables.css') }}">
-
-
 </head>
 
 
@@ -40,7 +36,6 @@
                             <span class="d-none d-md-inline">{{ Auth::guard('admin')->user()->username_admin }}</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-                            <!-- User Image -->
                             <li class="user-header" style="background-color: #03989E; color: #ffffff;">
                                 <img src="{{asset('AdminLTE')}}/dist/assets/img/logoProfile.jpg" class="rounded-circle shadow" alt="User Image">
                                 <p>
@@ -413,5 +408,4 @@
     </script>
 
 </body>
-
 </html>

@@ -19,15 +19,8 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap4.css">
-
-
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('css/createAdmin.css') }}">
-
-
-
-
-
 </head>
 
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
@@ -203,7 +196,6 @@
                             <td>{{ $admin->role->nama_role }}</td>
                             <td>
                                 @if(Auth::guard('admin')->user()->id_admin == 1)
-                                    <!-- Super Admin dengan ID 1 bisa mengedit semua admin -->
                                     <button
                                         type="button"
                                         class="btn btn-primary btn-edit-admin"
@@ -290,11 +282,9 @@
                     </div>
                 </div>
             </div>
-
-
-
         </main>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/browser/overlayscrollbars.browser.es6.min.js" integrity="sha256-H2VM7BKda+v2Z4+DRy69uknwxjyDRhszjXFhsL4gD3w=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha256-whL0tQWoY1Ku1iskqPFvmZ+CHsvmRWx/PIoEvIeWh4I=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha256-YMa+wAM6QkVyz999odX7lPRxkoYAan8suedu4k2Zur8=" crossorigin="anonymous"></script>
@@ -342,19 +332,16 @@
                     const username = this.getAttribute("data-username");
                     const role = this.getAttribute("data-role");
 
-                    // Isi nilai form dengan data admin
+
                     document.getElementById("edit_nama_admin").value = nama;
                     document.getElementById("edit_username_admin").value = username;
                     document.getElementById("edit_id_role").value = role;
 
-                    // Kosongkan kolom password
                     document.getElementById("edit_password_admin").value = "";
 
-                    // Set form action untuk update admin berdasarkan ID
                     const form = document.getElementById("editAdminForm");
                     form.action = `/admin/${id}`;
 
-                    // Buka modal edit
                     const editModal = new bootstrap.Modal(document.getElementById("editAdminModal"));
                     editModal.show();
                 });
@@ -367,10 +354,5 @@
         });
     </script>
 
-
-
-
-
 </body>
-
 </html>

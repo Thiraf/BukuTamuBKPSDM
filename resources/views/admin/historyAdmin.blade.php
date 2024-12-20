@@ -19,16 +19,8 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap4.css">
-
-
-
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('css/createAdmin.css') }}">
-
-
-
-
-
 </head>
 
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
@@ -179,9 +171,6 @@
                     </table>
                 </div>
 
-
-
-
         <!-- End: Sidebar -->
         <script>
             document.getElementById('confirmLogout').addEventListener('click', function() {
@@ -194,7 +183,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha256-YMa+wAM6QkVyz999odX7lPRxkoYAan8suedu4k2Zur8=" crossorigin="anonymous"></script>
 <script src="../../../dist/js/adminlte.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{{ asset('js/dataTables.js') }}"></script>
 <script>

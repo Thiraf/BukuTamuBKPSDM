@@ -14,7 +14,7 @@
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="{{ asset('/js/form.js') }}"></script>
-	</head>
+</head>
 
 
 
@@ -24,7 +24,6 @@
         <div class="card shadow-sm">
             <div class="card-body">
                 <h3 class="text-center mb-4">Form Buku Tamu</h3>
-
                 <form action="/buku-tamu/simpan-pegawai" method="POST">
                     @csrf
                     <div class="form-group">
@@ -45,7 +44,6 @@
                     <div class="text-center mt-4">
                         <button type="submit" class="btn">Next</button>
                     </div>
-
                 </form>
             </div>
         </div>

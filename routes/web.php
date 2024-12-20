@@ -25,14 +25,6 @@ use Maatwebsite\Excel\Facades\Excel;
 // Route untuk verifikasi NIP
 Route::post('/buku-tamu/cek-nip', [BukuTamuController::class, 'cekNip']);
 
-// Gunakan middleware CheckNIP untuk semua route di group ini
-Route::middleware([CheckNIP::class])->group(function () {
-
-
-
-
-});
-
 
 // Route untuk halaman data pekerja jika NIK ditemukan
 Route::get('/data-pekerja', [BukuTamuController::class, 'showDataPekerja'])

@@ -41,32 +41,6 @@ Sebelum memulai, pastikan telah terinstall:
    ```
    composer install
    ```
-
-3. **Setup environment**  
-    ```
-    cp .env.example .env
-    php artisan key:generate
-    ```
-
-4. **Konfigurasi database di file .env**  
-   ```
-    DB_CONNECTION=mysql
-    DB_HOST=127.0.0.1
-    DB_PORT=3306
-    DB_DATABASE=bkpsdm
-    DB_USERNAME=root
-    DB_PASSWORD=
-    ```
-5. **Jalankan migration dan seeder**
-    ```
-    php artisan migrate
-    php artisan db:seed
-    ```
-
-6. **Jalankan Server**
-    ```
-    php artisan serve
-    ```
     
 ## 🛜 Setup Docker
 
@@ -77,19 +51,9 @@ Sebelum memulai, pastikan telah terinstall:
 
 2. **Menjalankan Docker Compose**
     ```
-    docker-compose up -d
-    ```
-3. **Verifikasi Layanan**
-    ```
-    docker-compose ps
-    ```
-
-4. **Memasukkan Seeder**
-    ```
-    docker-compose exec app php artisan db:seed
+    docker-compose up --build -d
     ```
     
-
 ## 🔍 Fitur Detail 
 
 1. **Update Status**
@@ -106,6 +70,9 @@ Sebelum memulai, pastikan telah terinstall:
     - Membuat admin ada 2 tipe role : Admin dan Superadmin
     - Menghapus data admin
     - Mengedit data admin 
+
+5. **History**
+    - Mengecek siapa yang melakukan perubahan status
 
 ## 🔐 Validasi & Batasan 
 1. **Captcha**

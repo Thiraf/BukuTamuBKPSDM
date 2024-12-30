@@ -9,7 +9,7 @@ use Laravel\Lumen\Routing\Controller;
  * Class CaptchaController
  * @package Mews\Captcha
  */
-class LumenCaptchaController extends Controller
+class LumenCaptchaController
 {
     /**
      * get CAPTCHA

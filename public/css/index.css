@@ -83,14 +83,14 @@ body {
 
 /* Pengaturan grup elemen dalam form */
 .form-group {
-    margin-bottom: 1.5rem; /* Jarak antara elemen form */
+    margin-bottom: 2.0rem; /* Jarak antara elemen form */
 }
 
 /* Pengaturan elemen input */
 .form-control {
     border: 1px solid #ced4da; /* Warna border abu muda */
     border-radius: 5px; /* Sudut melengkung */
-    padding: 10px 15px; /* Padding dalam elemen input */
+    padding: 20px 15px; /* Padding dalam elemen input */
     font-size: 16px; /* Ukuran font 16px */
     width: 100%; /* Input mengambil lebar penuh elemen */
 }

@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{asset('/form/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('css/tujuan_informasi.css')}}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
     <script type="text/javascript">
         (function () {
             window.history.forward();
@@ -34,10 +38,8 @@
                         @method('PUT')
                         <input type="hidden" name="id_buku_tamu" value="{{ $bukuTamu->id_buku_tamu }}">
 
-                        <!-- Dropdown untuk memilih layanan -->
                         <div class="form-group">
-                            <label for="id_layanan">Layanan</label>
-                            <select name="id_layanan" id="id_layanan" class="form-control" required>
+                            <select name="id_layanan" id="id_layanan" class="form-control select2" required>
                                 <option value="" disabled>Pilih Layanan</option>
                                 @foreach($layanans as $layanan)
                                     <option value="{{ $layanan->id_layanan }}"
@@ -47,6 +49,18 @@
                                 @endforeach
                             </select>
                         </div>
+
+                        <script>
+                            $(document).ready(function() {
+                                $('#id_layanan').select2({
+                                    placeholder: "Pilih Layanan",
+                                    allowClear: true,
+                                    width: '100%' // Dropdown mengikuti lebar elemen induk
+                                });
+                            });
+
+                        </script>
+
 
                         <!-- Input untuk tujuan informasi dengan textarea -->
                         <div class="form-group">

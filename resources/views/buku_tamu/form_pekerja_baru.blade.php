@@ -42,7 +42,7 @@
                     </div>
 
                     <div class="text-center mt-4">
-                        <button type="submit" class="btn">Next</button>
+                        <button type="submit" class="btn">Lanjutkan</button>
                     </div>
                 </form>
             </div>

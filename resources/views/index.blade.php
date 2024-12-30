@@ -64,14 +64,14 @@
                         <form action="/buku-tamu/cek-nip" method="POST" class="signin-form">
                             @csrf
                             <div class="form-group mb-3">
-                                <label class="label" for="nip">NIP</label>
-                                <input type="text" name="nip" class="form-control" placeholder="Silahkan masukkan NIP" required>
+                                <label class="label" for="nip">Masukkan Id Identitas</label>
+                                <input type="text" name="nip" class="form-control" placeholder="Masukkan NIP, SIM, atau KTP" required>
                             </div>
 
                             <div class="form-group mb-3">
                                 <div class="input-group">
                                     <span class="input-group-text p-0">
-                                        <img src="{!! captcha_src('default') !!}" id="captcha-img" alt="captcha" class="captcha-img">
+                                        <img src="{!! captcha_src('flat') !!}" id="captcha-img" alt="captcha" class="captcha-img">
                                     </span>
                                     <button type="button" class="btn btn-outline-secondary refresh-btn" id="refresh-captcha">
                                         <i class="fa fa-refresh" style="font-size: 24px;"></i>
@@ -83,7 +83,7 @@
                             </div>
 
                             <div class="form-group">
-                                <button type="submit" class="form-control btn btn-primary rounded submit px-3">Next</button>
+                                <button type="submit" class="form-control btn btn-primary rounded submit px-3">Lanjutkan</button>
                             </div>
                         </form>
 
@@ -117,7 +117,7 @@
 <script type="text/javascript">
     document.getElementById('refresh-captcha').addEventListener('click', function () {
         var captcha = document.querySelector('.input-group-text img');
-        captcha.src = '/captcha/default?' + Math.random();
+        captcha.src = '/captcha/flat?' + Math.random();
     });
 </script>
 <script>

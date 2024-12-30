@@ -42,7 +42,7 @@
                     </div>
 
                     <div class="text-center mt-4">
-                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        <button type="submit" class="btn btn-primary">Lanjutkan</button>
                     </div>
                 </form>
             </div>

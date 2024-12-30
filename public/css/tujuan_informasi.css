@@ -78,4 +78,16 @@ body {
         padding: 8px; /* Padding lebih kecil pada tombol */
         font-size: 14px;
     }
+
+    .select2-container {
+        width: 100% !important; /* Memastikan dropdown Select2 mengambil lebar penuh */
+        margin: 0; /* Hapus margin default */
+        padding: 0; /* Hapus padding default */
+    }
+
+    .select2-container--default .select2-selection--single {
+        padding: 1px; /* Sesuaikan padding */
+        font-size: 14px; /* Sesuaikan ukuran font */
+    }
+
 }

@@ -21,7 +21,7 @@ services:
       DB_PASSWORD: adminaja
     command: php artisan serve --host=0.0.0.0 --port=8000
     ports:
-      - "8000:8000"
+      - "8790:8000"
     networks:
       - laravel
     restart: always
@@ -34,7 +34,7 @@ services:
       - ./:/var/www
       - ./docker/nginx:/etc/nginx/conf.d
     ports:
-      - "8080:80"
+      - "8791:80"
     networks:
       - laravel
 

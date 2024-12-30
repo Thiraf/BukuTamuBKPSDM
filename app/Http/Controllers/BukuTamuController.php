@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\Validator;
 
 class BukuTamuController
 {
-
     protected $adminController;
 
     public function __construct(AdminController $adminController)

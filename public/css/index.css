@@ -63,7 +63,7 @@ body {
 .img {
     background-size: cover; /* Agar gambar mengisi elemen */
     background-position: center; /* Pusatkan gambar */
-    width: 90%; /* Gambar mengambil 50% dari lebar container */
+    width: 75%; /* Gambar mengambil 50% dari lebar container */
     min-height: 500px; /* Tinggi minimum gambar */
     background-image: url('/form/images/bkpsdm.jpg'); /* Pastikan URL gambar sudah benar */
     border-radius: 10px 0 0 10px; /* Kiri atas, kanan atas, kanan bawah, kiri bawah */
@@ -83,14 +83,14 @@ body {
 
 /* Pengaturan grup elemen dalam form */
 .form-group {
-    margin-bottom: 2.0rem; /* Jarak antara elemen form */
+    margin-bottom: 1.5rem; /* Jarak antara elemen form */
 }
 
 /* Pengaturan elemen input */
 .form-control {
     border: 1px solid #ced4da; /* Warna border abu muda */
     border-radius: 5px; /* Sudut melengkung */
-    padding: 20px 15px; /* Padding dalam elemen input */
+    padding: 10px 15px; /* Padding dalam elemen input */
     font-size: 16px; /* Ukuran font 16px */
     width: 100%; /* Input mengambil lebar penuh elemen */
 }

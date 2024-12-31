@@ -13,7 +13,7 @@ body {
 
 /* Pengaturan container */
 .container {
-    max-width: 600px;
+    max-width: 960px;
     border-radius: 12px; /* Sudut membulat pada kotak */
     padding: 20px;
     overflow: hidden; /* Agar latar belakang semi-transparan tidak melewati batas */

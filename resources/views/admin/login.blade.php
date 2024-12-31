@@ -88,7 +88,7 @@
                             <div class="form-group mb-3">
                                 <div class="input-group">
                                     <span class="input-group-text p-0">
-                                        <img src="{!! captcha_src('default') !!}" id="captcha-img" alt="captcha" class="captcha-img">
+                                        <img src="{!! captcha_src('flat') !!}" id="captcha-img" alt="captcha" class="captcha-img">
                                     </span>
                                     <button type="button" class="btn btn-outline-secondary refresh-btn" id="refresh-captcha">
                                         <i class="fa fa-refresh" style="font-size: 24px;"></i>
@@ -129,7 +129,7 @@
     <script type="text/javascript">
         document.getElementById('refresh-captcha').addEventListener('click', function () {
             var captcha = document.querySelector('.input-group-text img');
-            captcha.src = '/captcha/default?' + Math.random();
+            captcha.src = '/captcha/flat?' + Math.random();
         });
     </script>
 

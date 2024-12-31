@@ -164,7 +164,7 @@
                                     @endif
                                 </td>
                                 <td>{{ $history->username_admin }}</td>
-                                <td>{{ $history->updated_at }}</td>
+                                <td>{{ $history->updated_at->timezone('Asia/Jakarta')->format('d-m-Y, H:i:s')}}</td>
                             </tr>
                             @endforeach
                         </tbody>

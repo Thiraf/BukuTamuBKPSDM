@@ -40,7 +40,7 @@
 
                         <div class="form-group">
                             <select name="id_layanan" id="id_layanan" class="form-control select2" required>
-                                <option value="" disabled>Pilih Layanan</option>
+                                <option value="" disabled selected>Pilih Layanan</option>
                                 @foreach($layanans as $layanan)
                                     <option value="{{ $layanan->id_layanan }}"
                                         {{ $layanan->id_layanan == $bukuTamu->id_layanan ? 'selected' : '' }}>
@@ -55,7 +55,7 @@
                                 $('#id_layanan').select2({
                                     placeholder: "Pilih Layanan",
                                     allowClear: true,
-                                    width: '100%' // Dropdown mengikuti lebar elemen induk
+                                    width: '100%'
                                 });
                             });
 

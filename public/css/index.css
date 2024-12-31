@@ -63,7 +63,7 @@ body {
 .img {
     background-size: cover; /* Agar gambar mengisi elemen */
     background-position: center; /* Pusatkan gambar */
-    width: 75%; /* Gambar mengambil 50% dari lebar container */
+    width: 90%; /* Gambar mengambil 50% dari lebar container */
     min-height: 500px; /* Tinggi minimum gambar */
     background-image: url('/form/images/bkpsdm.jpg'); /* Pastikan URL gambar sudah benar */
     border-radius: 10px 0 0 10px; /* Kiri atas, kanan atas, kanan bawah, kiri bawah */

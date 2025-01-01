@@ -95,30 +95,10 @@ class AdminController
         return view('admin.dashboard', compact('dataDashboard', 'statuses', 'pendingCount', 'processCount', 'completedCount', 'totalCount'));
     }
 
-    // public function updateStatus(Request $request, $id_dashboard_admin)
-    // {
-    //     Log::info("Update Status");
-    //     Log::info('ID Dashboard Admin: ' . $id_dashboard_admin);
-
-    //     $request->validate([
-    //         'id_status' => 'required|exists:statuses,id_status',
-    //     ]);
-
-
-    //     $dashboardAdmin = DashboardAdmin::findOrFail($id_dashboard_admin);
-
-    //     Log::info("Id ditemukan");
-
-    //     $dashboardAdmin->id_status = $request->input('id_status');
-
-    //     $dashboardAdmin->save();
-
-    //     return redirect()->back();
-    // }
 
     public function showHistory()
     {
-        $historyData = StatusHistory::with('dashboardAdmin')->get(); // Ambil semua data history
+        $historyData = StatusHistory::with('dashboardAdmin')->get();
         return view('admin.historyAdmin', compact('historyData'));
     }
 
@@ -128,10 +108,8 @@ class AdminController
             'id_status' => 'required|exists:statuses,id_status',
         ]);
 
-        // Ambil data Dashboard Admin
         $dashboardAdmin = DashboardAdmin::findOrFail($id_buku_tamu);
 
-        // dd($dashboardAdmin);
         $oldStatus = $dashboardAdmin->status->status_name ?? 'N/A';
 
         Log::info('Cek Data Sebelum Update', [
@@ -143,16 +121,12 @@ class AdminController
         $dashboardAdmin->id_status = $request->input('id_status');
         $dashboardAdmin->save();
 
-        // Reload relasi status untuk mendapatkan data terbaru
         $dashboardAdmin->refresh();
-
-        // dd($oldStatus, $dashboardAdmin->status->status_name);
-
 
         // Simpan log perubahan ke status_histories
         StatusHistory::create([
             'id_dashboard_admin' => $dashboardAdmin->id_buku_tamu,
-            'username_admin' => Auth::guard('admin')->user()->username_admin, // Menggunakan guard admin
+            'username_admin' => Auth::guard('admin')->user()->username_admin,
             'old_status' => $oldStatus,
             'new_status' => $dashboardAdmin->status->status_name,
             'updated_at' => now(),
@@ -248,22 +222,6 @@ class AdminController
         $dataAdmin = Admin::with('role')->get();
         return view('admin.createAdmin', compact('dataAdmin'));
     }
-
-    // public function historyAdmin()
-    // {
-    //     $admin = Auth::guard('admin')->user();
-
-    //     if ($admin->id_role != 1) {
-    //         return redirect()->route('dashboard')->with('error', 'Akses ditolak. Hanya Super Admin yang bisa mengakses halaman ini.');
-    //     }
-
-    //     $dataAdmin = Admin::all();
-    //     $dataAdmin = Admin::with('role')->get();
-    //     return view('admin.historyAdmin');
-    // }
-
-
-
 
     public function store(Request $request)
     {

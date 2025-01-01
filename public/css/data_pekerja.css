@@ -1,4 +1,3 @@
-/* Atur gambar sebagai background di seluruh halaman */
 body {
     font-family: 'Lato', sans-serif; /* Menggunakan font Lato */
     background-image: url('/form/images/pemkab.jpg'); /* Pastikan URL gambar sudah benar */

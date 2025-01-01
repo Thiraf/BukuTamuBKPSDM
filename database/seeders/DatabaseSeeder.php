@@ -16,7 +16,6 @@ class DatabaseSeeder extends Seeder
             BidangsSeeder::class,
             LayanansSeeder::class,
             StatusesSeeder::class,
-            PegawaisSeeder::class,
             BukuTamusSeeder::class,
             DashboardAdminsSeeder::class,
         ]);

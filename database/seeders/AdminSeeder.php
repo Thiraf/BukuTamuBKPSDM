@@ -10,8 +10,6 @@ class AdminSeeder extends Seeder
 {
     public function run(): void
     {
-
-
         DB::table('admins')->insert([
             'nama_admin' => 'Super Admin',
             'username_admin' => 'Super',

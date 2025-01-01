@@ -62,11 +62,11 @@ class BukuTamuController
         Log::info('Masuk ke Function Cek Nip');
 
         $validator = Validator::make($request->all(), [
-            'nip' => 'required|numeric', // Perubahan di sini untuk memastikan hanya angka yang diterima
+            'nip' => 'required|numeric',
             'captcha' => 'required|captcha',
         ], [
             'captcha.captcha' => 'Captcha salah, silahkan coba lagi.',
-            'nip.numeric' => 'ID harus berupa angka.', // Tambahkan pesan kesalahan kustom untuk validasi numeric
+            'nip.numeric' => 'ID harus berupa angka.',
         ]);
 
         if ($validator->fails()) {

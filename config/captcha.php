@@ -40,6 +40,7 @@ return [
         'bgColor' => ['#ffffff'],
         'fontColors' => ['000000'],
         'contrast' => -5,
+        'expire' => null,
     ],
 
     'mini' => [

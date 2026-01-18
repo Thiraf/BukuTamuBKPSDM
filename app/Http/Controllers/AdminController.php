@@ -14,6 +14,8 @@ use App\Models\Status;
 use App\Models\StatusHistory;
 use Illuminate\Http\RedirectResponse;
 use Mews\Captcha\Captcha;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\DashboardAdminExport;
 
 class AdminController
 {
@@ -96,11 +98,6 @@ class AdminController
     }
 
 
-    public function showHistory()
-    {
-        $historyData = StatusHistory::with('dashboardAdmin')->get();
-        return view('admin.historyAdmin', compact('historyData'));
-    }
 
     public function updateStatus(Request $request, $id_buku_tamu)
     {
@@ -138,6 +135,13 @@ class AdminController
         ]);
 
         return redirect()->back()->with('success', 'Status berhasil diperbarui');
+    }
+
+    
+    public function showHistory()
+    {
+        $historyData = StatusHistory::with('dashboardAdmin')->get();
+        return view('admin.historyAdmin', compact('historyData'));
     }
 
 
@@ -333,7 +337,53 @@ class AdminController
         return redirect()->route('createAdmin')->with('success', 'Admin account deleted successfully.');
     }
 
+public function exportDashboardAdmin(Request $request)
+{
+    // Tangkap parameter filter
+    $filters = $request->only(['status', 'bidang', 'tanggal_mulai', 'tanggal_akhir']);
 
+    // Query dasar
+    $query = DashboardAdmin::with(['bidang', 'layanan', 'status']);
+
+    // Terapkan filter jika tersedia
+    if (!empty($filters['status'])) {
+        $query->where('id_status', $filters['status']);
+    }
+
+    if (!empty($filters['bidang'])) {
+        $query->where('id_bidang', $filters['bidang']);
+    }
+
+    if (!empty($filters['tanggal_mulai']) && !empty($filters['tanggal_akhir'])) {
+        $query->whereBetween('created_at', [
+            \Carbon\Carbon::parse($filters['tanggal_mulai']),
+            \Carbon\Carbon::parse($filters['tanggal_akhir']),
+        ]);
+    }
+
+
+    $data = $query->get()->map(function ($item, $index) {
+        return [
+            'No' => $index + 1,
+            'ID Buku Tamu' => $item->id_dashboard_admin,
+            'NIP' => $item->nip,
+            'Nama Pegawai' => $item->nama_pegawai,
+            'Jabatan Pegawai' => $item->jabatan_pegawai,
+            'Unit Kerja Pegawai' => $item->unit_kerja_pegawai,
+            'Tujuan Informasi' => $item->tujuan_informasi,
+            'Bidang' => $item->bidang->nama_bidang ?? '-',
+            'Layanan' => $item->layanan->nama_layanan ?? '-',
+            'Waktu Input' => $item->created_at->format('Y-m-d H:i:s'),
+            'Status' => $item->status->status_name ?? '-',
+        ];
+    });
+
+    if ($data->isEmpty()) {
+        return redirect()->back()->with('error', 'Tidak ada data yang sesuai dengan filter.');
+    }
+
+    return Excel::download(new DashboardAdminExport(collect($data)), 'dashboard_admin.xlsx');
+}
 
 
     public function logout(Request $request)

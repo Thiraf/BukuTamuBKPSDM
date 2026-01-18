@@ -224,12 +224,11 @@
                 </form>
 
                 <div class="d-flex justify-content-end mb-3">
-                    <a href="{{ url('/export-dashboard-admin') }}" class="btn btn-success">
+                    <a href="{{ url('/export-dashboard-admin') }}?startDate={{ request('startDate') }}&endDate={{ request('endDate') }}&statusFilter={{ request('statusFilter') }}" 
+                    class="btn btn-success">
                         <i class="fa-solid fa-file-excel me-2"></i> Export to Excel
                     </a>
                 </div>
-
-
 
 
                 <div class="table-responsive">

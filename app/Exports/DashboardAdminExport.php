@@ -2,16 +2,38 @@
 
 namespace App\Exports;
 
-use App\Models\DashboardAdmin;
+use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class DashboardAdminExport implements FromCollection
+class DashboardAdminExport implements FromCollection, WithHeadings
 {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
+    protected $data;
+
+    public function __construct(Collection $data)
+    {
+        $this->data = $data;
+    }
+
     public function collection()
     {
-        return DashboardAdmin::all();
+        return $this->data;
+    }
+
+    public function headings(): array
+    {
+        return [
+            'No',
+            'ID Buku Tamu',
+            'NIP',
+            'Nama Pegawai',
+            'Jabatan Pegawai',
+            'Unit Kerja Pegawai',
+            'Tujuan Informasi',
+            'Bidang',
+            'Layanan',
+            'Waktu Input',
+            'Status',
+        ];
     }
 }

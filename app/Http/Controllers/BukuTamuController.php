@@ -13,8 +13,6 @@ use App\Models\Status;
 use Illuminate\Support\Facades\Validator;
 
 
-
-
 class BukuTamuController
 {
     protected $adminController;
@@ -271,4 +269,7 @@ class BukuTamuController
 
 
     }
+
+
+
 }

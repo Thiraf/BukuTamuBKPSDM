@@ -138,13 +138,13 @@ Route::put('/admin/{id}', [AdminController::class, 'update'])->name('admin.updat
 Route::delete('/admin/{id}', [AdminController::class, 'destroy'])->name('admin.destroy');
 
 
-// Export Excel
-Route::get('/export-dashboard-admin', function () {
-    return Excel::download(new DashboardAdminExport, 'dashboard_admin.xlsx');
-});
+// // Export Excel
+// Route::get('/export-dashboard-admin', function () {
+//     return Excel::download(new DashboardAdminExport, 'dashboard_admin.xlsx');
+// });
 
 
-
+Route::get('/export-dashboard-admin', [AdminController::class, 'exportDashboardAdmin'])->name('export.dashboard.admin');
 
 
 
